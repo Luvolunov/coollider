@@ -2,6 +2,6 @@ import React from 'react';
 
 export default function Home() {
   return (
-      <div>Hello World</div>
+    <div onClick={console.log}>Hello World</div>
   );
 }
