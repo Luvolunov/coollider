@@ -1,0 +1,16 @@
+$active-btn: #66A1D9;
+$inactive-btn : #C8DDF0;
+
+.btn{
+    border: none;
+    color: #fff;
+    background: $inactive-btn;
+    border-radius: 8px;
+    padding: 1rem 1.7rem;
+    outline: none;
+    transition: ease all .3s;
+}
+.active{
+    background: $active-btn;
+    cursor: pointer;
+}
