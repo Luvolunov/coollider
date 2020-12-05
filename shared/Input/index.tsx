@@ -1,24 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./index.module.scss";
 
-export default function Input({type,checkData})
+export default function Input({type,checkData,isValid,updateFormState})
 {
    const [isActive,setActive] = useState(false); // по дефолту инпут неактивен
-   const [isValid,setValid] = useState(false); // по дефолту инпут не валидный
    const inputRef = useRef({value : ""});
-
-    useEffect(() => {
-        if(isValid) console.log("Валидно!");
-    },[isValid])
-
     return(
         <label className={`${styles.label}`} >
             <input
             ref={inputRef}
             placeholder={type} // использую встроенный placeholder
             onBlur={() => {
-                setActive(Boolean(inputRef.current.value))
-                setValid(checkData(inputRef.current.value))
+                setActive(Boolean(inputRef.current.value));
+                updateFormState(checkData(inputRef.current.value),type)
             } } // если в инпуте есть данные - он активен
             onFocus={() => setActive(true)}
             className={styles.input}
