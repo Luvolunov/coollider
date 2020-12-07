@@ -34,6 +34,9 @@ export default function Sign({})
 
     return(
     <form className={styles.sign} noValidate action="">
+        <div>
+            <img className={styles.image} src="/coollider.png" alt=""/>
+        </div>
         {
             fields.map(({type, checkData,valid}) => 
             <Input
