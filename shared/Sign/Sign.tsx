@@ -16,10 +16,11 @@ export default function Sign({fields} : {fields :Array<InputData>})
 	 ,[fieldsState])
 
     return(
+		<div  className={styles.wrapper}>
+			<div>
+		<img className={styles.image} src="/coollider.png" alt=""/>
+  		</div>
     <form className={styles.sign} noValidate action="">
-        {/* <div>
-            <img className={styles.image} src="/coollider.png" alt=""/>
-        </div> */}
         {
             fieldsState.map(({type, checkData,valid}) => <Input
             type={type}
@@ -40,5 +41,6 @@ export default function Sign({fields} : {fields :Array<InputData>})
         access={access}
         />
     </form>
+		</div>
     )
 }
