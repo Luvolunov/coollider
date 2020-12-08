@@ -5,8 +5,10 @@ $inactive-btn : #C8DDF0;
     border: none;
     color: #fff;
     background: $inactive-btn;
-    border-radius: 8px;
-    padding: 1rem 1.7rem;
+	 border-radius: 8px;
+	 padding: 16px 22px 16px 21px;
+	 font-size: 18px;
+	 font-weight: 400;
     outline: none;
     transition: ease all .3s;
 }
