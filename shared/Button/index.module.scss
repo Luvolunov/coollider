@@ -7,10 +7,12 @@ $inactive-btn : #C8DDF0;
     background: $inactive-btn;
 	 border-radius: 8px;
 	 padding: 16px 22px 16px 21px;
-	 font-size: 18px;
+	 font-size: 1rem;
 	 font-weight: 400;
+	 margin-bottom: 1.39rem;
     outline: none;
-    transition: ease all .3s;
+	 transition: ease all .3s;
+	 
 }
 .active{
     background: $active-btn;
