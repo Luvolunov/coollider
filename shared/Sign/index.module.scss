@@ -1,9 +1,6 @@
 .wrapper{
 	max-width: 500px;
-	padding-top: 50px;
-	padding-left: 50px;
-	padding-right: 50px;
-	padding-bottom: 50px;
+	padding: 3rem;
 	margin: 0 auto;
 	background: #FFFFFF;
 	border-radius: 7px;
@@ -11,7 +8,26 @@
     text-align: center;
 	
 }
-.sign{
+@media screen and(max-width: 600px)
+{
+	.wrapper{
+		max-width: 450px;
+	}
+	.image {
+		margin-bottom: 40px;
+   }
+}
+@media screen and(max-width: 450px)
+{
+	.wrapper{
+		max-width: 370px;
+	}
+}
+@media screen and(max-width: 400px)
+{
+	.wrapper{
+		max-width: 320px;
+	}
 }
 
 .image {
