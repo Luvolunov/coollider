@@ -10,6 +10,7 @@
     "lint-fix": "eslint ./**/*.tsx ./**/*.ts --fix"
   },
   "dependencies": {
+    "formik": "^2.2.5",
     "immer": "^8.0.0",
     "next": "10.0.3",
     "react": "17.0.1",
