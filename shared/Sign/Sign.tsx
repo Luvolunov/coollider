@@ -5,8 +5,15 @@ import Input from "../Input/Input";
 import { useEffect, useState } from "react";
 import {InputData,SignLink} from "../interface";
 import ChangeSign from "../ChangeSign/ChangeSign";
-import { useFormik } from "formik";
+// import { useFormik } from "formik";
+// import * as Yup from "yup";
 
+// let schema = Yup.object().shape({
+//     name: Yup.string().required(),
+//     age: Yup.number().required(),
+//     email: Yup.string().email()
+// })
+        
 
 interface SignData {
     fields: Array <InputData>,
