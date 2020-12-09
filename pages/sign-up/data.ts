@@ -3,6 +3,12 @@ import { checkEmail, checkName, checkPassword } from "../../shared/Sign/check"
 
 export const signUpFields : Array<InputData> = [  
 	{
+		type: "Name",
+		checkData : checkName,
+		valid: false,
+		minLen: 2,
+  },
+	{
 		 type: "Email",
 		 checkData: checkEmail,
 		 valid: false
@@ -12,11 +18,6 @@ export const signUpFields : Array<InputData> = [
 		 checkData : checkPassword,
 		 valid: false,
 		 minLen: 8,
-	},
-	{
-		type: "Name",
-		checkData : checkName,
-		valid: false,
-		minLen: 2,
-  },
+	}
+
 ]

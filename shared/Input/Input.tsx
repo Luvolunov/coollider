@@ -11,10 +11,9 @@ export default function Input({minLen = 4,maxLen = 64,type,checkData,valid,updat
             <input
             ref={inputRef} // почему ругается?
             placeholder={type} // использую встроенный placeholder
-            onBlur={() => {
-                setActive(Boolean(inputRef.current.value));
-					 updateFormState(checkData(inputRef.current.value,inputRef.current.value.length,minLen),type) // один интерфейс на два похожих объекта
-            } } // если в инпуте есть данные - он активен
+            onChange={({target : {value = ""}}) => updateFormState(checkData(value,value.length,minLen),type)} // один интерфейс на два похожих объекта
+            onBlur={() => setActive(Boolean(inputRef.current.value))
+             } // если в инпуте есть данные - он активен
 				onFocus={() => setActive(true)}
 				minLength={minLen}
 				maxLength={maxLen}

@@ -1,9 +1,9 @@
 export interface SignLink {
-	href: string,
-	textContent: string
+	readonly href: string,
+	readonly textContent: string
 }
 export interface InputData {
-	type: string,
+	readonly type: string,
 	checkData: Function,
 	valid: boolean,
 	updateFormState?: Function,

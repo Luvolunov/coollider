@@ -6,9 +6,12 @@ import { useEffect, useState } from "react";
 import {InputData,SignLink} from "../interface";
 import ChangeSign from "../ChangeSign/ChangeSign";
 
+interface SignData {
+    fields: Array <InputData>,
+    changeForm: SignLink
+}
 
-
-export default function Sign({fields,changeForm} : {fields :Array<InputData>,changeForm : SignLink })
+export default function Sign({fields,changeForm} : SignData)
 {
     const [fieldsState,updateForm] : [fieldsState : Array<InputData>,updateForm : Function] = useState(fields);
     const [access,setAccess] = useState(false);
