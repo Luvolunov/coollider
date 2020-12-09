@@ -5,16 +5,18 @@ import Input from "../Input/Input";
 import { useEffect, useState } from "react";
 import {InputData,SignLink} from "../interface";
 import ChangeSign from "../ChangeSign/ChangeSign";
+import { useFormik } from "formik";
+
 
 interface SignData {
     fields: Array <InputData>,
     changeForm: SignLink
 }
-
 export default function Sign({fields,changeForm} : SignData)
 {
     const [fieldsState,updateForm] : [fieldsState : Array<InputData>,updateForm : Function] = useState(fields);
     const [access,setAccess] = useState(false);
+
 
 	 useEffect(() => setAccess(fieldsState.every(({valid}) => valid)) // если каждое поле валидное - есть доступ
 	 ,[fieldsState])
