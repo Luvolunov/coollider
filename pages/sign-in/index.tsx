@@ -4,6 +4,13 @@ import {signInFields} from "./data";
 export default  function SignIn()
 {
 	return(
-		<Sign fields={signInFields}/>
+		<Sign
+		changeForm={
+			{
+				href: "/sign-up",
+				textContent: "У меня нет аккаунта"
+			}
+		} 
+		fields={signInFields}/>
 	)
 }
