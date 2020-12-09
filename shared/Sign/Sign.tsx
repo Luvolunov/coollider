@@ -3,11 +3,12 @@ import produce from "immer"; // удобный способ использова
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import { useEffect, useState } from "react";
-import {InputData} from "../interface";
+import {InputData,SignLink} from "../interface";
+import ChangeSign from "../ChangeSign/ChangeSign";
 
 
 
-export default function Sign({fields} : {fields :Array<InputData>})
+export default function Sign({fields,changeForm} : {fields :Array<InputData>,changeForm : SignLink })
 {
     const [fieldsState,updateForm] : [fieldsState : Array<InputData>,updateForm : Function] = useState(fields);
     const [access,setAccess] = useState(false);
@@ -38,8 +39,14 @@ export default function Sign({fields} : {fields :Array<InputData>})
         }
         <Button
         textContent="Войти"
-        access={access}
+		  access={access}
         />
+		  <div>
+		  <ChangeSign
+		  href={changeForm.href}
+		  textContent={changeForm.textContent}
+		  />
+		  </div>
     </form>
 		</div>
     )
