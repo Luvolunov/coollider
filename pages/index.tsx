@@ -1,11 +1,16 @@
-import Link from "next/link";
+import {GetServerSidePropsContext} from "next";
 
+export default function HomePage() {
+    return null;
+}
 
-export default function Home() {
-  return (
-	  <div>
-		  <Link href="/sign-up"><a href="">Sign Up</a></Link>
-		  <Link href="/sign-in"><a href="">Sign In</a></Link>
-	  </div>
-  );
+HomePage.getInitialProps = function({ res }: GetServerSidePropsContext) {
+    if (res) {
+        res.writeHead(301, {
+            Location: '/sign-in'
+        });
+        res.end();
+    }
+
+    return null;
 }
