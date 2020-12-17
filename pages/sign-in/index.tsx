@@ -5,28 +5,35 @@ import Input from "../../shared/components/input/input.component";
 import Logo from "../../shared/components/logo/logo.component";
 import styles from './sign-in.module.scss';
 import Button from "../../shared/components/button/button.component";
+import Link from 'next/link';
 
 export default function SignInPage() {
-  return (
-    <>
-      <Head>
-        <title>Войти в Coollider!</title>
-      </Head>
-      <main className={styles.page}>
-        <Form style={{ maxWidth: '500px' }}>
-			<Logo />
-			<br />
-			<br />
-			<Input placeholder="Почта" />
-			<br />
-			<Input placeholder="Пароль" type="password" />
-			<br />
-			<br />
-			<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-				<Button type="button" disabled>Войти</Button>
-			</div>
-		</Form>
-      </main>
-    </>
-  );
+	return (
+		<>
+			<Head>
+				<title>Войти в Coollider!</title>
+			</Head>
+			<main className={styles.page}>
+				<Form style={{ maxWidth: '500px' }}>
+					<Logo />
+					<br />
+					<br />
+					<Input placeholder="Почта" />
+					<br />
+					<Input placeholder="Пароль" type="password" />
+					<br />
+					<br />
+					<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+						<Button type="button" disabled>Войти</Button>
+					</div>
+					<br />
+					<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+						<Link href="/sign-up">
+							<a>У меня нет аккаунта :(</a>
+						</Link>
+					</div>
+				</Form>
+			</main>
+		</>
+	);
 }
