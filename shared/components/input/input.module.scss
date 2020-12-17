@@ -1,0 +1,55 @@
+@import "../../colors";
+
+.label {
+  position: relative;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 1px solid $gray-color;
+}
+
+.small {
+  display: inline-block;
+  color: $gray-color;
+  transform: translateX(-10px);
+  opacity: 0;
+  transition-duration: 0.2s;
+}
+
+.placeholder {
+  position: absolute;
+  top: 31px;
+  color: $gray-color;
+  transition-duration: 0.3s;
+  user-select: none;
+  cursor: text;
+}
+
+.line {
+  position: relative;
+  top: -1px;
+  display: block;
+  width: 0;
+  height: 2px;
+  background-color: $blue-color;
+  transition-duration: 0.3s;
+}
+
+.input:focus ~ .line {
+  width: 100%;
+}
+
+.label.active .placeholder {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+.label.active .small {
+  transform: translateX(0);
+  opacity: 1;
+  transition-duration: 0.5s;
+}
