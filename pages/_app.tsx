@@ -16,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#C8DDF0" />
         <link rel="icon" type="image/png" href="/coollider-min.png" />
         <link rel="stylesheet" href="/fonts/fonts.css" />
+        <title>Coollider | Куллайдер</title>
       </Head>
       <Component {...pageProps} />
     </>

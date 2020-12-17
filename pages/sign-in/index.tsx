@@ -8,7 +8,11 @@ export default function SignInPage() {
         <title>Войти в Coollider!</title>
       </Head>
       <main>
-        Sign in
+        <h1>Header</h1>
+        <h2>Header</h2>
+        <h3>Header</h3>
+        <h4>Header</h4>
+        <h5>Header</h5>
       </main>
     </>
   );
