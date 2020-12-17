@@ -1,16 +1,16 @@
-import {GetServerSidePropsContext} from "next";
+import { GetServerSidePropsContext } from 'next';
 
 export default function HomePage() {
-    return null;
+  return null;
 }
 
-HomePage.getInitialProps = function({ res }: GetServerSidePropsContext) {
-    if (res) {
-        res.writeHead(301, {
-            Location: '/sign-in'
-        });
-        res.end();
-    }
+HomePage.getInitialProps = function ({ res }: GetServerSidePropsContext) {
+  if (res) {
+    res.writeHead(301, {
+      Location: '/sign-in',
+    });
+    res.end();
+  }
 
-    return null;
-}
+  return null;
+};

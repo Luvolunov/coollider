@@ -1,5 +1,3 @@
-
-
 export default function SignInPage() {
-    return 'Sign in'
+  return 'Sign in';
 }
