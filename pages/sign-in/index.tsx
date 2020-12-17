@@ -4,6 +4,7 @@ import Form from "../../shared/components/form/form.component";
 import Input from "../../shared/components/input/input.component";
 import Logo from "../../shared/components/logo/logo.component";
 import styles from './sign-in.module.scss';
+import Button from "../../shared/components/button/button.component";
 
 export default function SignInPage() {
   return (
@@ -16,9 +17,14 @@ export default function SignInPage() {
 			<Logo />
 			<br />
 			<br />
-			<Input placeholder="Email" />
+			<Input placeholder="Почта" />
 			<br />
-			<Input placeholder="Password" type="password" />
+			<Input placeholder="Пароль" type="password" />
+			<br />
+			<br />
+			<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+				<Button type="button" disabled>Войти</Button>
+			</div>
 		</Form>
       </main>
     </>
