@@ -1,2 +1,1 @@
-export const minLength = (requiredLength: number) =>
-	(value = '') => requiredLength <= value?.length;
+export const minLength = (requiredLength: number) => (value = '') => requiredLength <= value?.length;
