@@ -5,7 +5,7 @@ import React from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <React.StrictMode>
       <Head>
         <meta charSet="UTF-8" />
         <meta
@@ -19,6 +19,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Coollider | Куллайдер</title>
       </Head>
       <Component {...pageProps} />
-    </>
+    </React.StrictMode>
   );
 }

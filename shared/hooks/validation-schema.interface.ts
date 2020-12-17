@@ -1,6 +1,5 @@
 export interface ValidationSchema {
 	[key: string]: {
-		valid?: boolean;
 		validators?: Array<ValidatorFunction>
 	}
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import Head from 'next/head';
 import Form from "../../shared/components/form/form.component";
 import Input from "../../shared/components/input/input.component";
@@ -10,7 +10,8 @@ import {useForm} from "../../shared/hooks/useForm.hook";
 import {SignInSchema} from "./sign-in.schema";
 
 export default function SignInPage() {
-	const { handleInput, valid } = useForm(SignInSchema);
+	const { handleInput, valid, values } = useForm(SignInSchema);
+	console.log(values);
 	return (
 		<>
 			<Head>
