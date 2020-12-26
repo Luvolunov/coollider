@@ -19,7 +19,7 @@ export default function Input({
     onBlur && onBlur(event);
   };
   return (
-    <label className={`${styles.label} ${active ? styles.active : ''}`}>
+    <label className={`${styles.label} ${active && styles.active}`}>
       <small className={styles.small}>{placeholder}</small>
       <input
         onFocus={handleOnFocus}
