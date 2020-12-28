@@ -7,23 +7,31 @@ export function useForm(schema: ValidationSchema) {
   const [valid, setValid] = useState(false);
   const [values, setValues] = useState(reducedSchema);
 
-  const handleInput = ({target: {name, value, checked = false}}: ChangeEvent<HTMLInputElement>) => {
+  const handleInput = ({target: {name, value}}: ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
-      [name]: checked || value // тут же обработка radio или checkbox, но со строгой проверкой валидатора 
+      [name]: value  
+    })
+  }
+  const handleCheckbox = ({target: {name, checked}}: ChangeEvent<HTMLInputElement>) => {
+    setValues({
+      ...values,
+      [name]: checked  
     })
   }
 
   useEffect(() => {
     const valid = Object.keys(schema)
-      .every((name) => (!schema[name].validators?.length // если схема без валидаторов, то она валидна всегда
-        ? true
-        : schema[name].validators?.every((validator) => validator(values[name]))));
+      .every((name) => 
+        !schema[name].validators?.length // схема без валидаторов по дефолту валидна
+        ||
+        schema[name].validators?.every((validator) => validator(values[name]))); // каждый валидатор должен проходить проверку
     setValid(valid);
   }, [values]);
 
   return {
     handleInput,
+    handleCheckbox,
     values,
     valid,
   };
