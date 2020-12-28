@@ -1,5 +1,6 @@
 import React, { useState, FocusEvent, InputHTMLAttributes } from 'react';
 import styles from './input.module.scss';
+import classNames from 'classnames';
 
 export type InputProps = {
   label?: string;
@@ -18,8 +19,9 @@ export default function Input({
     setActive(!!event.target.value);
     onBlur && onBlur(event);
   };
+  const labelClasses = classNames(styles.label, { [styles.active]: active });
   return (
-    <label className={`${styles.label} ${active ? styles.active : ''}`}>
+    <label className={labelClasses}>
       <small className={styles.small}>{placeholder}</small>
       <input
         onFocus={handleOnFocus}
