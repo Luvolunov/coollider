@@ -8,7 +8,7 @@ export type InputProps = {
 };
 
 export default function Input({
-  placeholder, onFocus, onBlur, ...props
+placeholder, onFocus, onBlur, ...props
 }: InputHTMLAttributes<any>) {
   const [active, setActive] = useState(false);
   const handleOnFocus = (event: FocusEvent<HTMLInputElement>) => {
@@ -29,6 +29,7 @@ export default function Input({
         type="text"
         {...props}
         className={styles.input}
+        autoComplete="new-password"
       />
       <span className={styles.placeholder}>{placeholder}</span>
       <span className={styles.line} />
