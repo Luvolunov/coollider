@@ -7,9 +7,10 @@ import styles from "./sign-up.module.scss";
 import { SignUpSchema } from "./sign-up.schema"
 import Head from "next/head"
 import Button from "../../shared/components/button/button.component"
+import { Checkbox } from "../../shared/components/checkbox/checkbox.component"
 
 export default function SignUpPage() {
-    const {handleInput,valid,values} = useForm(SignUpSchema);
+    const {handleInput,handleCheckbox,valid,values} = useForm(SignUpSchema);
     console.log(values)
     return(
         <>
@@ -29,8 +30,10 @@ export default function SignUpPage() {
             <br />
             <Input placeholder="Пароль" type="password" onChange={handleInput} name="password" />
             <br />
-            <Input placeholder="" type="date" onChange={handleInput} name="dateOfBith"/>
+            <Input type="date" onChange={handleInput} name="dateOfBith"/>
             <br />
+            <Checkbox name="agreement" onChange={handleCheckbox} condition="Я согласен с условиями пользования"/>
+            <br/>
             <br/>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Button type="button" disabled={!valid}>Зарегистрироваться</Button>
