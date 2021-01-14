@@ -1,15 +1,11 @@
-import  { useState, FocusEvent, InputHTMLAttributes } from 'react';
+import  { useState, FocusEvent } from 'react';
 import styles from './input.module.scss';
 import classNames from "classnames";
-
-export type InputProps = {
-  label?: string;
-  [key: string]: any;
-};
+import {InputProps} from "../../props/input.props";
 
 export default function Input({
 placeholder, onFocus, onBlur, ...props
-}: InputHTMLAttributes<any>) {
+}: InputProps) {
   const [active, setActive] = useState(false);
   const handleOnFocus = (event: FocusEvent<HTMLInputElement>) => {
     setActive(true);
@@ -27,9 +23,9 @@ placeholder, onFocus, onBlur, ...props
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
         type="text"
-        {...props}
         className={styles.input}
         autoComplete="new-password"
+        {...props}
       />
       <span className={styles.placeholder}>{placeholder}</span>
       <span className={styles.line} />
