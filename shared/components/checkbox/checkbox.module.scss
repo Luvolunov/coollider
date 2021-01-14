@@ -1,0 +1,36 @@
+@import "../../colors.scss";
+@import "../../transitions.scss";
+.label{
+    position: relative;
+    cursor: pointer;
+    & .checkbox{
+        opacity: 0;
+        &:checked ~ .fake {
+            background: $blue-color;
+            &::after{
+                opacity: 1;
+            }
+        }
+    }
+    & .condition{
+        // font-size: 1.125rem;
+        margin-left: 8px;
+    }
+    & .fake{
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 4px;
+        width: 20px;
+        height: 20px;
+        background: $light-blue-color;
+        transition: $checkbox;
+        &::after{
+            content: url("../../../public/check.png");
+            opacity: 0; // screenreaders profit
+            position: absolute;
+            top: -2px;
+            left: 4px;
+        }
+    }
+}
