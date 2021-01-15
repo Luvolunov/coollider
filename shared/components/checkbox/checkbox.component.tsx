@@ -2,7 +2,7 @@ import styles from "./checkbox.module.scss";
 import {CheckboxProps} from "../props/checkbox.props";
 
 export function Checkbox(
-    {condition,...props} : CheckboxProps) {
+    {children,...props} : CheckboxProps) {
     return(
         <label className={styles.label}>
             <input
@@ -10,7 +10,7 @@ export function Checkbox(
             type="checkbox"
             {...props}
             />
-            <span className={styles.condition}>{condition}</span>
+            <span className={styles.condition}>{children}</span>
             <span className={styles.fake}></span>
         </label>
     )

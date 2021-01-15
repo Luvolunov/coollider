@@ -32,7 +32,7 @@ export default function SignUpPage() {
             <br />
             <Input type="date" onChange={handleInput} name="dateOfBith"/>
             <br />
-            <Checkbox name="agreement" onChange={handleCheckbox} condition="Я согласен с условиями пользования"/>
+            <Checkbox name="agreement" onChange={handleCheckbox}>Я согласен с условиями пользования</Checkbox>
             <br/>
             <br/>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
