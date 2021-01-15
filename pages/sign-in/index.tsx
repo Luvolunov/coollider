@@ -8,6 +8,8 @@ import styles from './sign-in.module.scss';
 import Button from '../../shared/components/button/button.component';
 import { useForm } from '../../shared/hooks/useForm.hook';
 import { SignInSchema } from './sign-in.schema';
+import Header from '../../shared/components/header/header.component';
+import Menu from '../../shared/components/menu/menu.component';
 
 export default function SignInPage() {
   const { handleInput, valid, values } = useForm(SignInSchema);
@@ -17,6 +19,8 @@ export default function SignInPage() {
       <Head>
         <title>Войти в Coollider!</title>
       </Head>
+      <Header></Header>
+      <Menu></Menu>
       <main className={styles.page}>
         <Form style={{ maxWidth: '500px' }}>
           <Logo />
@@ -35,6 +39,7 @@ export default function SignInPage() {
             <Link href="/sign-up">
               <a>У меня нет аккаунта :(</a>
             </Link>
+            
           </div>
         </Form>
       </main>
