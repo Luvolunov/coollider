@@ -1,5 +1,5 @@
 import styles from "./checkbox.module.scss";
-import {CheckboxProps} from "../../props/checkbox.props";
+import {CheckboxProps} from "../props/checkbox.props";
 
 export function Checkbox(
     {condition,...props} : CheckboxProps) {
