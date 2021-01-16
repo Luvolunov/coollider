@@ -1,7 +1,7 @@
 import  { useState, FocusEvent } from 'react';
 import styles from './input.module.scss';
 import classNames from "classnames";
-import {InputProps} from "../props/input.props";
+import {InputProps} from "./input.props";
 
 export default function Input({
 placeholder, onFocus, onBlur, ...props

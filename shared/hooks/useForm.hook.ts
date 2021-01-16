@@ -7,6 +7,8 @@ export function useForm(schema: ValidationSchema) {
   const [valid, setValid] = useState(false);
   const [values, setValues] = useState(reducedSchema);
 
+
+
   const handleInput = ({target: {name, value}}: ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
