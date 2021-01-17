@@ -1,6 +1,8 @@
 export interface ValidationSchema {
   [key: string]: {
-    validators?: Array<ValidatorFunction>
+    validators?: Array<ValidatorFunction>,
+    readonly placeholder?: string,
+    readonly type?: string
   }
 }
 
