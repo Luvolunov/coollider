@@ -1,40 +1,52 @@
+import { FieldsSchema } from './useForm.schema';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { ValidationSchema } from './validation-schema.interface';
 
 export function useForm(schema: ValidationSchema) {
   const reducedSchema = Object.keys(schema)
-      .reduce<any>((acc, key) => ({ ...acc, [key]: null }), {}); // обьект начального стейта формы, ключи - названия инпутов, значение - value инпутов 
+      .reduce<any>((acc : FieldsSchema, key) => (
+        { ...acc, [key]: {
+          placeholder: schema[key].placeholder || "",
+          type: schema[key].type || "",
+          status: "empty",
+          value: null
+        } }), {}); 
+
+
   const [valid, setValid] = useState(false);
-  const [values, setValues] = useState(reducedSchema);
+  const [fields, setValues] = useState(reducedSchema);
 
 
 
   const handleInput = ({target: {name, value}}: ChangeEvent<HTMLInputElement>) => {
     setValues({
-      ...values,
-      [name]: value  
+      ...fields,
+      [name]: {
+        ...fields[name],
+        value
+      }  
     })
   }
   const handleCheckbox = ({target: {name, checked}}: ChangeEvent<HTMLInputElement>) => {
     setValues({
-      ...values,
+      ...fields,
       [name]: checked  
     })
   }
 
   useEffect(() => {
     const valid = Object.keys(schema)
-      .every((name) => 
-        !schema[name].validators?.length // схема без валидаторов по дефолту валидна
+      .every(name => 
+        !schema[name].validators?.length
         ||
-        schema[name].validators?.every((validator) => validator(values[name]))); // каждый валидатор должен проходить проверку
-    setValid(valid);
-  }, [values]);
+        schema[name].validators?.every(validator => validator(fields[name].value)));
+        setValid(valid);
+  }, [fields]);
 
   return {
     handleInput,
     handleCheckbox,
-    values,
+    fields,
     valid,
   };
 }

@@ -7,11 +7,11 @@ import styles from "./sign-up.module.scss";
 import { SignUpSchema } from "./sign-up.schema"
 import Head from "next/head"
 import Button from "../../shared/components/button/button.component"
-import { Checkbox } from "../../shared/components/checkbox/checkbox.component"
+// import { Checkbox } from "../../shared/components/checkbox/checkbox.component"
 
 export default function SignUpPage() {
-    const {handleInput,handleCheckbox,valid,values} = useForm(SignUpSchema);
-    console.log(values)
+    const {handleInput,handleCheckbox,valid,fields} = useForm(SignUpSchema);
+    console.log(fields)
     return(
         <>
         <Head>
@@ -22,17 +22,17 @@ export default function SignUpPage() {
             <Logo/>
             <br/>
             <br/>
-            <Input placeholder="Имя" onChange={handleInput} name="firstName" />
-            <br/>
-            <Input placeholder="Фамилия" onChange={handleInput} name="lastName"/>
-            <br/>
-            <Input placeholder="Почта" onChange={handleInput} name="email" />
-            <br />
-            <Input placeholder="Пароль" type="password" onChange={handleInput} name="password" />
-            <br />
-            <Input type="date" onChange={handleInput} name="dateOfBith"/>
-            <br />
-            <Checkbox name="agreement" onChange={handleCheckbox}>Я согласен с условиями пользования</Checkbox>
+            {Object.keys(fields).map(key => (
+              <Input
+              key={key}
+              name={key}
+              placeholder={fields[key].placeholder}
+              type={fields[key].type}
+              autoComplete="new-password"
+              onChange={handleInput}
+              />
+            ))}
+            {/* <Checkbox name="agreement" onChange={handleCheckbox}>Я согласен с условиями пользования</Checkbox> */}
             <br/>
             <br/>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
