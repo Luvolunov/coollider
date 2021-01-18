@@ -12,7 +12,7 @@ import Header from '../../shared/components/header/header.component';
 import Menu from '../../shared/components/menu/menu.component';
 
 export default function SignInPage() {
-  const { handleInput, valid, values } = useForm(SignInSchema);
+  const { handleInput, valid, values, errors, touches } = useForm(SignInSchema);
   console.log(values);
   return (
     <>
@@ -27,8 +27,18 @@ export default function SignInPage() {
           <br />
           <br />
           <Input placeholder="Почта" onChange={handleInput} name="email" />
+          {
+            errors.email?.isEmail && touches.email
+              ? <small className="error-hint">Почта некорректна!</small>
+              : null
+          }
           <br />
           <Input placeholder="Пароль" type="password" onChange={handleInput} name="password" />
+          {
+            errors.password?.minLength && touches.password
+                ? <small className="error-hint">Пароль должен быть больше 7 символов!</small>
+                : null
+          }
           <br />
           <br />
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -39,7 +49,6 @@ export default function SignInPage() {
             <Link href="/sign-up">
               <a>У меня нет аккаунта :(</a>
             </Link>
-            
           </div>
         </Form>
       </main>
