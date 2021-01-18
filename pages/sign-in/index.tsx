@@ -35,7 +35,7 @@ export default function SignInPage() {
           <br />
           <Input placeholder="Пароль" type="password" onChange={handleInput} name="password" />
           {
-            errors.password?.minLength && touches.password
+            errors.password?.minLength && touches.minLength
                 ? <small className="error-hint">Пароль должен быть больше 7 символов!</small>
                 : null
           }
