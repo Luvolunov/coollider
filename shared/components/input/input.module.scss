@@ -1,5 +1,4 @@
 @import "../../colors";
-// status brings styles: ok, error...
 
 .label {
   position: relative;
@@ -11,15 +10,6 @@
   padding: 12px 0;
   border: none;
   border-bottom: 1px solid $gray-color;
-  &.ok ~ .line {
-    width: 100%;
-    background-color: $success-color;
-  }
-  &.error ~ .line{
-    width: 100%;
-    background-color: $error-color;
-  }
-  
 }
 
 .small {
@@ -37,6 +27,7 @@
   transition-duration: 0.3s;
   user-select: none;
   cursor: text;
+  white-space: nowrap;
 }
 
 .line {

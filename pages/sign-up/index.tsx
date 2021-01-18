@@ -7,15 +7,16 @@ import styles from "./sign-up.module.scss";
 import { SignUpSchema } from "./sign-up.schema"
 import Head from "next/head"
 import Button from "../../shared/components/button/button.component"
-// import { Checkbox } from "../../shared/components/checkbox/checkbox.component"
+import { Checkbox } from "../../shared/components/checkbox/checkbox.component"
 
 export default function SignUpPage() {
     const {
         handleInput,
+        handleCheckbox,
         valid,
-        fields
+        values,
     } = useForm(SignUpSchema);
-    console.log(fields);
+    console.log(values);
     return(
         <>
         <Head>
@@ -26,17 +27,12 @@ export default function SignUpPage() {
             <Logo/>
             <br/>
             <br/>
-            {Object.keys(fields).map(key => (
-              <Input
-              key={key}
-              name={key}
-              status={fields[key].status}
-              placeholder={fields[key].placeholder}
-              type={fields[key].type}
-              onChange={handleInput}
-              />
-            ))}
-            {/* <Checkbox name="agreement" onChange={handleCheckbox}>Я согласен с условиями пользования</Checkbox> */}
+            <Input name="firstName" placeholder="Имя" onChange={handleInput}/>
+            <Input name="lastName" placeholder="Фамилия" onChange={handleInput}/>
+            <Input name="email" placeholder="Почта" onChange={handleInput}/>
+            <Input name="password" placeholder="Пароль" onChange={handleInput}/>
+            <Input name="dateOfBirth" placeholder="Дата рождения" type="date" onChange={handleInput}/>
+            <Checkbox name="agreement" onChange={handleCheckbox}>Я согласен с условиями пользования</Checkbox>
             <br/>
             <br/>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

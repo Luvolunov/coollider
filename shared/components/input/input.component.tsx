@@ -4,7 +4,7 @@ import classNames from "classnames";
 import {InputProps} from "./input.props";
 // error
 export default function Input({
-placeholder, onFocus, onBlur, status, ...props
+    placeholder, onFocus, onBlur, ...props
 }: InputProps) {
   const [active, setActive] = useState(false);
   const handleOnFocus = (event: FocusEvent<HTMLInputElement>) => {
@@ -16,7 +16,6 @@ placeholder, onFocus, onBlur, status, ...props
     onBlur && onBlur(event);
   };
   const labelClasses = classNames(styles.label, { [styles.active]: active });
-  const inputClasses = classNames(styles.input,styles[status]);
 
   return (
     <label className={labelClasses}>
@@ -25,7 +24,7 @@ placeholder, onFocus, onBlur, status, ...props
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
         autoComplete="new-password"
-        className={inputClasses}
+        className={styles.input}
         {...props}
       />
       <span className={styles.placeholder}>{placeholder}</span>
