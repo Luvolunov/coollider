@@ -25,7 +25,7 @@ export const SignUpSchema: ValidationSchema = {
     dateOfBith: {
         validators: [checkDate],
         type: "date"
-    }
+    },
 }
 // agreement: {
 //     validators: [isChecked]
