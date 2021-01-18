@@ -12,7 +12,7 @@ import Header from '../../shared/components/header/header.component';
 import Menu from '../../shared/components/menu/menu.component';
 
 export default function SignInPage() {
-  const { handleInput, valid, values, errors, touches } = useForm(SignInSchema);
+  const { handleInput, handleBlur, valid, values, errors, touches } = useForm(SignInSchema);
   console.log(values);
   return (
     <>
@@ -26,16 +26,16 @@ export default function SignInPage() {
           <Logo />
           <br />
           <br />
-          <Input placeholder="Почта" onChange={handleInput} name="email" />
+          <Input placeholder="Почта" onChange={handleInput} onBlur={handleBlur} name="email" />
           {
             errors.email?.isEmail && touches.email
               ? <small className="error-hint">Почта некорректна!</small>
               : null
           }
           <br />
-          <Input placeholder="Пароль" type="password" onChange={handleInput} name="password" />
+          <Input placeholder="Пароль" type="password" onChange={handleInput} onBlur={handleBlur} name="password" />
           {
-            errors.password?.minLength && touches.minLength
+            errors.password?.minLength && touches.password
                 ? <small className="error-hint">Пароль должен быть больше 7 символов!</small>
                 : null
           }

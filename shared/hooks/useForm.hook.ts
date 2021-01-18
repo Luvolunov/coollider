@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState, FocusEvent } from 'react';
 import { ValidationSchema } from './validation-schema.interface';
 
 export function useForm(schema: ValidationSchema) {
@@ -16,6 +16,8 @@ export function useForm(schema: ValidationSchema) {
   }
   const handleCheckbox = ({target: {name, checked}}: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [name]: checked });
+  }
+  const handleBlur = ({ target: {name} }: FocusEvent<HTMLInputElement>) => {
     setTouches({ ...touches, [name]: true });
   }
   const getErrors = (name: string): any => schema[name]
@@ -30,6 +32,7 @@ export function useForm(schema: ValidationSchema) {
   return {
     handleInput,
     handleCheckbox,
+    handleBlur,
     values,
     valid,
     errors,
