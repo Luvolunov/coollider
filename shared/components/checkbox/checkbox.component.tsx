@@ -6,12 +6,12 @@ export function Checkbox(
     return(
         <label className={styles.label}>
             <input
-            className={styles.checkbox}
-            type="checkbox"
-            {...props}
+                className={styles.checkbox}
+                type="checkbox"
+                {...props}
             />
             <span className={styles.condition}>{children}</span>
-            <span className={styles.fake}></span>
+            <span className={styles.fake}/>
         </label>
     )
 } 
