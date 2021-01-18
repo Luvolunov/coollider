@@ -2,9 +2,9 @@ import  { useState, FocusEvent } from 'react';
 import styles from './input.module.scss';
 import classNames from "classnames";
 import {InputProps} from "./input.props";
-
+// error
 export default function Input({
-placeholder, onFocus, onBlur, ...props
+placeholder, onFocus, onBlur, status, ...props
 }: InputProps) {
   const [active, setActive] = useState(false);
   const handleOnFocus = (event: FocusEvent<HTMLInputElement>) => {
@@ -16,15 +16,16 @@ placeholder, onFocus, onBlur, ...props
     onBlur && onBlur(event);
   };
   const labelClasses = classNames(styles.label, { [styles.active]: active });
+  const inputClasses = classNames(styles.input,styles[status]);
+
   return (
     <label className={labelClasses}>
       <small className={styles.small}>{placeholder}</small>
       <input
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
-        type="text"
-        className={styles.input}
         autoComplete="new-password"
+        className={inputClasses}
         {...props}
       />
       <span className={styles.placeholder}>{placeholder}</span>
