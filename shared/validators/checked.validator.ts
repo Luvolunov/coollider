@@ -1,1 +1,3 @@
-export const isChecked = (checked: boolean) => checked
+import {ValidatorFunction} from "../hooks/validation-schema.interface";
+
+export const isChecked: ValidatorFunction = (checked: boolean) => checked ? null : { isChecked: true };

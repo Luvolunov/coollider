@@ -1,11 +1,7 @@
 export interface ValidationSchema {
-  [key: string]: {
-    validators?: Array<ValidatorFunction>,
-    readonly placeholder?: string,
-    readonly type?: string
-  }
+  [key: string]: Array<ValidatorFunction>
 }
 
 export interface ValidatorFunction {
-  (input: any): boolean;
+  (input: any): null | { [key: string]: true };
 }

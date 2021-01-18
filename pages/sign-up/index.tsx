@@ -10,7 +10,11 @@ import Button from "../../shared/components/button/button.component"
 // import { Checkbox } from "../../shared/components/checkbox/checkbox.component"
 
 export default function SignUpPage() {
-    const {handleInput,onBlur, onFocus, valid,fields} = useForm(SignUpSchema);
+    const {
+        handleInput,
+        valid,
+        fields
+    } = useForm(SignUpSchema);
     console.log(fields);
     return(
         <>
@@ -26,7 +30,6 @@ export default function SignUpPage() {
               <Input
               key={key}
               name={key}
-              onBlur={onBlur} onFocus={onFocus}
               status={fields[key].status}
               placeholder={fields[key].placeholder}
               type={fields[key].type}
