@@ -32,6 +32,7 @@ export default function SignUpPage() {
             <Input name="email" placeholder="Почта" onChange={handleInput}/>
             <Input name="password" placeholder="Пароль" onChange={handleInput}/>
             <Input name="dateOfBirth" placeholder="Дата рождения" type="date" onChange={handleInput}/>
+            <br />
             <Checkbox name="agreement" onChange={handleCheckbox}>Я согласен с условиями пользования</Checkbox>
             <br/>
             <br/>
