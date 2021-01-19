@@ -1,5 +1,5 @@
 import { InputHTMLAttributes } from 'react';
 export interface FormProps extends InputHTMLAttributes<HTMLFormElement> {
-    children?: any;
+    children?: JSX.Element[];
     [key:string]: any;
 }
