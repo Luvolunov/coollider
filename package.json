@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "effector": "^21.7.5",
+    "effector-react": "^21.2.1",
     "next": "10.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
