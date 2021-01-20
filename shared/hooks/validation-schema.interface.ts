@@ -1,7 +1,11 @@
 export interface ValidationSchema {
-  [key: string]: Array<ValidatorFunction>
+  [key: string]: Array<Validator>
+}
+
+export interface Validator {
+  (input: any): string | null;
 }
 
 export interface ValidatorFunction {
-  (input: any): null | { [key: string]: true };
+  (error: string): Validator;
 }

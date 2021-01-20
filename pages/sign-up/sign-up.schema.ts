@@ -7,10 +7,10 @@ import { isStrongPassword } from '../../shared/validators/password.validator';
 import { nameIsCorrect } from '../../shared/validators/name.validator';
 
 export const SignUpSchema: ValidationSchema = {
-    firstName: [minLength(2),nameIsCorrect],
-    lastName: [minLength(2),nameIsCorrect],
-    email: [isEmail],
-    password: [minLength(8),isStrongPassword],
-    dateOfBirth: [checkDate],
-    agreement: [isChecked]
+    firstName: [minLength(2,"Слишком короткое имя!"),nameIsCorrect("Имя содержит недопустимые символы!")],
+    lastName: [minLength(2,"Слишком короткая фамилия!"),nameIsCorrect("Фамилия содержит недопустимые символы!")],
+    email: [isEmail("Почта некорректна!")],
+    password: [minLength(8,"Пароль должен быть больше 7 символов!"),isStrongPassword("Слишком простой пароль!")],
+    dateOfBirth: [checkDate("Неправильный формат даты!")],
+    agreement: [isChecked("Поставьте галочку!")]
 }
