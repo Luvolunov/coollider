@@ -16,7 +16,7 @@ export function useForm(schema: ValidationSchema) {
   const handleCheckbox = ({target: {name, checked}}: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [name]: checked });
   }
-  const handleBlur = ({ target: {name} }: FocusEvent<HTMLInputElement>) => {
+  const handleFocus = ({ target: {name} }: FocusEvent<HTMLInputElement>) => {
     setTouches({ ...touches, [name]: true });
   }
 
@@ -31,7 +31,7 @@ export function useForm(schema: ValidationSchema) {
 
   useEffect(() => {
     const err = Object.keys(schema).reduce((allErrors, name) => ({ ...allErrors, [name]: getErrors(name) }), {});
-    const isValid = !Object.entries(err).filter(([_, error]) => !!Object.values(error as any).length).length;
+    const isValid = true; // описать условие валидности формы
     setValid(isValid);
     setErrors(err);
   }, [values]);
@@ -39,7 +39,7 @@ export function useForm(schema: ValidationSchema) {
   return {
     handleInput,
     handleCheckbox,
-    handleBlur,
+    handleFocus,
     values,
     valid,
     errors,

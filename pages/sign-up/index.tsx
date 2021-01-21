@@ -15,8 +15,11 @@ export default function SignUpPage() {
         handleCheckbox,
         valid,
         values,
+        handleFocus,
+        errors,
+        touches
     } = useForm(SignUpSchema);
-    console.log(values);
+    console.log(touches);
     return(
         <>
         <Head>
@@ -27,11 +30,15 @@ export default function SignUpPage() {
             <Logo/>
             <br/>
             <br/>
-            <Input name="firstName" placeholder="Имя" onChange={handleInput}/>
-            <Input name="lastName" placeholder="Фамилия" onChange={handleInput}/>
-            <Input name="email" placeholder="Почта" onChange={handleInput}/>
-            <Input name="password" placeholder="Пароль" onChange={handleInput}/>
-            <Input name="dateOfBirth" placeholder="Дата рождения" type="date" onChange={handleInput}/>
+            <Input name="firstName" placeholder="Имя" onChange={handleInput} errors={errors.firstName} onFocus={handleFocus}/>
+            <br/>
+            <Input name="lastName" placeholder="Фамилия" onChange={handleInput} errors={errors.lastName} onFocus={handleFocus}/>
+            <br/>
+            <Input name="email" placeholder="Почта" onChange={handleInput} errors={errors.email} onFocus={handleFocus}/>
+            <br/>
+            <Input name="password" placeholder="Пароль" onChange={handleInput} type="password" errors={errors.password} onFocus={handleFocus}/>
+            <br/>
+            <Input name="dateOfBirth" type="date" onChange={handleInput} errors={errors.dateOfBirth} onFocus={handleFocus}/>
             <br />
             <Checkbox name="agreement" onChange={handleCheckbox}>Я согласен с условиями пользования</Checkbox>
             <br/>

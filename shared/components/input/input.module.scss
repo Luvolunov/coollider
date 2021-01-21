@@ -3,6 +3,11 @@
 .label {
   position: relative;
 }
+.hint {
+  color: $error-color;
+  font-size: 14px;
+  transition-duration: .2s;;
+}
 
 .input {
   display: block;
@@ -10,6 +15,10 @@
   padding: 12px 0;
   border: none;
   border-bottom: 1px solid $gray-color;
+  &.error ~ .line{
+    width: 100%;
+    background-color: $error-color;
+  }
 }
 
 .small {
