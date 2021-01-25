@@ -19,6 +19,10 @@
     width: 100%;
     background-color: $error-color;
   }
+  &.success ~ .line {
+    width: 100%;
+    background-color: $success-color;
+  }
 }
 
 .small {
