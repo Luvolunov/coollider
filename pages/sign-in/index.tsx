@@ -7,29 +7,26 @@ import Logo from '../../shared/components/logo/logo.component';
 import styles from './sign-in.module.scss';
 import Button from '../../shared/components/button/button.component';
 import { useForm } from '../../shared/hooks/useForm.hook';
-import { SignInSchema } from './sign-in.schema';
-import Header from '../../shared/components/header/header.component';
-import Menu from '../../shared/components/menu/menu.component';
+import { SignInSchema } from '../../shared/schemas/sign-in.schema';
 
+console.log(process.env.COOLLIDER);
 
 export default function SignInPage() {
-  const { handleInput, handleBlur, valid, values, errors, touches } = useForm(SignInSchema);
+  const { handleInput, valid, errors } = useForm(SignInSchema);
   console.log(errors);
   return (
     <>
       <Head>
         <title>Войти в Coollider!</title>
       </Head>
-      <Header></Header>
-      <Menu></Menu>
       <main className={styles.page}>
         <Form style={{ maxWidth: '500px' }}>
           <Logo />
           <br />
           <br />
-          <Input  placeholder="Почта" onChange={handleInput} onBlur={handleBlur} name="email" errors={errors.email} />
+          <Input  placeholder="Почта" onChange={handleInput} name="email" errors={errors.email} />
           <br />
-          <Input placeholder="Пароль" type="password" onChange={handleInput} onBlur={handleBlur} name="password" errors={errors.password} />
+          <Input placeholder="Пароль" type="password" onChange={handleInput} name="password" errors={errors.password} />
           <br />
           <br />
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

@@ -13,10 +13,11 @@ export default function App({ Component, pageProps }: AppProps) {
           content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0"
         />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="description" content="Начни своё путешествие вместе с Куллайдером!" />
         <meta name="theme-color" content="#C8DDF0" />
         <link rel="icon" type="image/png" href="/coollider-min.png" />
         <link rel="stylesheet" href="/fonts/fonts.css" />
-        <title>Coollider | Куллайдер</title>
+        <title>Куллайдер | Coollider</title>
       </Head>
       <Component {...pageProps} />
     </React.StrictMode>

@@ -4,7 +4,7 @@ import Logo from "../../shared/components/logo/logo.component"
 import { useForm } from "../../shared/hooks/useForm.hook"
 import Link from "next/link"
 import styles from "./sign-up.module.scss";
-import { SignUpSchema } from "./sign-up.schema"
+import { SignUpSchema } from "../../shared/schemas/sign-up.schema"
 import Head from "next/head"
 import Button from "../../shared/components/button/button.component"
 import { Checkbox } from "../../shared/components/checkbox/checkbox.component"
@@ -14,7 +14,6 @@ export default function SignUpPage() {
         handleInput,
         handleCheckbox,
         valid,
-        values,
         handleFocus,
         errors,
         touches
