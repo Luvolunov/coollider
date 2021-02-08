@@ -6,7 +6,7 @@
   border-radius: 8px;
   padding: 12px 21px;
   cursor: pointer;
-  background-color: $blue-color;
+  background-color: $primary-color;
   color: #fff;
 }
 
@@ -15,6 +15,6 @@
 }
 
 .button:disabled {
-  background-color: $light-blue-color;
+  background-color: $secondary-color;
   cursor: not-allowed;
 }

@@ -2,7 +2,7 @@ import Header from "../header/header.component";
 import Menu from "../menu/menu.component";
 import styles from './page-container.module.scss';
 
-export type PageContainerProps = {
+type PageContainerProps = {
     children: any;
 };
 

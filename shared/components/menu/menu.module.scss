@@ -1,11 +1,13 @@
-@import "../../transitions.scss";
+@import "../../transitions";
+@import "../../colors";
+
 .aside{
     position: fixed;
     top: 0;
     left: 0;
-    box-shadow: 10px 0px 15px rgba(102, 161, 217, 0.4);
+    box-shadow: 6px 0 15px rgba(102, 161, 217, 0.4);
     width: 72px;
-    background-color: #C4C4C4;
+    background-color: $primary-color;
     height: 100vh;
     transition: $menu;
     &:hover{
