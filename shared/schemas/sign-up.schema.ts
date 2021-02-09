@@ -1,4 +1,3 @@
-import { checkDate } from '../validators/dateFormat.validator';
 import { ValidationSchema } from '../hooks/validation-schema.interface';
 import { isEmail } from '../validators/isEmail.validator';
 import { minLength } from '../validators/min-length.validator';
@@ -16,6 +15,5 @@ export const SignUpSchema: ValidationSchema = {
     ],
     email: [isEmail("Почта некорректна!")],
     password: [minLength(8,"Пароль должен быть больше 7 символов!")],
-    dateOfBirth: [checkDate("Неправильный формат даты!")],
     agreement: [isChecked("Поставьте галочку!")]
 }

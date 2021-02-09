@@ -1,4 +1,4 @@
-@import "../../transitions";
+
 @import "../../colors";
 
 .aside{
@@ -9,7 +9,7 @@
     width: 72px;
     background-color: $primary-color;
     height: 100vh;
-    transition: $menu;
+    transition: width .3s ease .1s;
     &:hover{
         width: 300px;
     }

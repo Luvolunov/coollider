@@ -9,18 +9,15 @@ import Button from '../../shared/components/button/button.component';
 import { useForm } from '../../shared/hooks/useForm.hook';
 import { SignInSchema } from '../../shared/schemas/sign-in.schema';
 
-console.log(process.env.COOLLIDER);
-
 export default function SignInPage() {
   const { handleInput, valid, errors } = useForm(SignInSchema);
-  console.log(errors);
   return (
     <>
       <Head>
         <title>Войти в Coollider!</title>
       </Head>
       <main className={styles.page}>
-        <Form style={{ maxWidth: '500px' }}>
+        <Form style={{ maxWidth: '400px' }}>
           <Logo />
           <br />
           <br />

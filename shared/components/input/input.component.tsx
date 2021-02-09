@@ -1,10 +1,10 @@
-import  { useState, FocusEvent } from 'react';
+import {useState, FocusEvent, ChangeEvent} from 'react';
 import styles from './input.module.scss';
 import classNames from 'classnames';
 import {InputProps} from './input.props';
 
 export default function Input({
-    placeholder, onFocus, onBlur, errors = [], touch, ...props
+    placeholder, onFocus, onBlur, errors = [], onChange, ...props
 }: InputProps) {
 
   const [active, setActive] = useState(false);
@@ -24,7 +24,10 @@ export default function Input({
     setActive(!!event.target.value);
     onBlur && onBlur(event);
   };
-
+  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+      setActive(true);
+      onChange && onChange(event);
+  }
 
   return (
     <label className={labelClasses}>
@@ -32,6 +35,7 @@ export default function Input({
       <input
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
+        onChange={handleOnChange}
         autoComplete="new-password"
         className={inputClasses}
         {...props}

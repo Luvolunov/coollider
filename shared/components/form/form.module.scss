@@ -5,3 +5,9 @@
   box-sizing: border-box;
   border-radius: 6px;
 }
+
+@media (max-width: 450px) {
+  .form {
+    padding: 50px 40px;
+  }
+}

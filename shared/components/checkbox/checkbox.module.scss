@@ -1,38 +1,52 @@
 @import "../../colors.scss";
-@import "../../transitions.scss";
-.label{
-    position: relative;
+
+.checkbox {
+    display: none;
+}
+
+.text {
     cursor: pointer;
-    & .checkbox{
-        opacity: 0;
-        &:checked ~ .fake {
-            background: $primary-color;
-            &::after{
-                opacity: 1;
-            }
-        }
-    }
-    & .condition{
-        // font-size: 1.125rem;
-        margin-left: 8px;
-    }
-    & .fake{
+    display: inline-block;
+    padding-left: 25px;
+    position: relative;
+    &::before {
+        transition-duration: 0.1s;
+        content: "";
         position: absolute;
         left: 0;
-        top: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
         border-radius: 4px;
-        width: 20px;
-        height: 20px;
-        border: 1px solid $primary-color;
-        transition: $checkbox;
-        &::after{
-            content: "";
-            background: url("../../../public/check.svg") no-repeat 50% 50%;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            left: .5px;
-        }
+        border: 1px solid $secondary-color;
+    }
+    &::after {
+        transition-duration: 0.1s;
+        content: "";
+        position: absolute;
+        left: 2px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 14px;
+        height: 14px;
+        background: url("/check.svg");
+        opacity: 0;
+    }
+}
+
+.checkbox:checked {
+    & ~ .text::before {
+        background: $primary-color;
+        border-color: $primary-color;
+    }
+    & ~ .text::after {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 1024px) {
+    .text {
+        cursor: default;
     }
 }
