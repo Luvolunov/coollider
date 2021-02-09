@@ -17,7 +17,7 @@ export default function SignInPage() {
         <title>Войти в Coollider!</title>
       </Head>
       <main className={styles.page}>
-        <Form style={{ maxWidth: '400px' }}>
+        <Form style={{ width: '100%', maxWidth: '400px' }}>
           <Logo />
           <br />
           <br />

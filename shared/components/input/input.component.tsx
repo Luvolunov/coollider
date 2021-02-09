@@ -16,16 +16,17 @@ export default function Input({
   const inputClasses = classNames(styles.input, {[styles.error]: error && touched });
 
   const handleOnFocus = (event: FocusEvent<HTMLInputElement>) => {
-    setActive(true);
-    setTouched(true);
-    onFocus && onFocus(event);
+      setActive(true);
+      onFocus && onFocus(event);
   };
   const handleOnBlur = (event: FocusEvent<HTMLInputElement>) => {
-    setActive(!!event.target.value);
-    onBlur && onBlur(event);
+      setActive(!!event.target.value);
+      setTouched(true);
+      onBlur && onBlur(event);
   };
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
       setActive(true);
+      setTouched(true);
       onChange && onChange(event);
   }
 
