@@ -13,7 +13,6 @@ export default function SignUpPage() {
         handleInput,
         handleCheckbox,
         valid,
-        handleFocus,
         errors
     } = useForm(SignUpSchema);
     return(
@@ -30,7 +29,6 @@ export default function SignUpPage() {
                     placeholder="Имя"
                     onChange={handleInput}
                     errors={errors.firstName}
-                    onFocus={handleFocus}
                 />
                 <br />
                 <Input
@@ -38,7 +36,6 @@ export default function SignUpPage() {
                     placeholder="Фамилия"
                     onChange={handleInput}
                     errors={errors.lastName}
-                    onFocus={handleFocus}
                 />
                 <br />
                 <Input
@@ -46,7 +43,6 @@ export default function SignUpPage() {
                     placeholder="Почта"
                     onChange={handleInput}
                     errors={errors.email}
-                    onFocus={handleFocus}
                 />
                 <br />
                 <Input
@@ -55,7 +51,6 @@ export default function SignUpPage() {
                     onChange={handleInput}
                     type="password"
                     errors={errors.password}
-                    onFocus={handleFocus}
                 />
                 <br />
                 <Checkbox name="agreement" onChange={handleCheckbox}>Я согласен с условиями пользования</Checkbox>
