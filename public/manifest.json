@@ -1,0 +1,17 @@
+{
+  "name": "Coollider Platform",
+  "short_name": "Coollider",
+  "description": "Coollider helps you to learn fast",
+  "start_url": "/sign-in",
+  "display": "standalone",
+  "orientation": "any",
+  "lang": "Russian",
+  "theme_color": "#C8DDF0",
+  "icons": [
+    {
+      "src": "/coollider-min.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    }
+  ]
+}

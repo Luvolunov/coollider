@@ -4,6 +4,9 @@ import Head from 'next/head';
 import React from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
+  if (process.browser && 'serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
   return (
     <React.StrictMode>
       <Head>
@@ -16,6 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="description" content="Начни своё путешествие вместе с Куллайдером!" />
         <meta name="theme-color" content="#C8DDF0" />
         <link rel="icon" type="image/png" href="/coollider-min.png" />
+        <link rel='manifest' href='/manifest.json' />
         <link rel="stylesheet" href="/fonts/fonts.css" />
         <title>Куллайдер | Coollider</title>
       </Head>
