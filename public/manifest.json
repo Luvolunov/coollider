@@ -4,7 +4,7 @@
   "description": "Coollider helps you to learn fast",
   "start_url": "/sign-in",
   "display": "standalone",
-  "orientation": "any",
+  "orientation": "portrait",
   "lang": "Russian",
   "theme_color": "#C8DDF0",
   "background_color": "#FFF",
