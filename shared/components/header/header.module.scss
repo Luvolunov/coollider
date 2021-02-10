@@ -26,20 +26,15 @@
     cursor: pointer;
 }
 
-.name {
-    margin-right: 15px;
-}
-
 .menu {
     position: absolute;
-    width: 230px;
-    height: 250px;
+    width: 300px;
     right: 18px;
     display: none;
     top: 80px;
     border-radius: 14px;
     background-color: #FFF;
-    box-shadow: 0 0 5px rgba(165, 173, 184, 0.5);
+    box-shadow: 0 0 5px $light-gray-color;
     &.open {
         display: block;
     }
@@ -52,7 +47,7 @@
         width: 16px;
         height: 16px;
         background-color: #fff;
-        box-shadow: 0 0 5px rgba(165, 173, 184, 0.5);
+        box-shadow: 0 0 5px $light-gray-color;
         transform: rotate(45deg);
     }
 }
@@ -66,8 +61,45 @@
     z-index: 2;
 }
 
+$menu-item-color: rgba(0, 0, 0, 0.1);
+
+.name {
+    padding: 15px 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-bottom: 1px solid $menu-item-color;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 15px 20px;
+    transition-duration: 0.2s;
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+    }
+}
+
+.menuText {
+    display: block;
+    margin-left: 6px;
+}
+
+.exit {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-top: 1px solid $menu-item-color;
+    padding: 15px 20px;
+    transition-duration: 0.2s;
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.02);
+    }
+}
+
 @media (max-width: 1024px) {
-    .userInfo {
+    .userInfo, .menuItem, .exit {
         cursor: default;
     }
 }
@@ -80,9 +112,6 @@
     }
     .title {
         font-size: 2.25rem;
-    }
-    .name {
-        display: none;
     }
     .menu {
         top: 72px;
