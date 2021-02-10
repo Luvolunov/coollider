@@ -15,8 +15,25 @@
 }
 
 .title {
+    line-height: 1.6;
     font-size: 2.625rem;
     font-weight: 700;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.name {
+    margin-right: 15px;
+}
+
+@media (max-width: 1024px) {
+    .userInfo {
+        cursor: default;
+    }
 }
 
 @media (max-width: 600px) {
@@ -27,5 +44,8 @@
     }
     .title {
         font-size: 2.25rem;
+    }
+    .name {
+        display: none;
     }
 }
