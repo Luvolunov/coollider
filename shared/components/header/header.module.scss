@@ -7,10 +7,25 @@
     background-color: $secondary-color;
     height: 72px;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 90px;
+    padding-right: 18px;
+}
+
+.title {
+    font-size: 2.625rem;
+    font-weight: 700;
 }
 
 @media (max-width: 600px) {
     .header {
-        height: 60px;
+        padding-left: 10px;
+        padding-right: 10px;
+        height: 65px;
+    }
+    .title {
+        font-size: 2.25rem;
     }
 }
