@@ -30,6 +30,42 @@
     margin-right: 15px;
 }
 
+.menu {
+    position: absolute;
+    width: 230px;
+    height: 250px;
+    right: 18px;
+    display: none;
+    top: 80px;
+    border-radius: 14px;
+    background-color: #FFF;
+    box-shadow: 0 0 5px rgba(165, 173, 184, 0.5);
+    &.open {
+        display: block;
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        right: 15px;
+        top: -7px;
+        display: block;
+        width: 16px;
+        height: 16px;
+        background-color: #fff;
+        box-shadow: 0 0 5px rgba(165, 173, 184, 0.5);
+        transform: rotate(45deg);
+    }
+}
+
+.menuInner {
+    width: 100%;
+    position: relative;
+    background-color: #FFF;
+    height: 100%;
+    border-radius: 14px;
+    z-index: 2;
+}
+
 @media (max-width: 1024px) {
     .userInfo {
         cursor: default;
@@ -47,5 +83,9 @@
     }
     .name {
         display: none;
+    }
+    .menu {
+        top: 72px;
+        right: 10px;
     }
 }
