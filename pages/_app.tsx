@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#C8DDF0" />
         <link rel="icon" type="image/png" href="/coollider-min.png" />
         <link rel='manifest' href='/manifest.json' />
-        <link rel="stylesheet" href="/fonts/fonts.css" />
+        <link rel="preload" as="font" href="/fonts/fonts.css" />
         <title>Куллайдер | Coollider</title>
       </Head>
       <Component {...pageProps} />

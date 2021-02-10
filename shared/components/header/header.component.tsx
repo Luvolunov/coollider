@@ -1,6 +1,6 @@
-import { HeaderProps } from "./header.props";
 import styles from "./header.module.scss";
-export default function Header({} : HeaderProps){
+
+export default function Header(){
     return(
         <header className={styles.header}>
         </header>

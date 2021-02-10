@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FormEvent} from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Form from '../../shared/components/form/form.component';
@@ -8,16 +8,22 @@ import styles from './sign-in.module.scss';
 import Button from '../../shared/components/button/button.component';
 import { useForm } from '../../shared/hooks/useForm.hook';
 import { SignInSchema } from '../../shared/schemas/sign-in.schema';
+import { useRouter } from 'next/router';
 
 export default function SignInPage() {
   const { handleInput, valid, errors } = useForm(SignInSchema);
+  const router = useRouter();
+  const signIn = (event: FormEvent) => {
+    event.preventDefault();
+    router.push('/courses')
+  }
   return (
     <>
       <Head>
         <title>Войти в Coollider!</title>
       </Head>
       <main className={styles.page}>
-        <Form style={{ width: '100%', maxWidth: '400px' }}>
+        <Form onSubmit={signIn} style={{ width: '100%', maxWidth: '400px' }}>
           <Logo />
           <br />
           <br />
@@ -27,7 +33,7 @@ export default function SignInPage() {
           <br />
           <br />
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Button type="button" disabled={!valid}>Войти</Button>
+            <Button type="submit" disabled={!valid}>Войти</Button>
           </div>
           <br />
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

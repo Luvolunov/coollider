@@ -1,4 +1,3 @@
-
 @import "../../colors";
 
 .aside{
@@ -10,7 +9,21 @@
     background-color: $primary-color;
     height: 100vh;
     transition: width .3s ease .1s;
-    &:hover{
+}
+
+@media (min-width: 1024px) {
+    .aside:hover{
         width: 300px;
+    }
+}
+
+@media (max-width: 600px) {
+    .aside {
+        width: auto;
+        top: unset;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 50px;
     }
 }

@@ -1,3 +1,9 @@
 .content {
   padding: 72px 0 0 72px;
 }
+
+@media (max-width: 600px) {
+  .content {
+    padding: 60px 0 50px 0;
+  }
+}
