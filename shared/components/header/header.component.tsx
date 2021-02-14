@@ -1,5 +1,6 @@
 import styles from "./header.module.scss";
 import Image from 'next/image';
+import Link from 'next/link';
 import {useEffect, useState, useRef} from "react";
 import classnames from 'classnames';
 
@@ -9,7 +10,7 @@ export default function Header(){
     const menuRef = useRef<any>(null);
     useEffect(() => {
         const handleOutsideClick = (event: Event) => {
-            if (!openedMenu) { return; }
+            if (!openedMenu || !menuRef.current) { return; }
             if (menuRef.current.contains(event.target)) { return; }
             setOpenedMenu(false);
         }
@@ -37,10 +38,12 @@ export default function Header(){
                         <Image src="/icons/chart-pie.svg" width={18} height={18} alt="statistics" />
                         <span className={styles.menuText}>Статистика</span>
                     </div>
-                    <div className={styles.exit}>
-                        <Image src="/icons/door-closed.svg" width={18} height={18} alt="exit" />
-                        <span className={styles.menuText}>Выйти</span>
-                    </div>
+                    <Link href="/auth/sign-in">
+                        <div className={styles.exit}>
+                            <Image src="/icons/door-closed.svg" width={18} height={18} alt="exit" />
+                            <span className={styles.menuText}>Выйти</span>
+                        </div>
+                    </Link>
                 </div>
             </nav>
         </header>
