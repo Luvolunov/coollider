@@ -1,6 +1,7 @@
-import React, {FormEvent} from 'react';
+import React, { FormEvent } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Form from '../../../shared/components/form/form.component';
 import Input from '../../../shared/components/input/input.component';
 import Logo from '../../../shared/components/logo/logo.component';
@@ -8,15 +9,14 @@ import styles from './sign-in.module.scss';
 import Button from '../../../shared/components/button/button.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
 import { SignInSchema } from '../../../shared/schemas/sign-in.schema';
-import { useRouter } from 'next/router';
 
 export default function SignInPage() {
   const { handleInput, valid, errors } = useForm(SignInSchema);
   const router = useRouter();
   const signIn = (event: FormEvent) => {
     event.preventDefault();
-    router.push('/courses')
-  }
+    router.push('/courses');
+  };
   return (
     <>
       <Head>
@@ -27,7 +27,7 @@ export default function SignInPage() {
           <Logo />
           <br />
           <br />
-          <Input  placeholder="Почта" onChange={handleInput} name="email" errors={errors.email} />
+          <Input placeholder="Почта" onChange={handleInput} name="email" errors={errors.email} />
           <br />
           <Input placeholder="Пароль" type="password" onChange={handleInput} name="password" errors={errors.password} />
           <br />

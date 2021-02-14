@@ -1,17 +1,17 @@
-import Header from "../header/header.component";
-import Menu from "../menu/menu.component";
+import Header from '../header/header.component';
+import Menu from '../menu/menu.component';
 import styles from './page-container.module.scss';
 
 type PageContainerProps = {
-    children: any;
+  children: any;
 };
 
 export default function PageContainer({ children }: PageContainerProps) {
-    return (
-      <>
-          <Header />
-          <Menu />
-          <div className={styles.content}>{children}</div>
-      </>
-    );
+  return (
+    <>
+      <Header />
+      <Menu />
+      <div className={styles.content}>{children}</div>
+    </>
+  );
 }

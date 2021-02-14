@@ -1,34 +1,33 @@
-import {useState, FocusEvent, ChangeEvent} from 'react';
-import styles from './input.module.scss';
+import { useState, FocusEvent, ChangeEvent } from 'react';
 import classNames from 'classnames';
-import {InputProps} from './input.props';
+import styles from './input.module.scss';
+import { InputProps } from './input.props';
 
 export default function Input({
-    placeholder, onFocus, onBlur, errors = [], onChange, ...props
+  placeholder, onFocus, onBlur, errors = [], onChange, ...props
 }: InputProps) {
-
   const [active, setActive] = useState(false);
   const [touched, setTouched] = useState(false);
 
   const error = errors.length ? errors[0] : null;
 
   const labelClasses = classNames(styles.label, { [styles.active]: active });
-  const inputClasses = classNames(styles.input, {[styles.error]: error && touched });
+  const inputClasses = classNames(styles.input, { [styles.error]: error && touched });
 
   const handleOnFocus = (event: FocusEvent<HTMLInputElement>) => {
-      setActive(true);
-      onFocus && onFocus(event);
+    setActive(true);
+    onFocus && onFocus(event);
   };
   const handleOnBlur = (event: FocusEvent<HTMLInputElement>) => {
-      setActive(!!event.target.value);
-      setTouched(true);
-      onBlur && onBlur(event);
+    setActive(!!event.target.value);
+    setTouched(true);
+    onBlur && onBlur(event);
   };
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-      setActive(true);
-      setTouched(true);
-      onChange && onChange(event);
-  }
+    setActive(true);
+    setTouched(true);
+    onChange && onChange(event);
+  };
 
   return (
     <label className={labelClasses}>
@@ -37,7 +36,7 @@ export default function Input({
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
         onChange={handleOnChange}
-        autoComplete="new-password"
+        autoComplete="off"
         className={inputClasses}
         {...props}
       />

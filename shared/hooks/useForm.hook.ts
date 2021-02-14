@@ -3,18 +3,18 @@ import { ValidationSchema, Validator } from './validation-schema.interface';
 
 export function useForm(schema: ValidationSchema) {
   const defaultFieldsState = Object.keys(schema)
-      .reduce<any>((acc, key) => ({ ...acc, [key]: null }), {});
+    .reduce<any>((acc, key) => ({ ...acc, [key]: null }), {});
 
   const [valid, setValid] = useState(false);
   const [values, setValues] = useState(defaultFieldsState);
   const [errors, setErrors] = useState({} as any);
 
-  const handleInput = ({target: {name, value}}: ChangeEvent<HTMLInputElement>) => {
+  const handleInput = ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [name]: value });
-  }
-  const handleCheckbox = ({target: {name, checked}}: ChangeEvent<HTMLInputElement>) => {
+  };
+  const handleCheckbox = ({ target: { name, checked } }: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [name]: checked });
-  }
+  };
 
   const getErrors = (name : string) => schema[name]
     .reduce((allErrors: Array<string>, validate: Validator) => {
@@ -24,7 +24,7 @@ export function useForm(schema: ValidationSchema) {
 
   useEffect(() => {
     const err = Object.keys(schema).reduce((allErrors, name) => ({ ...allErrors, [name]: getErrors(name) }), {});
-    const isValid = !Object.values<string[]>(err).filter((errors ) => !!errors.length).length;
+    const isValid = !Object.values<string[]>(err).filter((errors) => !!errors.length).length;
     setValid(isValid);
     setErrors(err);
   }, [values]);
@@ -34,6 +34,6 @@ export function useForm(schema: ValidationSchema) {
     handleCheckbox,
     values,
     valid,
-    errors
+    errors,
   };
 }

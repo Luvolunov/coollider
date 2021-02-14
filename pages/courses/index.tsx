@@ -1,4 +1,3 @@
-
 export default function CoursesPage() {
-    return 'Courses';
+  return 'Courses';
 }
