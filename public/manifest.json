@@ -2,7 +2,7 @@
   "name": "Coollider Platform",
   "short_name": "Coollider",
   "description": "Coollider helps you to learn fast",
-  "start_url": "/sign-in",
+  "start_url": "/auth/sign-in",
   "display": "standalone",
   "orientation": "portrait",
   "lang": "Russian",
