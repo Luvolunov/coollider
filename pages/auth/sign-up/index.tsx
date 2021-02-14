@@ -1,12 +1,12 @@
-import Form from "../../shared/components/form/form.component";
-import Input from "../../shared/components/input/input.component";
-import { useForm } from "../../shared/hooks/useForm.hook";
+import Form from "../../../shared/components/form/form.component";
+import Input from "../../../shared/components/input/input.component";
+import { useForm } from "../../../shared/hooks/useForm.hook";
 import Link from "next/link";
 import styles from "./sign-up.module.scss";
-import { SignUpSchema } from "../../shared/schemas/sign-up.schema";
+import { SignUpSchema } from "../../../shared/schemas/sign-up.schema";
 import Head from "next/head";
-import Button from "../../shared/components/button/button.component";
-import { Checkbox } from "../../shared/components/checkbox/checkbox.component";
+import Button from "../../../shared/components/button/button.component";
+import { Checkbox } from "../../../shared/components/checkbox/checkbox.component";
 
 export default function SignUpPage() {
     const {
@@ -61,7 +61,7 @@ export default function SignUpPage() {
                 </div>
                 <br />
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <Link href="/sign-in">
+                    <Link href="/auth/sign-in">
                         <a>У меня есть аккаунт :)</a>
                     </Link>
                 </div>

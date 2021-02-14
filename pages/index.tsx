@@ -7,7 +7,7 @@ export default function HomePage() {
 HomePage.getInitialProps = function ({ res }: GetServerSidePropsContext) {
   if (res) {
     res.writeHead(301, {
-      Location: '/sign-in',
+      Location: '/auth/sign-in',
     });
     res.end();
   }

@@ -1,13 +1,13 @@
 import React, {FormEvent} from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import Form from '../../shared/components/form/form.component';
-import Input from '../../shared/components/input/input.component';
-import Logo from '../../shared/components/logo/logo.component';
+import Form from '../../../shared/components/form/form.component';
+import Input from '../../../shared/components/input/input.component';
+import Logo from '../../../shared/components/logo/logo.component';
 import styles from './sign-in.module.scss';
-import Button from '../../shared/components/button/button.component';
-import { useForm } from '../../shared/hooks/useForm.hook';
-import { SignInSchema } from '../../shared/schemas/sign-in.schema';
+import Button from '../../../shared/components/button/button.component';
+import { useForm } from '../../../shared/hooks/useForm.hook';
+import { SignInSchema } from '../../../shared/schemas/sign-in.schema';
 import { useRouter } from 'next/router';
 
 export default function SignInPage() {
@@ -37,7 +37,7 @@ export default function SignInPage() {
           </div>
           <br />
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Link href="/sign-up">
+            <Link href="/auth/sign-up">
               <a>У меня нет аккаунта :(</a>
             </Link>
           </div>
