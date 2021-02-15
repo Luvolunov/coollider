@@ -3,7 +3,7 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox
 
 const CACHE = "com.coollider.cache";
 
-const offlineFallbackPage = "/sign-in";
+const offlineFallbackPage = "/auth/sign-in";
 
 self.addEventListener("message", (event) => {
     if (event.data && event.data.type === "SKIP_WAITING") {
