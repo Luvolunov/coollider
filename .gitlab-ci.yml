@@ -1,0 +1,27 @@
+stages:
+  - test
+  - deploy
+
+before_script:
+  - docker --version
+  - docker-compose --version
+
+Test Client:
+    stage: test
+    script:
+        - echo "Test passed"
+    tags:
+        - dev-shell
+    only:
+        - dev
+        - master
+        - production
+
+Deploy Client:
+    stage: deploy
+    script:
+        - echo "App deployed"
+    tags:
+        - dev-shell
+    only:
+        - dev
