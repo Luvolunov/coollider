@@ -20,7 +20,14 @@ Test Client:
 Deploy Client:
     stage: deploy
     script:
-        - echo "App deployed"
+        - tar -cf app.tar *
+        - scp app.tar $DEPLOY_USER@$DEPLOY_HOST:/home/$DEPLOY_USER/app.tar
+        - ssh $DEPLOY_USER@$DEPLOY_HOST 'rm -rf app &&
+                                     mkdir -p app &&
+                                     tar -xf app.tar -C app &&
+                                     cd app && docker-compose down &&
+                                     docker system prune -a &&
+                                     docker-compose up --build -d'
     tags:
         - dev-shell
     only:
