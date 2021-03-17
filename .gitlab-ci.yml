@@ -20,7 +20,8 @@ Test Client:
 Deploy Client:
     stage: deploy
     script:
-        - tar -cf app.tar *
+        - echo "${DEV_ENV_CONFIG}" > .env
+        - tar -cf app.tar * .env
         - scp app.tar $DEPLOY_USER@$DEPLOY_HOST:/home/$DEPLOY_USER/app.tar
         - ssh $DEPLOY_USER@$DEPLOY_HOST 'rm -rf app &&
                                      mkdir -p app &&
