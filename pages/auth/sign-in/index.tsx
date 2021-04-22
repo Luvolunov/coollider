@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Form from '../../../shared/components/form/form.component';
 import Input from '../../../shared/components/input/input.component';
-import Logo from '../../../shared/components/logo/logo.component';
 import styles from './sign-in.module.scss';
 import Button from '../../../shared/components/button/button.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
@@ -19,13 +18,12 @@ export default function SignInPage() {
   };
   return (
     <>
-	 {/* Comeback */}
       <Head>
         <title>Войти в Coollider!</title>
       </Head>
       <main className={styles.page}>
-        <Form onSubmit={signIn} style={{ width: '100%', maxWidth: '400px' }}>
-          <Logo />
+        <Form onSubmit={signIn} style={{ maxWidth: '400px' }}>
+          <h5 style={{ textAlign: 'center' }}>Вход</h5>
           <br />
           <br />
           <Input placeholder="Почта" onChange={handleInput} name="email" errors={errors.email} />
