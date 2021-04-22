@@ -1,23 +1,45 @@
-
+@import "../../breakpoints";
 
 .greetings {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 20px 40px;
+  text-align: center;
+  padding: 10px 20px 20px;
   background: rgba( 200, 200, 200, 0.30 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
   backdrop-filter: blur( 13.5px );
   -webkit-backdrop-filter: blur( 13.5px );
   border-radius: 12px;
   border: 1px solid rgba( 255, 255, 255, 0.18 );
-  font-size: 1.3rem;
+}
+
+.title, .text {
+  margin-bottom: 10px;
 }
 
 .text {
-  margin-bottom: 10px;
+  font-size: 1.3rem;
 }
 
 .text:last-child {
   margin-bottom: 0;
+}
+
+@media (max-width: $small) {
+  .title {
+    font-size: 2.5rem;
+  }
+  .text {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: $x-small) {
+  .title {
+    font-size: 2rem;
+  }
+  .text {
+    font-size: 1rem;
+  }
 }

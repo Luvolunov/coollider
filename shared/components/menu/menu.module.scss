@@ -1,5 +1,6 @@
 @import "../../colors";
 @import "../../shadows";
+@import "../../breakpoints";
 
 .menu {
   position: fixed;
@@ -46,4 +47,40 @@
   padding-top: 6px;
   font-size: 11px;
   color: #fff;
+}
+
+@media (max-width: $medium) {
+  .menu {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 60px;
+    width: unset;
+    top: unset;
+    flex-direction: row;
+    align-items: center;
+  }
+  .firstMenu, .secondMenu {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .firstMenu {
+    flex: 3;
+  }
+  .secondMenu {
+    flex: 1;
+  }
+  .menuItem {
+    margin: 0;
+    padding: 0;
+    height: 40px;
+    cursor: default;
+  }
+  .menuItemImage {
+    display: block;
+  }
+  .notMobile {
+    display: none;
+  }
 }

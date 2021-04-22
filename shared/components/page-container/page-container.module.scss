@@ -17,3 +17,11 @@
     padding: 0 50px;
   }
 }
+
+@media (max-width: $medium) {
+  .container {
+    margin: 0 0 60px;
+    background-position: 50% 50%;
+    padding: 0 20px;
+  }
+}

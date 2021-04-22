@@ -4,7 +4,7 @@ import styles from './greetings.module.scss';
 export default function Greetings() {
   return (
     <section className={styles.greetings}>
-      <h2 className={styles.text}>Добро пожаловать!</h2>
+      <h2 className={styles.title}>Добро пожаловать!</h2>
       <span className={styles.text}>
         Здраствуйте Иван Петров, последний раз вы заходили: 10.03.2021
       </span>
