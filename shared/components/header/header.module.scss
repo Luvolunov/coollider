@@ -39,6 +39,7 @@
     top: 70px;
     border-radius: 14px;
     background-color: #FFF;
+    z-index: 30;
     &.open {
         display: block;
     }
@@ -105,21 +106,5 @@ $menu-item-color: rgba(0, 0, 0, 0.1);
 @media (max-width: 1024px) {
     .userInfo, .menuItem, .exit {
         cursor: default;
-    }
-}
-
-@media (max-width: 600px) {
-    .header {
-        box-shadow: $standard-shadow;
-        padding-left: 10px;
-        padding-right: 10px;
-        height: 65px;
-    }
-    .title {
-        font-size: 2.25rem;
-    }
-    .menu {
-        top: 72px;
-        right: 10px;
     }
 }
