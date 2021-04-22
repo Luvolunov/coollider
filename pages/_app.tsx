@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import './global.scss';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
