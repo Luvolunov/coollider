@@ -1,7 +1,6 @@
 import React, { FormEvent } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import Form from '../../../shared/components/form/form.component';
 import Input from '../../../shared/components/input/input.component';
 import styles from './sign-in.module.scss';
@@ -14,7 +13,6 @@ export default function SignInPage() {
   const {
     handleInput, valid, errors, values,
   } = useForm(SignInSchema);
-  const router = useRouter();
   const signIn = async (event: FormEvent) => {
     event.preventDefault();
     const res = await fetch(buildUrl('/auth/sign-in'), {
@@ -23,7 +21,7 @@ export default function SignInPage() {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'same-origin',
     });
-    const { success } = await res.json();
+    await res.json();
     const resProfile = await fetch(buildUrl('/user/profile'));
     console.log(resProfile.json());
   };
