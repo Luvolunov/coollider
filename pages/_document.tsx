@@ -1,3 +1,4 @@
+import React from 'react';
 import NextDocument, {
   Html, Head, Main, NextScript,
 } from 'next/document';
@@ -20,7 +21,7 @@ export default class AppDocument extends NextDocument {
     return (
       <Html lang="ru">
         <Head>
-          <script dangerouslySetInnerHTML={{ __html: yaMetrika }}></script>
+          <script dangerouslySetInnerHTML={{ __html: yaMetrika }} />
           <noscript>
             <div>
               <img src="https://mc.yandex.ru/watch/74119825" style={{ position: 'absolute', left: '-9999px' }} alt="" />

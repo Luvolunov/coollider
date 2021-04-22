@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import Form from '../../../shared/components/form/form.component';
@@ -21,7 +22,7 @@ export default function SignUpPage() {
         <title>Зарегистрироваться в Coollider!</title>
       </Head>
       <main className={styles.page}>
-        <Form style={{ width: '100%', maxWidth: '450px' }}>
+        <Form style={{ maxWidth: '450px' }}>
           <h5 style={{ textAlign: 'center' }}>Регистрация</h5>
           <br />
           <Input

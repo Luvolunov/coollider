@@ -1,4 +1,4 @@
-import { useState, FocusEvent, ChangeEvent } from 'react';
+import React, { useState, FocusEvent, ChangeEvent } from 'react';
 import classNames from 'classnames';
 import styles from './input.module.scss';
 import { InputProps } from './input.props';

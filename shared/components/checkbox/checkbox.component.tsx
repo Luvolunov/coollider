@@ -1,7 +1,9 @@
+/* eslint-disable react/jsx-props-no-spreading,jsx-a11y/label-has-associated-control */
+import React from 'react';
 import styles from './checkbox.module.scss';
 import { CheckboxProps } from './checkbox.props';
 
-export function Checkbox({ children, ...props }: CheckboxProps) {
+export default function Checkbox({ children, ...props }: CheckboxProps) {
   return (
     <label className={styles.label}>
       <input
