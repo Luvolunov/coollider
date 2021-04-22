@@ -9,10 +9,10 @@ type PageContainerProps = {
 
 export default function PageContainer({ children }: PageContainerProps) {
   return (
-    <>
+    <div className={styles.container}>
       <Header />
       <Menu />
       <div className={styles.content}>{children}</div>
-    </>
+    </div>
   );
 }
