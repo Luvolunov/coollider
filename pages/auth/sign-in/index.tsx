@@ -11,12 +11,21 @@ import { SignInSchema } from '../../../shared/schemas/sign-in.schema';
 import buildUrl from '../../../shared/utils/build-url';
 
 export default function SignInPage() {
-  const { handleInput, valid, errors } = useForm(SignInSchema);
+  const {
+    handleInput, valid, errors, values,
+  } = useForm(SignInSchema);
   const router = useRouter();
   const signIn = async (event: FormEvent) => {
     event.preventDefault();
-    const res = await fetch(buildUrl('/auth/sign-in'), { method: 'POST' });
-    console.log(res);
+    const res = await fetch(buildUrl('/auth/sign-in'), {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+    });
+    const { success } = await res.json();
+    const resProfile = await fetch(buildUrl('/user/profile'));
+    console.log(resProfile.json());
   };
   return (
     <>
