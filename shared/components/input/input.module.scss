@@ -39,7 +39,6 @@
   position: absolute;
   top: 31px;
   color: $gray-color;
-  transition-duration: 0.3s;
   user-select: none;
   cursor: text;
   white-space: nowrap;
@@ -60,12 +59,27 @@
 }
 
 .label.active .placeholder {
-  transform: translateX(20px);
-  opacity: 0;
+  animation: going-right 0.3s 1 forwards;
 }
 
 .label.active .small {
   transform: translateX(0);
   opacity: 1;
   transition-duration: 0.5s;
+}
+
+@keyframes going-right {
+  0% {
+    left: 0;
+    opacity: 1;
+  }
+  99% {
+    left: 20px;
+    opacity: 0;
+  }
+  100% {
+    left: 20px;
+    opacity: 0;
+    visibility: hidden;
+  }
 }

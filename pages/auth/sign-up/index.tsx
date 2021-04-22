@@ -7,7 +7,7 @@ import { useForm } from '../../../shared/hooks/useForm.hook';
 import styles from './sign-up.module.scss';
 import { SignUpSchema } from '../../../shared/schemas/sign-up.schema';
 import Button from '../../../shared/components/button/button.component';
-import { Checkbox } from '../../../shared/components/checkbox/checkbox.component';
+import Checkbox from '../../../shared/components/checkbox/checkbox.component';
 
 export default function SignUpPage() {
   const {

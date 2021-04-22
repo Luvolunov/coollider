@@ -8,13 +8,15 @@ import styles from './sign-in.module.scss';
 import Button from '../../../shared/components/button/button.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
 import { SignInSchema } from '../../../shared/schemas/sign-in.schema';
+import buildUrl from '../../../shared/utils/build-url';
 
 export default function SignInPage() {
   const { handleInput, valid, errors } = useForm(SignInSchema);
   const router = useRouter();
-  const signIn = (event: FormEvent) => {
+  const signIn = async (event: FormEvent) => {
     event.preventDefault();
-    router.push('/courses');
+    const res = await fetch(buildUrl('/auth/sign-in'), { method: 'POST' });
+    console.log(res);
   };
   return (
     <>

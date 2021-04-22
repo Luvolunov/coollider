@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions,react/jsx-props-no-spreading,jsx-a11y/label-has-associated-control */
 import React, { useState, FocusEvent, ChangeEvent } from 'react';
 import classNames from 'classnames';
 import styles from './input.module.scss';
@@ -17,6 +18,7 @@ export default function Input({
   const handleOnFocus = (event: FocusEvent<HTMLInputElement>) => {
     setActive(true);
     onFocus && onFocus(event);
+    setTimeout(() => {}, 300);
   };
   const handleOnBlur = (event: FocusEvent<HTMLInputElement>) => {
     setActive(!!event.target.value);
