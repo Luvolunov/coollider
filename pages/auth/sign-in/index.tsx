@@ -8,22 +8,30 @@ import Button from '../../../shared/components/button/button.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
 import { SignInSchema } from '../../../shared/schemas/sign-in.schema';
 import buildUrl from '../../../shared/utils/build-url';
+import { useRouter } from 'next/router';
 
 export default function SignInPage() {
   const {
     handleInput, valid, errors, values,
   } = useForm(SignInSchema);
+  const router = useRouter();
   const signIn = async (event: FormEvent) => {
     event.preventDefault();
     const res = await fetch(buildUrl('/auth/sign-in'), {
       method: 'POST',
       body: JSON.stringify(values),
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': 'true',
+      },
+      credentials: 'include',
     });
-    await res.json();
-    const resProfile = await fetch(buildUrl('/user/profile'));
-    console.log(resProfile.json());
+    const { success } = await res.json();
+    if (!success) {
+      alert('Incorrect email or password');
+      return;
+    }
+    router.push('/courses');
   };
   return (
     <>
