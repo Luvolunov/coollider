@@ -5,6 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px 10px;
-    background-color: $secondary-color;
+    padding: 20px 0px;
+    background: url("/background.png") no-repeat fixed;
+    background-size: cover;
 }

@@ -1,15 +1,10 @@
 .container {
   background: url("/background.png") no-repeat fixed;
   background-size: cover;
-  min-height: 200vh;
+  min-height: 100vh;
+  padding: 0 160px 0 232px;
 }
 
 .content {
-  padding: 72px 0 0 72px;
-}
-
-@media (max-width: 600px) {
-  .content {
-    padding: 65px 0 58px 0;
-  }
+  color: #fff;
 }
