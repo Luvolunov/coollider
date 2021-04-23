@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FormEvent } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Form from '../../../shared/components/form/form.component';
 import Input from '../../../shared/components/input/input.component';
 import styles from './sign-in.module.scss';
@@ -8,7 +10,6 @@ import Button from '../../../shared/components/button/button.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
 import { SignInSchema } from '../../../shared/schemas/sign-in.schema';
 import buildUrl from '../../../shared/utils/build-url';
-import { useRouter } from 'next/router';
 
 export default function SignInPage() {
   const {
@@ -31,7 +32,7 @@ export default function SignInPage() {
       alert('Incorrect email or password');
       return;
     }
-    router.push('/courses');
+    await router.push('/courses');
   };
   return (
     <>
