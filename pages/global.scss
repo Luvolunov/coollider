@@ -58,15 +58,6 @@ a {
   color: $primary-color;
   text-decoration: none;
   position: relative;
-  &::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    background-color: $primary-color;
-    left: 0;
-    bottom: 0;
-  }
 }
 
 input:-webkit-autofill,
