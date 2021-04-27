@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import Form from '../../../shared/components/form/form.component';
 import Input from '../../../shared/components/input/input.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
@@ -8,6 +9,8 @@ import styles from './sign-up.module.scss';
 import { SignUpSchema } from '../../../shared/schemas/sign-up.schema';
 import Button from '../../../shared/components/button/button.component';
 import Checkbox from '../../../shared/components/checkbox/checkbox.component';
+import UserAPI from '../../../shared/api/user.api';
+import Loader from '../../../shared/components/loader/loader.component';
 
 export default function SignUpPage() {
   const {
@@ -16,7 +19,14 @@ export default function SignUpPage() {
     valid,
     errors,
   } = useForm(SignUpSchema);
-  return (
+  const router = useRouter();
+  const { data } = UserAPI.current();
+  useEffect(() => {
+    if (data && data.success) {
+      router.push('/courses');
+    }
+  }, [data]);
+  return !data ? <Loader /> : (
     <>
       <Head>
         <title>Зарегистрироваться в Coollider!</title>

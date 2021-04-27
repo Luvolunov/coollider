@@ -1,14 +1,26 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
 import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import classnames from 'classnames';
+import { useRouter } from 'next/router';
 import styles from './header.module.scss';
+import UserAPI from '../../api/user.api';
+import buildUrl from '../../utils/build-url';
 
 export default function Header() {
+  const { data } = UserAPI.current();
+  const router = useRouter();
   const [openedMenu, setOpenedMenu] = useState(false);
   const menuClass = classnames(styles.menu, { [styles.open]: openedMenu });
   const menuRef = useRef<any>(null);
+  const username = `${data?.body?.firstName} ${data?.body?.lastName}`;
+  const logout = async () => {
+    await fetch(buildUrl('/auth/sign-out'), {
+      method: 'POST',
+      credentials: 'include',
+    });
+    await router.push('/auth/sign-in');
+  };
   useEffect(() => {
     const handleOutsideClick = (event: Event) => {
       if (!openedMenu || !menuRef.current) { return; }
@@ -27,7 +39,7 @@ export default function Header() {
         </div>
         <nav ref={menuRef} className={menuClass}>
           <div className={styles.menuInner}>
-            <div className={styles.name}>Майкл Джексон</div>
+            <div className={styles.name}>{username}</div>
             <div className={styles.menuItem}>
               <Image src="/icons/user.svg" width={18} height={18} alt="profile" />
               <span className={styles.menuText}>Профиль</span>
@@ -40,12 +52,10 @@ export default function Header() {
               <Image src="/icons/chart-pie.svg" width={18} height={18} alt="statistics" />
               <span className={styles.menuText}>Статистика</span>
             </div>
-            <Link href="/auth/sign-in">
-              <div className={styles.exit}>
-                <Image src="/icons/door-closed.svg" width={18} height={18} alt="exit" />
-                <span className={styles.menuText}>Выйти</span>
-              </div>
-            </Link>
+            <div onClick={logout} className={styles.exit}>
+              <Image src="/icons/door-closed.svg" width={18} height={18} alt="exit" />
+              <span className={styles.menuText}>Выйти</span>
+            </div>
           </div>
         </nav>
       </div>
