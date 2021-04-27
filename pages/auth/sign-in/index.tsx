@@ -31,6 +31,7 @@ export default function SignInPage() {
       body: JSON.stringify(values),
       headers: {
         Accept: 'application/json',
+        'Access-Control-Allow-Credentials': 'true',
         'Content-Type': 'application/json',
       },
       credentials: 'include',
