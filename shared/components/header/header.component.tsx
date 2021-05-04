@@ -2,14 +2,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import classnames from 'classnames';
-import { useRouter } from 'next/router';
 import styles from './header.module.scss';
 import UserAPI from '../../api/user.api';
 import buildUrl from '../../utils/build-url';
 
 export default function Header() {
-  const { data } = UserAPI.current();
-  const router = useRouter();
+  const { data, revalidate } = UserAPI.current();
   const [openedMenu, setOpenedMenu] = useState(false);
   const menuClass = classnames(styles.menu, { [styles.open]: openedMenu });
   const menuRef = useRef<any>(null);
@@ -19,7 +17,7 @@ export default function Header() {
       method: 'POST',
       credentials: 'include',
     });
-    await router.push('/auth/sign-in');
+    await revalidate();
   };
   useEffect(() => {
     const handleOutsideClick = (event: Event) => {
