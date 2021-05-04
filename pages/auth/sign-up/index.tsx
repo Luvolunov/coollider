@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { FormEvent, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -11,6 +12,7 @@ import Button from '../../../shared/components/button/button.component';
 import Checkbox from '../../../shared/components/checkbox/checkbox.component';
 import UserAPI from '../../../shared/api/user.api';
 import Loader from '../../../shared/components/loader/loader.component';
+import buildUrl from '../../../shared/utils/build-url';
 
 export default function SignUpPage() {
   const {
@@ -18,6 +20,7 @@ export default function SignUpPage() {
     handleCheckbox,
     valid,
     errors,
+    values,
   } = useForm(SignUpSchema);
   const router = useRouter();
   const { data } = UserAPI.current();
@@ -26,13 +29,32 @@ export default function SignUpPage() {
       router.push('/courses');
     }
   }, [data]);
+  const signUp = async (event: FormEvent) => {
+    event.preventDefault();
+    const res = await fetch(buildUrl('/auth/sign-up'), {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: {
+        Accept: 'application/json',
+        'Access-Control-Allow-Credentials': 'true',
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+    const { success } = await res.json();
+    if (!success) {
+      alert('Something went wrong');
+      return;
+    }
+    await router.push('/auth/sign-in');
+  };
   return !data ? <Loader /> : (
     <>
       <Head>
         <title>Зарегистрироваться в Coollider!</title>
       </Head>
       <main className={styles.page}>
-        <Form style={{ maxWidth: '450px' }}>
+        <Form onSubmit={signUp} style={{ maxWidth: '450px' }}>
           <h5 style={{ textAlign: 'center' }}>Регистрация</h5>
           <br />
           <Input
@@ -68,7 +90,7 @@ export default function SignUpPage() {
           <br />
           <br />
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Button type="button" disabled={!valid}>Зарегистрироваться</Button>
+            <Button type="submit" disabled={!valid}>Зарегистрироваться</Button>
           </div>
           <br />
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
