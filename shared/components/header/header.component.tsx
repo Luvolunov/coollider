@@ -5,8 +5,11 @@ import classnames from 'classnames';
 import styles from './header.module.scss';
 import UserAPI from '../../api/user.api';
 import buildUrl from '../../utils/build-url';
+import { useStore } from 'effector-react';
+import { title } from '../../../store/title';
 
 export default function Header() {
+  const titleStore = useStore(title);
   const { data, revalidate } = UserAPI.current();
   const [openedMenu, setOpenedMenu] = useState(false);
   const menuClass = classnames(styles.menu, { [styles.open]: openedMenu });
@@ -31,7 +34,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.headerInner}>
-        <h1 className={styles.title}>Курсы</h1>
+        <h1 className={styles.title}>{titleStore}</h1>
         <div onClick={() => setOpenedMenu(!openedMenu)} className={styles.userInfo}>
           <Image src="/icons/user-circle.svg" width={45} height={45} alt="user" />
         </div>
