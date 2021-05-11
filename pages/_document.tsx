@@ -17,11 +17,11 @@ const yaMetrika = `
 `;
 
 const googleAnalytics = `
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-
-gtag('config', 'UA-196759472-1');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  
+  gtag('config', 'UA-196759472-1');
 `;
 
 export default class AppDocument extends NextDocument {
