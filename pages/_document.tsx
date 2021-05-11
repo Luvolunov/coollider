@@ -20,8 +20,8 @@ const googleAnalytics = `
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  
-  gtag('config', 'UA-196759472-1');
+
+  gtag('config', 'G-1QGC465DXH');
 `;
 
 export default class AppDocument extends NextDocument {
@@ -34,7 +34,7 @@ export default class AppDocument extends NextDocument {
             data-ad-client="ca-pub-7977093531586489"
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
           />
-          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196759472-1" />
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-1QGC465DXH" />
           <script dangerouslySetInnerHTML={{ __html: googleAnalytics }} />
           <script dangerouslySetInnerHTML={{ __html: yaMetrika }} />
           <noscript>
