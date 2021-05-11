@@ -21,6 +21,11 @@ export default class AppDocument extends NextDocument {
     return (
       <Html lang="ru">
         <Head>
+          <script
+            async
+            data-ad-client="ca-pub-7977093531586489"
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          />
           <script dangerouslySetInnerHTML={{ __html: yaMetrika }} />
           <noscript>
             <div>
