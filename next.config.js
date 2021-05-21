@@ -6,4 +6,12 @@ module.exports = withBundleAnalyzer({
   env: {
     API_HOST: process.env.API_HOST,
   },
+  rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${process.env.API_HOST}/:path*`,
+      },
+    ];
+  },
 });

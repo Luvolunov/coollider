@@ -1,32 +1,24 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { FormEvent, useEffect } from 'react';
+import React, { FormEvent } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
 import Form from '../../../shared/components/form/form.component';
 import Input from '../../../shared/components/input/input.component';
 import styles from './sign-in.module.scss';
 import Button from '../../../shared/components/button/button.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
 import { SignInSchema } from '../../../shared/schemas/sign-in.schema';
-import buildUrl from '../../../shared/utils/build-url';
-import UserAPI from '../../../shared/api/user.api';
-import Loader from '../../../shared/components/loader/loader.component';
 
 export default function SignInPage() {
   const router = useRouter();
-  const { data, revalidate } = UserAPI.current();
-  useEffect(() => {
-    if (data && data.success) {
-      router.push('/courses');
-    }
-  }, [data]);
   const {
     handleInput, valid, errors, values,
   } = useForm(SignInSchema);
   const signIn = async (event: FormEvent) => {
     event.preventDefault();
-    const res = await fetch(buildUrl('/auth/sign-in'), {
+    const res = await fetch('/api/auth/sign-in', {
       method: 'POST',
       body: JSON.stringify(values),
       headers: {
@@ -41,10 +33,9 @@ export default function SignInPage() {
       alert('Incorrect email or password');
       return;
     }
-    await revalidate();
     await router.push('/courses');
   };
-  return !data ? <Loader /> : (
+  return (
     <>
       <Head>
         <title>Войти в Coollider!</title>
@@ -73,3 +64,15 @@ export default function SignInPage() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  if (ctx.req.cookies.c_a) {
+    return {
+      redirect: {
+        destination: '/courses',
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
+};

@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { FormEvent, useEffect } from 'react';
+import React, { FormEvent } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
 import Form from '../../../shared/components/form/form.component';
 import Input from '../../../shared/components/input/input.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
@@ -10,9 +11,6 @@ import styles from './sign-up.module.scss';
 import { SignUpSchema } from '../../../shared/schemas/sign-up.schema';
 import Button from '../../../shared/components/button/button.component';
 import Checkbox from '../../../shared/components/checkbox/checkbox.component';
-import UserAPI from '../../../shared/api/user.api';
-import Loader from '../../../shared/components/loader/loader.component';
-import buildUrl from '../../../shared/utils/build-url';
 
 export default function SignUpPage() {
   const {
@@ -23,15 +21,9 @@ export default function SignUpPage() {
     values,
   } = useForm(SignUpSchema);
   const router = useRouter();
-  const { data } = UserAPI.current();
-  useEffect(() => {
-    if (data && data.success) {
-      router.push('/courses');
-    }
-  }, [data]);
   const signUp = async (event: FormEvent) => {
     event.preventDefault();
-    const res = await fetch(buildUrl('/auth/sign-up'), {
+    const res = await fetch('/api/auth/sign-up', {
       method: 'POST',
       body: JSON.stringify(values),
       headers: {
@@ -48,7 +40,7 @@ export default function SignUpPage() {
     }
     await router.push('/auth/sign-in');
   };
-  return !data ? <Loader /> : (
+  return (
     <>
       <Head>
         <title>Зарегистрироваться в Coollider!</title>
@@ -103,3 +95,15 @@ export default function SignUpPage() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  if (ctx.req.cookies.c_a) {
+    return {
+      redirect: {
+        destination: '/courses',
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
+};
