@@ -1,3 +1,5 @@
+@import "../../breakpoints";
+
 .course {
   padding: 20px 20px 20px;
   display: flex;
@@ -37,4 +39,10 @@
   margin-left: 15px;
   font-weight: 100;
   letter-spacing: .5px;
+}
+
+@media (max-width: $medium) {
+  .course {
+    cursor: default;
+  }
 }
