@@ -1,0 +1,30 @@
+@import "../../shared/breakpoints";
+
+.coursesList {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.courseOuter {
+  width: 32%;
+  margin-bottom: 2%;
+  &:nth-child(3n) {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: $x-large) {
+  .courseOuter {
+    width: 49%;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: $small) {
+  .courseOuter {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
