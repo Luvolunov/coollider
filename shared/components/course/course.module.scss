@@ -10,10 +10,6 @@
 
 .courseOuter {
   max-width: 400px;
-  transition: transform linear .1s;
-  &:hover {
-    transform: scale(1.01);
-  }
 }
 
 .image {

@@ -1,5 +1,4 @@
 import useSWR from 'swr';
-import buildUrl from '../utils/build-url';
 
 const getFetcher = (url: string) => fetch(url, {
   headers: {
@@ -9,8 +8,8 @@ const getFetcher = (url: string) => fetch(url, {
 }).then((res) => res.json());
 
 const UserAPI = {
-  current: () => useSWR(buildUrl('/user/profile'), getFetcher),
-  getUser: (id: number) => useSWR(buildUrl(`/user/${id}`), getFetcher),
+  current: () => useSWR('/api/user/profile', getFetcher),
+  getUser: (id: number) => useSWR(`/api/user/${id}`, getFetcher),
 };
 
 export default UserAPI;

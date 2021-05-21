@@ -4,7 +4,6 @@ import Image from 'next/image';
 import classnames from 'classnames';
 import styles from './header.module.scss';
 import UserAPI from '../../api/user.api';
-import buildUrl from '../../utils/build-url';
 import { useStore } from 'effector-react';
 import { title } from '../../../store/title';
 
@@ -16,7 +15,7 @@ export default function Header() {
   const menuRef = useRef<any>(null);
   const username = `${data?.body?.firstName} ${data?.body?.lastName}`;
   const logout = async () => {
-    await fetch(buildUrl('/auth/sign-out'), {
+    await fetch('/api/auth/sign-out', {
       method: 'POST',
       credentials: 'include',
     });
