@@ -10,12 +10,14 @@ import styles from './sign-in.module.scss';
 import Button from '../../../shared/components/button/button.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
 import { SignInSchema } from '../../../shared/schemas/sign-in.schema';
+import UserAPI from '../../../shared/api/user.api';
 
 export default function SignInPage() {
   const router = useRouter();
   const {
     handleInput, valid, errors, values,
   } = useForm(SignInSchema);
+  const { revalidate } = UserAPI.current();
   const signIn = async (event: FormEvent) => {
     event.preventDefault();
     const res = await fetch('/api/auth/sign-in', {
@@ -33,6 +35,7 @@ export default function SignInPage() {
       alert('Incorrect email or password');
       return;
     }
+    await revalidate();
     await router.push('/courses');
   };
   return (

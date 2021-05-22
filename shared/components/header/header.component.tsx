@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import classnames from 'classnames';
+import { useRouter } from 'next/router';
 import styles from './header.module.scss';
 import UserAPI from '../../api/user.api';
 import { useStore } from 'effector-react';
@@ -9,6 +10,7 @@ import { title } from '../../../store/title';
 
 export default function Header() {
   const titleStore = useStore(title);
+  const router = useRouter();
   const { data, revalidate } = UserAPI.current();
   const [openedMenu, setOpenedMenu] = useState(false);
   const menuClass = classnames(styles.menu, { [styles.open]: openedMenu });
@@ -20,6 +22,7 @@ export default function Header() {
       credentials: 'include',
     });
     await revalidate();
+    await router.push('/auth/sign-in');
   };
   useEffect(() => {
     const handleOutsideClick = (event: Event) => {

@@ -6,7 +6,6 @@ type CircleProgressProps = {
 };
 
 export default function CircleProgress({ progress }: CircleProgressProps) {
-  console.log(progress);
   const circumference = 23.5 * 2 * Math.PI;
   const progressWidth = circumference - (progress / 100) * circumference;
   return (
