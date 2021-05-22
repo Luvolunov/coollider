@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import './global.scss';
 import { AppProps } from 'next/app';
-import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import PageContainer from '../shared/components/page-container/page-container.component';
@@ -27,21 +26,6 @@ export default function App({ Component, pageProps }: AppProps) {
   });
   return (
     <React.StrictMode>
-      <Head>
-        <meta charSet="UTF-8" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0"
-        />
-        <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-        <meta name="description" content="Начни своё путешествие вместе с Куллайдером!" />
-        <meta name="theme-color" content="#C8DDF0" />
-        <link rel="icon" type="image/png" href="/coollider-ready.png" />
-        <link rel="apple-touch-icon" sizes="1024x1024" href="/coollider-ready.png" />
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="stylesheet" href="/fonts/fonts.css" />
-        <title>Куллайдер | Coollider</title>
-      </Head>
       {
         navigating
           ? <Loader />
