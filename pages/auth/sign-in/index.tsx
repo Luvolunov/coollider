@@ -3,7 +3,6 @@ import React, { FormEvent } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
 import Form from '../../../shared/components/form/form.component';
 import Input from '../../../shared/components/input/input.component';
 import styles from './sign-in.module.scss';
@@ -67,15 +66,3 @@ export default function SignInPage() {
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  if (ctx.req.cookies.c_a) {
-    return {
-      redirect: {
-        destination: '/courses',
-        permanent: false,
-      },
-    };
-  }
-  return { props: {} };
-};

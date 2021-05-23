@@ -3,7 +3,6 @@ import React, { FormEvent } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
 import Form from '../../../shared/components/form/form.component';
 import Input from '../../../shared/components/input/input.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
@@ -95,15 +94,3 @@ export default function SignUpPage() {
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  if (ctx.req.cookies.c_a) {
-    return {
-      redirect: {
-        destination: '/courses',
-        permanent: false,
-      },
-    };
-  }
-  return { props: {} };
-};
