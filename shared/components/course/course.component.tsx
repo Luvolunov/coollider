@@ -2,18 +2,25 @@ import React from 'react';
 import styles from './course.module.scss';
 import Glass from '../glass/glass.component';
 import CircleProgress from '../circle-progress/circle-progress.component';
+import { CourseInterface } from '../../types/course.interface';
 
-export default function Course() {
+type CourseProps = {
+  course: CourseInterface
+};
+
+export default function Course({ course }: CourseProps) {
   return (
     <div className={styles.courseOuter}>
       <Glass>
         <div className={styles.course}>
-          <img className={styles.image} src="/html.svg" alt="dna" />
-          <span className={styles.title}>Тайны HTML</span>
+          <img className={styles.image} src={course.imageUrl} alt="dna" />
+          <span className={styles.title}>{course.name}</span>
           <div className={styles.progressOuter}>
-            <CircleProgress progress={50} />
+            <CircleProgress progress={0} />
             <span className={styles.textOuter}>
-              Пройдено 6 уроков из 12
+              Пройдено 0 уроков из
+              {' '}
+              {course.lessonsCount}
             </span>
           </div>
         </div>
