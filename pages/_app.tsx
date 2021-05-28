@@ -61,13 +61,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
 App.getInitialProps = async ({ ctx: { req, res } }: any) => {
   if (!req) { return { props: {} }; }
-  if (!req.cookies.c_a && req.url.indexOf('/auth/sign-in') === -1) {
+  if (!req.cookies?.c_a && req.url?.indexOf('/auth/sign-in') === -1) {
     res.writeHead(301, {
       Location: '/auth/sign-in',
     });
     res.end();
   }
-  if (req.cookies.c_a && req.url.indexOf('auth') !== -1) {
+  if (req.cookies?.c_a && req.url?.indexOf('auth') !== -1) {
     res.writeHead(301, {
       Location: '/courses',
     });
