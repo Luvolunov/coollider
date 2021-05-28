@@ -9,6 +9,7 @@ const getFetcher = (url: string) => fetch(url, {
 
 const CourseAPI = {
   list: () => useSWR('/api/course/list', getFetcher),
+  count: () => useSWR('/api/course/count', getFetcher),
 };
 
 export default CourseAPI;
