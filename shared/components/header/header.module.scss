@@ -81,6 +81,7 @@ $menu-item-color: rgba(0, 0, 0, 0.1);
     cursor: pointer;
     padding: 15px 20px;
     transition-duration: 0.2s;
+    color: $dark-color;
     &:hover {
         background-color: rgba(0, 0, 0, 0.04);
     }

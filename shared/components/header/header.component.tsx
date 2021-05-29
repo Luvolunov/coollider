@@ -1,6 +1,8 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/no-static-element-interactions,jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import classnames from 'classnames';
 import { useRouter } from 'next/router';
 import { useStore } from 'effector-react';
@@ -11,7 +13,7 @@ import { title } from '../../../store/title';
 export default function Header() {
   const titleStore = useStore(title);
   const router = useRouter();
-  const { data, revalidate } = UserAPI.current();
+  const { data } = UserAPI.current();
   const [openedMenu, setOpenedMenu] = useState(false);
   const menuClass = classnames(styles.menu, { [styles.open]: openedMenu });
   const menuRef = useRef<any>(null);
@@ -21,7 +23,6 @@ export default function Header() {
       method: 'POST',
       credentials: 'include',
     });
-    await revalidate();
     await router.push('/auth/sign-in');
   };
   useEffect(() => {
@@ -43,18 +44,12 @@ export default function Header() {
         <nav ref={menuRef} className={menuClass}>
           <div className={styles.menuInner}>
             <div className={styles.name}>{username}</div>
-            <div className={styles.menuItem}>
-              <Image src="/icons/user.svg" width={18} height={18} alt="profile" />
-              <span className={styles.menuText}>Профиль</span>
-            </div>
-            <div className={styles.menuItem}>
-              <Image src="/icons/star.svg" width={18} height={18} alt="achievements" />
-              <span className={styles.menuText}>Достижения</span>
-            </div>
-            <div className={styles.menuItem}>
-              <Image src="/icons/chart-pie.svg" width={18} height={18} alt="statistics" />
-              <span className={styles.menuText}>Статистика</span>
-            </div>
+            <Link href="/profile">
+              <a onClick={() => setOpenedMenu(false)} className={styles.menuItem}>
+                <Image src="/icons/user.svg" width={18} height={18} alt="profile" />
+                <span className={styles.menuText}>Профиль</span>
+              </a>
+            </Link>
             <div onClick={logout} className={styles.exit}>
               <Image src="/icons/door-closed.svg" width={18} height={18} alt="exit" />
               <span className={styles.menuText}>Выйти</span>

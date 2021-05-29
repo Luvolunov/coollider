@@ -1,0 +1,42 @@
+%card-styles {
+  color: #000;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 60px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.mainInfo {
+  @extend %card-styles;
+}
+
+$avatar-size: 150px;
+
+.avatar {
+  width: $avatar-size;
+  height: $avatar-size;
+  font-size: 3rem;
+  font-weight: 700;
+  border-radius: 50%;
+  background-color: #66D2D9;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info {
+  margin-top: 39px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.achievements {
+  width: 49%;
+  @extend %card-styles;
+}
+
+.userProgress {
+  width: 49%;
+  @extend %card-styles;
+}
