@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { setTitle } from '../../store/title';
 import styles from './admin.module.scss';
 import Glass from '../../shared/components/glass/glass.component';
 import UserAPI from '../../shared/api/user.api';
 import CourseAPI from '../../shared/api/course.api';
+import Spinner from '../../shared/components/spinner/spinner.component';
 
 export default function AdminPage() {
   const { data: users } = UserAPI.count();
@@ -18,32 +17,26 @@ export default function AdminPage() {
       <div className={styles.widgetOuter}>
         <Glass>
           <div className={styles.widget}>
-            &nbsp;
             Users:
             &nbsp;
-            <b>
-              {
-                users
-                  ? users.body.count
-                  : <FontAwesomeIcon icon={faSpinner} spin />
-              }
-            </b>
+            {
+              users
+                ? users.body.count
+                : <Spinner />
+            }
           </div>
         </Glass>
       </div>
       <div className={styles.widgetOuter}>
         <Glass>
           <div className={styles.widget}>
-            &nbsp;
             Courses:
             &nbsp;
-            <b>
-              {
-                courses
-                  ? courses.body.count
-                  : <FontAwesomeIcon icon={faSpinner} spin />
-              }
-            </b>
+            {
+              courses
+                ? courses.body.count
+                : <Spinner />
+            }
           </div>
         </Glass>
       </div>
