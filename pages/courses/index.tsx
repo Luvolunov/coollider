@@ -16,7 +16,7 @@ export default function CoursesPage() {
       <Greetings />
       <div className={styles.coursesList}>
         {
-          data?.body.map((course: CourseInterface) => (
+          data?.map((course: CourseInterface) => (
             <div key={`${course.authorId}_${course.id}`} className={styles.courseOuter}>
               <Course course={course} />
             </div>

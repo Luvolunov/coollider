@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from './menu.module.scss';
 import classnames from 'classnames';
+import RoleGuard from '../role-guard/role-guard.component';
 
 export default function Menu() {
   const notMobileClasses = classnames(styles.menuItem, styles.notMobile);
@@ -28,12 +29,14 @@ export default function Menu() {
             <span className={styles.menuItemTitle}>Новости</span>
           </a>
         </Link>
-        <Link href="/admin">
-          <a className={notMobileClasses}>
-            <Image className={styles.menuItemImage} width={25} height={29} src="/icons/admin.svg" />
-            <span className={styles.menuItemTitle}>Админка</span>
-          </a>
-        </Link>
+        <RoleGuard someRoles={['Admin', 'Superuser']}>
+          <Link href="/admin">
+            <a className={notMobileClasses}>
+              <Image className={styles.menuItemImage} width={25} height={29} src="/icons/admin.svg" />
+              <span className={styles.menuItemTitle}>Админка</span>
+            </a>
+          </Link>
+        </RoleGuard>
       </div>
       <div className={styles.secondMenu}>
         <Link href="/settings">

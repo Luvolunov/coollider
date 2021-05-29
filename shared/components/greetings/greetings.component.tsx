@@ -5,7 +5,7 @@ import Glass from '../glass/glass.component';
 
 export default function Greetings() {
   const { data } = UserAPI.current();
-  const username = `${data?.body?.firstName} ${data?.body?.lastName}`;
+  const username = `${data?.firstName} ${data?.lastName}`;
   return (
     <Glass>
       <section className={styles.greetings}>

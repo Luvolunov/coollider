@@ -3,9 +3,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import classnames from 'classnames';
 import { useRouter } from 'next/router';
+import { useStore } from 'effector-react';
 import styles from './header.module.scss';
 import UserAPI from '../../api/user.api';
-import { useStore } from 'effector-react';
 import { title } from '../../../store/title';
 
 export default function Header() {
@@ -15,7 +15,7 @@ export default function Header() {
   const [openedMenu, setOpenedMenu] = useState(false);
   const menuClass = classnames(styles.menu, { [styles.open]: openedMenu });
   const menuRef = useRef<any>(null);
-  const username = `${data?.body?.firstName} ${data?.body?.lastName}`;
+  const username = `${data?.firstName} ${data?.lastName}`;
   const logout = async () => {
     await fetch('/api/auth/sign-out', {
       method: 'POST',

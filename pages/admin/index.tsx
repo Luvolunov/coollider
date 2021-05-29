@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
+import { GetServerSideProps } from 'next';
 import { setTitle } from '../../store/title';
 import styles from './admin.module.scss';
 import Glass from '../../shared/components/glass/glass.component';
 import UserAPI from '../../shared/api/user.api';
 import CourseAPI from '../../shared/api/course.api';
 import Spinner from '../../shared/components/spinner/spinner.component';
+import { ApiResponse } from '../../shared/types/api-response.interface';
+import { User } from '../../shared/types/user.interface';
 
 export default function AdminPage() {
   const { data: users } = UserAPI.count();
@@ -17,11 +20,10 @@ export default function AdminPage() {
       <div className={styles.widgetOuter}>
         <Glass>
           <div className={styles.widget}>
-            Users:
-            &nbsp;
+            Users:&nbsp;
             {
               users
-                ? users.body.count
+                ? users.count
                 : <Spinner />
             }
           </div>
@@ -30,11 +32,10 @@ export default function AdminPage() {
       <div className={styles.widgetOuter}>
         <Glass>
           <div className={styles.widget}>
-            Courses:
-            &nbsp;
+            Courses:&nbsp;
             {
               courses
-                ? courses.body.count
+                ? courses.count
                 : <Spinner />
             }
           </div>
@@ -43,3 +44,23 @@ export default function AdminPage() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const res = await fetch(`${process.env.API_HOST}/user/profile`, {
+    headers: {
+      cookie: ctx.req.headers.cookie || '',
+    },
+  });
+  const { body: user } = await res.json() as ApiResponse<User>;
+  const roles = ['Superuser', 'Admin'];
+  const canSee = !!user.roles.find((role) => !!roles.find((roleName) => role.name === roleName));
+  if (!canSee) {
+    return {
+      redirect: {
+        destination: '/courses',
+        permanent: true,
+      },
+    };
+  }
+  return { props: {} };
+};
