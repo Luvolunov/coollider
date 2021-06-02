@@ -5,5 +5,6 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
-  roles: Array<Role>
+  roles: Array<Role>;
+  createdAt: string;
 }
