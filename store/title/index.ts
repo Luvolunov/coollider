@@ -1,7 +1,7 @@
-import { title } from './store';
+import { $titleStore } from './store';
 import { setTitle } from './events';
 
-title.on(setTitle, (_, anotherTitle) => anotherTitle);
+$titleStore.on(setTitle, (_, anotherTitle) => anotherTitle);
 
 export * from './events';
 export * from './store';

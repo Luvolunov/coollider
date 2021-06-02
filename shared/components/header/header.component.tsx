@@ -8,10 +8,10 @@ import { useRouter } from 'next/router';
 import { useStore } from 'effector-react';
 import styles from './header.module.scss';
 import UserAPI from '../../api/user.api';
-import { title } from '../../../store/title';
+import { $titleStore } from '../../../store/title';
 
 export default function Header() {
-  const titleStore = useStore(title);
+  const titleStore = useStore($titleStore);
   const router = useRouter();
   const { data } = UserAPI.current();
   const [openedMenu, setOpenedMenu] = useState(false);
