@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import './global.scss';
-import { AppProps } from 'next/app';
+import App, { AppContext, AppProps } from 'next/app';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import PageContainer from '../shared/components/page-container/page-container.component';
 import Loader from '../shared/components/loader/loader.component';
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function Coollider({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const isAuth = /auth/.test(router.route);
   const isError = /_error/.test(router.route);
@@ -59,19 +59,21 @@ export default function App({ Component, pageProps }: AppProps) {
   );
 }
 
-App.getInitialProps = async ({ ctx: { req, res } }: any) => {
-  if (!req || res.statusCode === 500) { return { props: {} }; }
-  if (!req.cookies.c_a && req.url.indexOf('/auth/sign-in') === -1) {
-    res.writeHead(301, {
-      Location: '/auth/sign-in',
-    });
-    res.end();
-  }
-  if (req.cookies.c_a && req.url.indexOf('auth') !== -1) {
-    res.writeHead(301, {
+Coollider.getInitialProps = async (appContext: AppContext) => {
+  const props = await App.getInitialProps(appContext);
+  if (!appContext.ctx.res) { return { ...props }; }
+  const hasCookie = appContext.ctx.req?.headers.cookie?.indexOf('c_a') !== -1;
+  if (appContext.ctx.req?.url?.indexOf('auth') !== -1 && hasCookie) {
+    appContext.ctx.res.writeHead(301, {
       Location: '/courses',
     });
-    res.end();
+    appContext.ctx.res.end();
   }
-  return { props: {} };
+  if (!hasCookie) {
+    appContext.ctx.res.writeHead(301, {
+      Location: '/auth/sign-in',
+    });
+    appContext.ctx.res.end();
+  }
+  return { ...props };
 };
