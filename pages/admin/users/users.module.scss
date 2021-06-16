@@ -1,0 +1,27 @@
+
+
+.card {
+  color: #000;
+  background-color: rgb(255, 255, 255);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.cardInner {
+  border: 1px solid #ababab;
+  border-radius: 5px;
+}
+
+.userRow {
+  padding: 10px;
+  &:first-child {
+    border-radius: 5px 5px 0 0;
+  }
+  &:last-child {
+    border-radius: 0 0 5px 5px;
+  }
+  &:nth-child(2n) {
+    background-color: #e0e0e0;
+  }
+}

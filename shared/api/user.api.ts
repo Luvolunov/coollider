@@ -13,7 +13,8 @@ const getFetcher = (url: string) => fetch(url, {
 const UserAPI = {
   current: () => useSWR<User>('/api/user/profile', getFetcher),
   getUser: (id: number) => useSWR<User>(`/api/user/${id}`, getFetcher),
-  count: () => useSWR<{count: number}>('/api/user/count', getFetcher),
+  count: () => useSWR<{ count: number }>('/api/user/count', getFetcher),
+  list: () => useSWR<Array<User>>('/api/user/list', getFetcher),
 };
 
 export default UserAPI;

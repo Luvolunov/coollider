@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import { setTitle } from '../../store/title';
@@ -6,6 +7,7 @@ import Glass from '../../shared/components/glass/glass.component';
 import UserAPI from '../../shared/api/user.api';
 import CourseAPI from '../../shared/api/course.api';
 import Spinner from '../../shared/components/spinner/spinner.component';
+import Link from 'next/link';
 import { ApiResponse } from '../../shared/types/api-response.interface';
 import { User } from '../../shared/types/user.interface';
 
@@ -18,28 +20,36 @@ export default function AdminPage() {
   return (
     <div className={styles.widgetList}>
       <div className={styles.widgetOuter}>
-        <Glass>
-          <div className={styles.widget}>
-            Users:&nbsp;
-            {
-              users
-                ? users.count
-                : <Spinner />
-            }
+        <Link href="/admin/users">
+          <div>
+            <Glass>
+              <div className={styles.widget}>
+                Users:&nbsp;
+                {
+                  users
+                    ? users.count
+                    : <Spinner />
+                }
+              </div>
+            </Glass>
           </div>
-        </Glass>
+        </Link>
       </div>
       <div className={styles.widgetOuter}>
-        <Glass>
-          <div className={styles.widget}>
-            Courses:&nbsp;
-            {
-              courses
-                ? courses.count
-                : <Spinner />
-            }
+        <Link href="/admin/courses">
+          <div>
+            <Glass>
+              <div className={styles.widget}>
+                Courses:&nbsp;
+                {
+                  courses
+                    ? courses.count
+                    : <Spinner />
+                }
+              </div>
+            </Glass>
           </div>
-        </Glass>
+        </Link>
       </div>
     </div>
   );
