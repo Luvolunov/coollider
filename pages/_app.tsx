@@ -63,13 +63,14 @@ Coollider.getInitialProps = async (appContext: AppContext) => {
   const props = await App.getInitialProps(appContext);
   if (!appContext.ctx.res) { return { ...props }; }
   const hasCookie = appContext.ctx.req?.headers.cookie?.indexOf('c_a') !== -1;
-  if (appContext.ctx.req?.url?.indexOf('auth') !== -1 && hasCookie) {
+  const isAuthPages = appContext.ctx.req?.url?.indexOf('auth') !== -1;
+  if (isAuthPages && hasCookie) {
     appContext.ctx.res.writeHead(301, {
       Location: '/courses',
     });
     appContext.ctx.res.end();
   }
-  if (!hasCookie) {
+  if (!hasCookie && !isAuthPages) {
     appContext.ctx.res.writeHead(301, {
       Location: '/auth/sign-in',
     });
