@@ -22,7 +22,7 @@ Deploy Client:
     script:
         - echo "${DEV_ENV_CONFIG}" > .env
         - tar -cf app.tar * .env
-        - scp app.tar $DEPLOY_USER@$DEPLOY_HOST:/home/$DEPLOY_USER
+        - scp app.tar $DEPLOY_USER@$DEPLOY_HOST:/home/$DEPLOY_USER/app.tar
         - ssh $DEPLOY_USER@$DEPLOY_HOST 'rm -rf app &&
                                      mkdir -p app &&
                                      tar -xf app.tar -C app &&
