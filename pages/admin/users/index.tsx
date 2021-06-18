@@ -12,20 +12,33 @@ export default function Users() {
   return (
     <div className={styles.card}>
       <div className={styles.cardInner}>
-        {
-          !users && <Spinner />
-        }
-        {
-          users?.map((user) => (
-            <div className={styles.userRow}>
-              {user.firstName}
-              &nbsp;
-              {user.lastName}
-              &nbsp;
-              {user.email}
-            </div>
-          ))
-        }
+        <table>
+          <thead>
+            <tr>
+              <td width={100}>Id</td>
+              <td width={300}>Name</td>
+              <td width={400}>Mail</td>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              users?.map((user) => (
+                <tr key={`${user.id}${user.firstName}`}>
+                  <td>{user.id}</td>
+                  <td>
+                    {user.firstName}
+                    &nbsp;
+                    {user.lastName}
+                  </td>
+                  <td>{user.email}</td>
+                </tr>
+              ))
+            }
+            {
+              !users && <tr><td colSpan={3}><Spinner /></td></tr>
+            }
+          </tbody>
+        </table>
       </div>
     </div>
   );

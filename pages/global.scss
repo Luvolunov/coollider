@@ -54,6 +54,28 @@ h5 {
   font-size: 2.25rem;
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table > thead > tr {
+  color: $gray-color;
+}
+
+tbody tr {
+  background-color: $light-gray-color;
+}
+
+tr:nth-child(2n) {
+  background-color: #fff;
+}
+
+td {
+  min-width: 100px;
+  padding: .8rem 1rem;
+}
+
 a {
   display: inline-block;
   text-align: center;
