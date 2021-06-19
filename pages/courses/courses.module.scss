@@ -3,19 +3,22 @@
 .coursesList {
   margin-top: 30px;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
 }
 
 .courseOuter {
   width: 32%;
   margin-bottom: 2%;
+  margin-right: 2%;
   &:nth-child(3n) {
     margin-right: 0;
   }
 }
 
 @media (max-width: $x-large) {
+  .coursesList {
+    justify-content: space-between;
+  }
   .courseOuter {
     width: 49%;
     margin-right: 0;
