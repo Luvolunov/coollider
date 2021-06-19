@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
+import Link from 'next/link';
 import { setTitle } from '../../../store/title';
 import Button from '../../../shared/components/button/button.component';
-import Link from 'next/link';
 
 export default function Courses() {
   useEffect(() => {
