@@ -6,6 +6,7 @@ import Input from '../../shared/components/input/input.component';
 import Button from '../../shared/components/button/button.component';
 import { useForm } from '../../shared/hooks/useForm.hook';
 import { createCourseSchema } from './create-course.schema';
+import Card from '../../shared/components/card/card.component';
 
 export default function CreateCoursePage() {
   const { values, valid, handleInput } = useForm(createCourseSchema);
@@ -27,13 +28,13 @@ export default function CreateCoursePage() {
     setTitle('Создать курс');
   });
   return (
-    <div className={styles.card}>
+    <Card>
       <div className={styles.mainInfo}>
         <Input name="name" onInput={handleInput} placeholder="Название курса" />
         <Input name="imageUrl" onInput={handleInput} placeholder="Ссылка на картинку" />
       </div>
       <br />
       <Button onClick={createCourse} disabled={!valid}>Сохранить</Button>
-    </div>
+    </Card>
   );
 }
