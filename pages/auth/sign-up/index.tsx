@@ -7,7 +7,7 @@ import Form from '../../../shared/components/form/form.component';
 import Input from '../../../shared/components/input/input.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
 import styles from './sign-up.module.scss';
-import { SignUpSchema } from './sign-up.schema';
+import { SignUpSchema } from '../../../shared/schemas/sign-up.schema';
 import Button from '../../../shared/components/button/button.component';
 import Checkbox from '../../../shared/components/checkbox/checkbox.component';
 

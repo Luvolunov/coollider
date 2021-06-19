@@ -8,7 +8,7 @@ import Input from '../../../shared/components/input/input.component';
 import styles from './sign-in.module.scss';
 import Button from '../../../shared/components/button/button.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
-import { SignInSchema } from './sign-in.schema';
+import { SignInSchema } from '../../../shared/schemas/sign-in.schema';
 import UserAPI from '../../../shared/api/user.api';
 
 export default function SignInPage() {

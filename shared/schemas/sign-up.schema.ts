@@ -1,8 +1,8 @@
-import { ValidationSchema } from '../../../shared/hooks/validation-schema.interface';
-import { isEmail } from '../../../shared/validators/isEmail.validator';
-import { minLength } from '../../../shared/validators/min-length.validator';
-import { isChecked } from '../../../shared/validators/checked.validator';
-import { nameIsCorrect } from '../../../shared/validators/name.validator';
+import { ValidationSchema } from '../hooks/validation-schema.interface';
+import { isEmail } from '../validators/isEmail.validator';
+import { minLength } from '../validators/min-length.validator';
+import { isChecked } from '../validators/checked.validator';
+import { nameIsCorrect } from '../validators/name.validator';
 
 export const SignUpSchema: ValidationSchema = {
   firstName: [
