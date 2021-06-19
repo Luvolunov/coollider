@@ -35,7 +35,7 @@ export default function Courses() {
                 <tr key={`${course.id}${course.name}`}>
                   <td>{course.id}</td>
                   <td>
-                    <img src={course.imageUrl} alt={course.name} />
+                    <img width={100} src={course.imageUrl} alt={course.name} />
                   </td>
                   <td>{course.name}</td>
                   <td>
