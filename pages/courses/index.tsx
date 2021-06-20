@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Link from 'next/link';
 import Greetings from '../../shared/components/greetings/greetings.component';
 import { setTitle } from '../../store/title';
 import Course from '../../shared/components/course/course.component';
@@ -18,7 +19,11 @@ export default function CoursesPage() {
         {
           data?.map((course: CourseInterface) => (
             <div key={`${course.authorId}_${course.id}`} className={styles.courseOuter}>
-              <Course course={course} />
+              <Link href="/course/[id]" as={`/course/${course.id}`}>
+                <div>
+                  <Course course={course} />
+                </div>
+              </Link>
             </div>
           ))
         }
