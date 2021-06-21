@@ -8,7 +8,7 @@ import { InputProps } from './input.props';
 export default function Input({
   placeholder, onFocus, onBlur, errors = [], onChange, ...props
 }: InputProps) {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(!!props.value);
   const [touched, setTouched] = useState(false);
 
   const error = errors.length ? errors[0] : null;

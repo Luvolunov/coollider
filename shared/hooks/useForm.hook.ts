@@ -1,9 +1,9 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { ValidationSchema, Validator } from './validation-schema.interface';
 
-export function useForm(schema: ValidationSchema) {
+export function useForm(schema: ValidationSchema, defaultValue: any = {}) {
   const defaultFieldsState = Object.keys(schema)
-    .reduce<any>((acc, key) => ({ ...acc, [key]: null }), {});
+    .reduce<any>((acc, key) => ({ ...acc, [key]: defaultValue[key] }), {});
 
   const [valid, setValid] = useState(false);
   const [values, setValues] = useState(defaultFieldsState);
@@ -23,8 +23,10 @@ export function useForm(schema: ValidationSchema) {
     }, []);
 
   useEffect(() => {
-    const err = Object.keys(schema).reduce((allErrors, name) => ({ ...allErrors, [name]: getErrors(name) }), {});
-    const isValid = !Object.values<string[]>(err).filter((errors) => !!errors.length).length;
+    const err = Object
+      .keys(schema)
+      .reduce((allErrors, name) => ({ ...allErrors, [name]: getErrors(name) }), {});
+    const isValid = !Object.values<string[]>(err).filter((errs) => !!errs.length).length;
     setValid(isValid);
     setErrors(err);
   }, [values]);

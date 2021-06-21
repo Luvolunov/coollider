@@ -3,8 +3,8 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { setTitle } from '../../store/title';
 import Card from '../../shared/components/card/card.component';
-import { buildUrl } from '../../shared/utils/build-url';
 import { CourseInterface } from '../../shared/types/course.interface';
+import { getCourseServerSide } from '../../shared/utils/get-course-server-side';
 
 type CourseProps = {
   course: CourseInterface;
@@ -30,26 +30,4 @@ export default function Course({ course }: CourseProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
-  if (Number.isNaN(+params?.id!)) {
-    res.writeHead(301, {
-      Location: '/courses',
-    });
-    res.end();
-    return { props: {} };
-  }
-  const response = await fetch(buildUrl(`/course/${params?.id}`), {
-    headers: {
-      cookie: req.headers.cookie as string,
-    },
-  });
-  const { success, body } = await response.json();
-  if (!success) {
-    res.writeHead(301, {
-      Location: '/courses',
-    });
-    res.end();
-    return { props: {} };
-  }
-  return { props: { course: body } };
-};
+export const getServerSideProps: GetServerSideProps = getCourseServerSide;

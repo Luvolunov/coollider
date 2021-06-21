@@ -39,7 +39,9 @@ export default function Courses() {
                   </td>
                   <td>{course.name}</td>
                   <td>
-                    <Button>Edit</Button>
+                    <Link href="/edit-course/[id]" as={`/edit-course/${course.id}`}>
+                      <div><Button>Edit</Button></div>
+                    </Link>
                   </td>
                 </tr>
               ))
