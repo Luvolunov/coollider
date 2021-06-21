@@ -1,3 +1,29 @@
+@import "../../shared/colors";
+
 .mainInfo {
   max-width: 360px;
+  width: 100%;
+}
+
+.formContainer {
+  display: flex;
+}
+
+.lessonList {
+  flex-grow: 1;
+  margin-left: 30px;
+}
+
+.addLessonButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  padding: 10px 0;
+  background-color: $light-gray-color;
+  cursor: pointer;
+  opacity: 0.9;
+  &:hover {
+    opacity: 1;
+  }
 }
