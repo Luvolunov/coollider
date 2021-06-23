@@ -23,6 +23,7 @@ export default function SignUpPage() {
   const [processing, setProcessing] = useState(false);
   const signUp = async (event: FormEvent) => {
     event.preventDefault();
+    if (processing) { return; }
     setProcessing(true);
     const res = await fetch('/api/auth/sign-up', {
       method: 'POST',

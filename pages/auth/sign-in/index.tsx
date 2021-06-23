@@ -20,6 +20,7 @@ export default function SignInPage() {
   const [processing, setProcessing] = useState(false);
   const signIn = async (event: FormEvent) => {
     event.preventDefault();
+    if (processing) { return; }
     setProcessing(true);
     const res = await fetch('/api/auth/sign-in', {
       method: 'POST',
