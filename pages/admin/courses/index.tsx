@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { setTitle } from '../../../store/title';
@@ -15,9 +16,9 @@ export default function Courses() {
   return (
     <Card>
       <Link href="/create-course">
-        <div>
+        <a>
           <Button>Создать курс</Button>
-        </div>
+        </a>
       </Link>
       <div className={styles.tableOuter}>
         <table>
@@ -40,7 +41,7 @@ export default function Courses() {
                   <td>{course.name}</td>
                   <td>
                     <Link href="/edit-course/[id]" as={`/edit-course/${course.id}`}>
-                      <div><Button>Редактировать</Button></div>
+                      <a><Button>Редактировать</Button></a>
                     </Link>
                   </td>
                 </tr>

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -20,8 +20,10 @@ export default function SignUpPage() {
     values,
   } = useForm(SignUpSchema);
   const router = useRouter();
+  const [processing, setProcessing] = useState(false);
   const signUp = async (event: FormEvent) => {
     event.preventDefault();
+    setProcessing(true);
     const res = await fetch('/api/auth/sign-up', {
       method: 'POST',
       body: JSON.stringify(values),
@@ -32,6 +34,7 @@ export default function SignUpPage() {
       },
       credentials: 'include',
     });
+    setProcessing(false);
     const { success } = await res.json();
     if (!success) {
       alert('Something went wrong');
@@ -81,7 +84,7 @@ export default function SignUpPage() {
           <br />
           <br />
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Button type="submit" disabled={!valid}>Зарегистрироваться</Button>
+            <Button processing={processing} type="submit" disabled={!valid}>Зарегистрироваться</Button>
           </div>
           <br />
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

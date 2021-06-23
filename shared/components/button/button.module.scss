@@ -8,13 +8,34 @@
   cursor: pointer;
   background-color: $primary-color;
   color: #fff;
+  position: relative;
 }
 
-.button:not(:disabled):active {
+.button:not(:disabled):not(.processing):active {
   transform: scale(0.9);
 }
 
 .button:disabled {
   background-color: $secondary-color;
   cursor: not-allowed;
+}
+
+.button.processing {
+  cursor: default;
+}
+
+.loading {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: inherit;
+  color: inherit;
+  border-radius: inherit;
+  font-size: 1rem;
+
 }

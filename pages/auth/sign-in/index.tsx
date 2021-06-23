@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -17,8 +17,10 @@ export default function SignInPage() {
     handleInput, valid, errors, values,
   } = useForm(SignInSchema);
   const { revalidate } = UserAPI.current();
+  const [processing, setProcessing] = useState(false);
   const signIn = async (event: FormEvent) => {
     event.preventDefault();
+    setProcessing(true);
     const res = await fetch('/api/auth/sign-in', {
       method: 'POST',
       body: JSON.stringify(values),
@@ -29,6 +31,7 @@ export default function SignInPage() {
       },
       credentials: 'include',
     });
+    setProcessing(false);
     const { success } = await res.json();
     if (!success) {
       alert('Incorrect email or password');
@@ -53,7 +56,7 @@ export default function SignInPage() {
           <br />
           <br />
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Button type="submit" disabled={!valid}>Войти</Button>
+            <Button processing={processing} type="submit" disabled={!valid}>Войти</Button>
           </div>
           <br />
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

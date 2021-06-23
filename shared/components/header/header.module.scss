@@ -37,6 +37,7 @@
     right: 0;
     display: none;
     top: 70px;
+    border: 1px solid $light-gray-color;
     border-radius: 14px;
     background-color: #FFF;
     z-index: 30;
@@ -45,6 +46,7 @@
     }
     &::after {
         box-shadow: $standard-shadow;
+        border: 1px solid $light-gray-color;
         content: "";
         position: absolute;
         right: 15px;
