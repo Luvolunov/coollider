@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
@@ -19,7 +19,10 @@ type EditCourseProps = {
 export default function EditCoursePage({ course }: EditCourseProps) {
   const { values, valid, handleInput } = useForm(courseSchema, course);
   const router = useRouter();
+  const [processing, setProcessing] = useState(false);
   const updateCourse = async () => {
+    if (processing) { return; }
+    setProcessing(true);
     await fetch(`/api/course/${course.id}`, {
       method: 'PUT',
       body: JSON.stringify(values),
@@ -30,6 +33,7 @@ export default function EditCoursePage({ course }: EditCourseProps) {
       },
       credentials: 'include',
     });
+    setProcessing(false);
     await router.push('/admin/courses');
   };
   useEffect(() => {
@@ -49,7 +53,13 @@ export default function EditCoursePage({ course }: EditCourseProps) {
             <Input value={values.name} name="name" onInput={handleInput} placeholder="Название курса" />
             <Input value={values.imageUrl} name="imageUrl" onInput={handleInput} placeholder="Ссылка на картинку" />
             <br />
-            <Button onClick={updateCourse} disabled={!valid}>Обновить</Button>
+            <Button
+              processing={processing}
+              onClick={updateCourse}
+              disabled={!valid}
+            >
+              Обновить
+            </Button>
           </div>
           <div className={styles.lessonList}>
             <div className={styles.addLessonButton}><img width={50} src="/plus.svg" alt="plus" /></div>
