@@ -20,7 +20,7 @@ export default function Course({ course }: CourseProps) {
             <span className={styles.textOuter}>
               Пройдено 0 уроков из
               {' '}
-              {course.lessonsCount}
+              {course?.lessonsCount || 0}
             </span>
           </div>
         </div>
