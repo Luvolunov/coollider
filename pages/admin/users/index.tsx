@@ -17,8 +17,8 @@ export default function Users() {
           <thead>
             <tr>
               <td width={100}>Id</td>
-              <td width={300}>Name</td>
-              <td width={400}>Mail</td>
+              <td width={300}>Имя</td>
+              <td width={400}>Почта</td>
             </tr>
           </thead>
           <tbody>

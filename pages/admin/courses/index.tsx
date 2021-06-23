@@ -16,7 +16,7 @@ export default function Courses() {
     <Card>
       <Link href="/create-course">
         <div>
-          <Button>Create course</Button>
+          <Button>Создать курс</Button>
         </div>
       </Link>
       <div className={styles.tableOuter}>
@@ -24,9 +24,9 @@ export default function Courses() {
           <thead>
             <tr>
               <td width={100}>Id</td>
-              <td width={100}>Image</td>
-              <td width={200}>Name</td>
-              <td width={200}>Tools</td>
+              <td width={100}>Изображение</td>
+              <td width={200}>Название</td>
+              <td width={200}>Инструменты</td>
             </tr>
           </thead>
           <tbody>
@@ -40,7 +40,7 @@ export default function Courses() {
                   <td>{course.name}</td>
                   <td>
                     <Link href="/edit-course/[id]" as={`/edit-course/${course.id}`}>
-                      <div><Button>Edit</Button></div>
+                      <div><Button>Редактировать</Button></div>
                     </Link>
                   </td>
                 </tr>
