@@ -36,17 +36,18 @@ export default function Course({ course }: CourseProps) {
         </div>
         <br />
         <br />
-        <Card>
-          <b>Lesson 1</b>
-          <br />
-          <span className={styles.description}>Just testing you know</span>
-        </Card>
-        <br />
-        <Card>
-          <b>Lesson 2</b>
-          <br />
-          <span className={styles.description}>Another testing, boi</span>
-        </Card>
+        {
+          course.lessons?.map((lesson) => (
+            <div key={`${lesson.id}${lesson.name}`}>
+              <Card>
+                <b>{lesson.name}</b>
+                <br />
+                <span className={styles.description}>Just testing you know</span>
+              </Card>
+              <br />
+            </div>
+          ))
+        }
       </Card>
       <br />
     </>
