@@ -27,3 +27,31 @@
     opacity: 1;
   }
 }
+
+.lesson {
+  border-radius: 15px;
+  padding: 20px;
+  background-color: $light-gray-color;
+  opacity: 0.9;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.removeButton {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  max-width: 25px;
+  cursor: pointer;
+  opacity: 0.8;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.removeButtonImage {
+  width: 100%;
+}

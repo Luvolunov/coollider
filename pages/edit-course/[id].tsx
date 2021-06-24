@@ -20,6 +20,7 @@ export default function EditCoursePage({ course }: EditCourseProps) {
   const { values, valid, handleInput } = useForm(courseSchema, course);
   const router = useRouter();
   const [processing, setProcessing] = useState(false);
+  const [lessons, setLessons] = useState(course.lessons);
   const updateCourse = async () => {
     if (processing) { return; }
     setProcessing(true);
@@ -35,6 +36,18 @@ export default function EditCoursePage({ course }: EditCourseProps) {
     });
     setProcessing(false);
     await router.push('/admin/courses');
+  };
+  const removeLesson = async (lessonId: number) => {
+    await fetch(`/api/lesson/${lessonId}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Access-Control-Allow-Credentials': 'true',
+      },
+      credentials: 'include',
+    });
+    alert('Lesson was deleted');
+    setLessons(lessons?.filter((lesson) => lesson.id !== lessonId));
   };
   useEffect(() => {
     setTitle('Обновить курс');
@@ -63,6 +76,22 @@ export default function EditCoursePage({ course }: EditCourseProps) {
           </div>
           <div className={styles.lessonList}>
             <div className={styles.addLessonButton}><img width={50} src="/plus.svg" alt="plus" /></div>
+            <br />
+            {
+              lessons?.map((lesson) => (
+                <div key={`${lesson.id}${lesson.name}`} className={styles.lesson}>
+                  <span className={styles.lessonName}>{lesson.name}</span>
+                  <button
+                    onClick={() => removeLesson(lesson.id)}
+                    type="button"
+                    className={styles.removeButton}
+                    title="delete lesson"
+                  >
+                    <img className={styles.removeButtonImage} src="/delete.svg" alt="delete lesson" />
+                  </button>
+                </div>
+              ))
+            }
           </div>
         </div>
       </Card>
