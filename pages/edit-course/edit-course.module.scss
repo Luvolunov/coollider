@@ -18,6 +18,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  border: none;
   border-radius: 15px;
   padding: 10px 0;
   background-color: $light-gray-color;
@@ -26,6 +28,22 @@
   &:hover {
     opacity: 1;
   }
+}
+
+.addLessonForm {
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  padding: 10px 30px 20px;
+  background-color: $light-gray-color;
+  display: flex;
+  align-items: flex-end;
+}
+
+.inputOuter {
+  max-width: 360px;
+  width: 100%;
+  margin-right: 20px;
 }
 
 .lesson {
