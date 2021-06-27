@@ -106,8 +106,15 @@ $menu-item-color: rgba(0, 0, 0, 0.1);
     }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: $medium) {
     .userInfo, .menuItem, .exit {
         cursor: default;
     }
 }
+
+@media (max-width: $x-small) {
+    .title {
+        font-size: 2.2rem;
+    }
+}
+
