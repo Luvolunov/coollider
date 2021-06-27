@@ -16,7 +16,7 @@
 }
 
 .button:disabled {
-  background-color: $secondary-color;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 

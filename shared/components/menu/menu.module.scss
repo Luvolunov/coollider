@@ -2,6 +2,8 @@
 @import "../../shadows";
 @import "../../breakpoints";
 
+$menu-shadow-color: rgba(255, 255, 255, 0.25);
+
 .menu {
   position: fixed;
   width: 72px;
@@ -15,7 +17,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 15px 0;
-  box-shadow: 5px 0 15px rgba(102, 161, 217, 0.4);
+  box-shadow: 5px 0 15px $menu-shadow-color;
 }
 
 .logo {
@@ -59,7 +61,7 @@
     top: unset;
     flex-direction: row;
     align-items: center;
-    box-shadow: 0 -5px 15px rgba(102, 161, 217, 0.4);
+    box-shadow: 0 -5px 15px $menu-shadow-color;
   }
   .firstMenu, .secondMenu {
     flex-direction: row;
