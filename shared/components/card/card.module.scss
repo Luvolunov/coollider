@@ -1,7 +1,15 @@
+@import "../../breakpoints";
+
 .card {
   color: #000;
   background-color: rgb(255, 255, 255);
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: $x-small) {
+  .card {
+    padding: 40px 20px;
+  }
 }

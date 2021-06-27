@@ -34,20 +34,24 @@ export default function Course({ course }: CourseProps) {
             </span>
           </div>
         </div>
-        <br />
-        <br />
-        {
-          course.lessons?.map((lesson) => (
-            <div key={`${lesson.id}${lesson.name}`}>
-              <Card>
-                <b>{lesson.name}</b>
-                <br />
-                <span className={styles.description}>Just testing you know</span>
-              </Card>
-              <br />
-            </div>
-          ))
-        }
+        <div className={styles.lessonsOuter}>
+          {
+            course.lessons?.map((lesson, index) => (
+              <div className={styles.lesson} key={`${lesson.id}${lesson.name}`}>
+                <div>
+                  <div>
+                    <b>
+                      Урок&nbsp;
+                      {index + 1}
+                    </b>
+                  </div>
+                  {lesson.name}
+                </div>
+                <img width={20} src="/play.svg" alt="Begin lesson" />
+              </div>
+            ))
+          }
+        </div>
       </Card>
       <br />
     </>

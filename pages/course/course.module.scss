@@ -1,4 +1,5 @@
 @import "../../shared/breakpoints";
+@import "../../shared/colors";
 
 .container {
   display: flex;
@@ -8,14 +9,34 @@
   display: block;
   font-size: 1.9rem;
   margin-bottom: 10px;
+  font-weight: 600;
 }
 
 .description {
-  font-weight: lighter;
+  font-weight: normal;
 }
 
 .info {
   margin-left: 40px;
+}
+
+.lessonsOuter {
+  margin-top: 20px;
+}
+
+.lesson {
+  box-shadow: 0 0 5px $gray-color;
+  background-color: cornflowerblue;
+  color: #fff;
+  border-radius: 15px;
+  padding: 20px 25px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &:last-child {
+    margin: 0;
+  }
 }
 
 @media (max-width: $small) {
@@ -31,9 +52,9 @@
 
 @media (max-width: $x-small) {
   .title {
-    font-size: 1.6rem;
+    font-size: 2rem;
   }
   .description {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 }
