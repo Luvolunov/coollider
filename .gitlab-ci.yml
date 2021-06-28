@@ -27,7 +27,7 @@ Deploy Client:
                                      mkdir -p app &&
                                      tar -xf app.tar -C app &&
                                      cd app &&
-                                     docker system prune -a &&
+                                     docker system prune -af &&
                                      docker-compose up --build -d'
     tags:
         - dev-shell
