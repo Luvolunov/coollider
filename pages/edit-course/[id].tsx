@@ -123,6 +123,13 @@ export default function EditCoursePage({ course }: EditCourseProps) {
             {
               lessons?.map((lesson) => (
                 <div key={`${lesson.id}${lesson.name}`} className={styles.lesson}>
+                  <button
+                    type="button"
+                    className={styles.dragButton}
+                    title="delete lesson"
+                  >
+                    <img className={styles.buttonImage} src="/dots.svg" alt="delete lesson" />
+                  </button>
                   <span className={styles.lessonName}>{lesson.name}</span>
                   <div>
                     <button
