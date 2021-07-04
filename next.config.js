@@ -14,4 +14,13 @@ module.exports = withBundleAnalyzer({
       },
     ];
   },
+  redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/courses',
+        permanent: true,
+      },
+    ];
+  },
 });
