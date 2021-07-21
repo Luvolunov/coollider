@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import PageContainer from '../shared/components/page-container/page-container.component';
 import Loader from '../shared/components/loader/loader.component';
+import { buildUrl } from '../shared/utils/build-url';
 
 export default function Coollider({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -62,15 +63,20 @@ export default function Coollider({ Component, pageProps }: AppProps) {
 Coollider.getInitialProps = async (appContext: AppContext) => {
   const props = await App.getInitialProps(appContext);
   if (!appContext.ctx.res) { return { ...props }; }
-  const hasCookie = appContext.ctx.req?.headers.cookie?.indexOf('c_a') !== -1;
+  const res = await fetch(buildUrl('user/profile'), {
+    headers: {
+      Cookie: appContext.ctx.req?.headers.cookie || '',
+    },
+  });
   const isAuthPages = appContext.ctx.req?.url?.indexOf('auth') !== -1;
-  if (isAuthPages && hasCookie) {
+  const authorized = res.status !== 401;
+  if ((isAuthPages && authorized) || (appContext.ctx.req?.url === '/' && authorized)) {
     appContext.ctx.res.writeHead(301, {
       Location: '/courses',
     });
     appContext.ctx.res.end();
   }
-  if (!hasCookie && !isAuthPages) {
+  if ((!authorized && !isAuthPages) || (appContext.ctx.req?.url === '/' && !authorized)) {
     appContext.ctx.res.writeHead(301, {
       Location: '/auth/sign-in',
     });

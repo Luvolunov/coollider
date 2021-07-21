@@ -13,14 +13,5 @@ module.exports = withBundleAnalyzer({
         destination: `${process.env.API_HOST}/:path*`,
       },
     ];
-  },
-  redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/courses',
-        permanent: true,
-      },
-    ];
-  },
+  }
 });
