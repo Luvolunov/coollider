@@ -62,25 +62,25 @@ export default function Coollider({ Component, pageProps }: AppProps) {
 
 Coollider.getInitialProps = async (appContext: AppContext) => {
   const props = await App.getInitialProps(appContext);
-  if (!appContext.ctx.res) { return { ...props }; }
-  const res = await fetch(buildUrl('user/profile'), {
+  if (!appContext.ctx.res || appContext.ctx.res?.statusCode !== 200) { return { ...props }; }
+  const res = appContext.ctx.req ? await fetch(buildUrl('user/profile'), {
     headers: {
       Cookie: appContext.ctx.req?.headers.cookie || '',
     },
-  });
+  }) : null;
   const isAuthPages = appContext.ctx.req?.url?.indexOf('auth') !== -1;
-  const authorized = res.status !== 401;
-  if ((isAuthPages && authorized) || (appContext.ctx.req?.url === '/' && authorized)) {
-    appContext.ctx.res.writeHead(301, {
+  const authorized = res?.status !== 401;
+  if (appContext.ctx.res && ((isAuthPages && authorized) || (appContext.ctx.req?.url === '/' && authorized))) {
+    appContext.ctx.res?.writeHead(301, {
       Location: '/courses',
     });
-    appContext.ctx.res.end();
+    appContext.ctx.res?.end();
   }
-  if ((!authorized && !isAuthPages) || (appContext.ctx.req?.url === '/' && !authorized)) {
-    appContext.ctx.res.writeHead(301, {
+  if (appContext.ctx.res && ((!authorized && !isAuthPages) || (appContext.ctx.req?.url === '/' && !authorized))) {
+    appContext.ctx.res?.writeHead(301, {
       Location: '/auth/sign-in',
     });
-    appContext.ctx.res.end();
+    appContext.ctx.res?.end();
   }
   return { ...props };
 };
