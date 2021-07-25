@@ -38,8 +38,9 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.headerInner}>
         <h1 className={styles.title}>{titleStore}</h1>
-        <div onClick={() => setOpenedMenu(!openedMenu)} className={styles.userInfo}>
-          <Image src="/icons/user-circle.svg" width={45} height={45} alt="user" />
+        <div onClick={() => setOpenedMenu(!openedMenu)} className={styles.avatar}>
+          {data?.firstName[0]}
+          {data?.lastName[0]}
         </div>
         <nav ref={menuRef} className={menuClass}>
           <div className={styles.menuInner}>

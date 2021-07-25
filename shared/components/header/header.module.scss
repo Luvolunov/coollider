@@ -21,11 +21,18 @@
     line-height: 1.6;
     font-size: 2.625rem;
     font-weight: 700;
-    color: #fff;
 }
 
-.userInfo {
+.avatar {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    font-weight: 400;
+    border-radius: 50%;
+    background-color: #66D2D9;
+    color: #fff;
     display: flex;
+    justify-content: center;
     align-items: center;
     cursor: pointer;
 }
@@ -107,7 +114,7 @@ $menu-item-color: rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: $medium) {
-    .userInfo, .menuItem, .exit {
+    .avatar, .menuItem, .exit {
         cursor: default;
     }
 }
