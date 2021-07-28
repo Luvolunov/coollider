@@ -30,6 +30,10 @@ $menu-shadow-color: rgba(255, 255, 255, 0.25);
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
+  color: #fff;
+  &.active {
+    color: #7FF5E8;
+  }
 }
 
 .firstMenu, .secondMenu {
@@ -47,7 +51,6 @@ $menu-shadow-color: rgba(255, 255, 255, 0.25);
   display: block;
   padding-top: 6px;
   font-size: 11px;
-  color: #fff;
 }
 
 @media (max-width: $medium) {
