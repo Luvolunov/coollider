@@ -13,7 +13,9 @@ export default function Course({ course }: CourseProps) {
     <div className={styles.courseOuter}>
       <Glass>
         <div className={styles.course}>
-          <img className={styles.image} src={course.imageUrl} alt="dna" />
+          <div className={styles.imageOuter}>
+            <img className={styles.image} src={course.imageUrl} alt="dna" />
+          </div>
           <span className={styles.title}>{course.name}</span>
           <div className={styles.progressOuter}>
             <CircleProgress progress={0} />
