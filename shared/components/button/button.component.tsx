@@ -5,11 +5,15 @@ import styles from './button.module.scss';
 import Spinner from '../spinner/spinner.component';
 
 type ButtonProps = ButtonHTMLAttributes<any> & {
-  processing?: boolean
+  processing?: boolean;
+  mode?: 'regular' | 'big';
 };
 
 export default function Button({ children, processing, ...props }: ButtonProps) {
-  const buttonClassName = classnames(styles.button, { [styles.processing]: processing });
+  const buttonClassName = classnames(styles.button, {
+    [styles.processing]: processing,
+    [styles.big]: props.mode === 'big',
+  });
   return (
     <button {...props} className={buttonClassName}>
       {
@@ -22,4 +26,5 @@ export default function Button({ children, processing, ...props }: ButtonProps) 
 
 Button.defaultProps = {
   processing: false,
+  mode: 'regular'
 };

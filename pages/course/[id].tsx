@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import styles from './course.module.scss';
 import { setTitle } from '../../store/title';
 import Card from '../../shared/components/card/card.component';
@@ -37,18 +39,19 @@ export default function Course({ course }: CourseProps) {
         <div className={styles.lessonsOuter}>
           {
             course.lessons?.map((lesson, index) => (
-              <div className={styles.lesson} key={`${lesson.id}${lesson.name}`}>
-                <div>
+              <Link href="/lesson/[id]" as={`/lesson/${lesson.id}`} key={`${lesson.id}${lesson.name}`}>
+                <a className={styles.lesson}>
                   <div>
                     <b>
                       Урок&nbsp;
                       {index + 1}
                     </b>
+                    <br />
+                    {lesson.name}
                   </div>
-                  {lesson.name}
-                </div>
-                <img width={20} src="/play.svg" alt="Begin lesson" />
-              </div>
+                  <img width={20} src="/play.svg" alt="Begin lesson" />
+                </a>
+              </Link>
             ))
           }
         </div>

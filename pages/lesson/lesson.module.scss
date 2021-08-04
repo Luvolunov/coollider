@@ -1,0 +1,80 @@
+@import "../../shared/breakpoints";
+
+.lesson {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.lessonInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 900px;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  box-sizing: border-box;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.lessonName {
+  margin-top: 3rem;
+  font-size: 2rem;
+}
+
+.courseImage {
+  max-width: 180px;
+}
+
+.footerPanel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0 20px 20px 20px;
+}
+
+.closeButton {
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: #ffbf96;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  cursor: pointer;
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.closeImage {
+  width: 30px;
+  height: 30px;
+}
+
+
+@media (max-width: $x-small) {
+  .lessonName {
+    text-align: center;
+    font-size: 1.4rem;
+  }
+  .closeButton {
+    cursor: default;
+  }
+}
