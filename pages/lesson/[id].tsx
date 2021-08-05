@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import styles from './lesson.module.scss';
 import Button from '../../shared/components/button/button.component';
-import { buildUrl } from '../../shared/utils/build-url';
 import { Lesson } from '../../shared/types/lesson.interface';
+import { getLessonServerSide } from '../../shared/utils/get-lesson-server-side';
 
 type LessonPageProps = {
   lesson: Lesson
@@ -29,18 +29,4 @@ export default function LessonPage({ lesson }: LessonPageProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req, params }) => {
-  if (Number.isNaN(+params?.id!)) {
-    return { props: {}, notFound: true };
-  }
-  const response = await fetch(buildUrl(`/lesson/${params?.id}`), {
-    headers: {
-      cookie: req.headers.cookie as string,
-    },
-  });
-  const { success, body } = await response.json();
-  if (!success) {
-    return { props: {}, notFound: true };
-  }
-  return { props: { lesson: body } };
-};
+export const getServerSideProps: GetServerSideProps = getLessonServerSide;

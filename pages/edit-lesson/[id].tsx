@@ -5,47 +5,44 @@ import { setTitle } from '../../store/title';
 import Input from '../../shared/components/input/input.component';
 import Card from '../../shared/components/card/card.component';
 import Button from '../../shared/components/button/button.component';
-import styles from './create-lesson.module.scss';
+import styles from './edit-lesson.module.scss';
 import { useForm } from '../../shared/hooks/useForm.hook';
 import { lessonSchema } from '../../shared/schemas/lesson.schema';
+import { Lesson } from '../../shared/types/lesson.interface';
+import { getLessonServerSide } from '../../shared/utils/get-lesson-server-side';
 
-type CreateLessonPageProps = {
-  courseId: number;
+type EditLessonPageProps = {
+  lesson: Lesson;
 };
 
-export default function CreateLessonPage({ courseId }: CreateLessonPageProps) {
-  const { handleInput, errors, values } = useForm(lessonSchema);
+export default function EditLessonPage({ lesson }: EditLessonPageProps) {
+  const { handleInput, errors, values } = useForm(lessonSchema, lesson);
   const router = useRouter();
   useEffect(() => {
-    setTitle('Создать урок');
+    setTitle('Редактировать урок');
   });
   const createLesson = async (event: FormEvent) => {
     event.preventDefault();
-    const data = { ...values, courseId };
-    await fetch('/api/lesson/create', {
-      method: 'POST',
+    const data = { id: lesson.id, ...values };
+    await fetch(`/api/lesson/${lesson.id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
       body: JSON.stringify(data),
     });
-    await router.push(`/edit-course/${courseId}`);
+    await router.push(`/edit-course/${lesson.courseId}`);
   };
   return (
     <Card>
       <form onSubmit={createLesson} className={styles.form}>
-        <Input errors={errors.name} onInput={handleInput} placeholder="Название урока" name="name" />
+        <Input value={values.name} onInput={handleInput} placeholder="Название урока" name="name" errors={errors.name} />
         <br />
-        <Button type="submit">Создать</Button>
+        <Button type="submit">Сохранить</Button>
       </form>
     </Card>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  if (Number.isNaN(+params?.id!)) {
-    return { props: {}, notFound: true };
-  }
-  return { props: { courseId: +params?.id! } };
-};
+export const getServerSideProps: GetServerSideProps = getLessonServerSide;

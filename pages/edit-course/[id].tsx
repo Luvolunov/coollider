@@ -88,13 +88,15 @@ export default function EditCoursePage({ course }: EditCourseProps) {
                   </button>
                   <span className={styles.lessonName}>{lesson.name}</span>
                   <div>
-                    <button
-                      type="button"
-                      className={styles.editButton}
-                      title="delete lesson"
-                    >
-                      <img className={styles.buttonImage} src="/settings.svg" alt="delete lesson" />
-                    </button>
+                    <Link href="/edit-lesson/[id]" as={`/edit-lesson/${lesson.id}`}>
+                      <button
+                        type="button"
+                        className={styles.editButton}
+                        title="delete lesson"
+                      >
+                        <img className={styles.buttonImage} src="/settings.svg" alt="delete lesson" />
+                      </button>
+                    </Link>
                     <button
                       onClick={() => removeLesson(lesson.id)}
                       type="button"
