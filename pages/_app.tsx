@@ -12,7 +12,7 @@ export default function Coollider({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const isAuth = /auth/.test(router.route);
   const isError = /_error/.test(router.route);
-  const isLesson = /lesson/.test(router.route);
+  const isLesson = /\/lesson\//.test(router.route);
   const [navigating, setNavigating] = useState(false);
   if (process.browser && 'serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js');
@@ -41,7 +41,7 @@ export default function Coollider({ Component, pageProps }: AppProps) {
         <link rel="icon" type="image/png" href="/coollider-ready.png" />
         <link rel="apple-touch-icon" sizes="1024x1024" href="/coollider-ready.png" />
         <link rel="manifest" href="/manifest.json" />
-        <title>Куллайдер | Coollider</title>
+        <title>Куллайдер | Образовательная платформа</title>
       </Head>
       {
         navigating
