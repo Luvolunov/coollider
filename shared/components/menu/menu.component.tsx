@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import { useRouter } from 'next/router';
 import styles from './menu.module.scss';
 import RoleGuard from '../role-guard/role-guard.component';
+import { Roles } from '../../types/roles.enum';
 
 export default function Menu() {
   const router = useRouter();
@@ -52,7 +53,7 @@ export default function Menu() {
             <span className={styles.menuItemTitle}>Новости</span>
           </a>
         </Link>
-        <RoleGuard someRoles={['Admin', 'Superuser']}>
+        <RoleGuard someRoles={[Roles.CanCreateCourse]}>
           <Link href="/admin">
             <a className={notMobileClasses('/admin')}>
               <Image

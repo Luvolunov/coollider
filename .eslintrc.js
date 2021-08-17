@@ -5,5 +5,6 @@ module.exports = {
     },
     rules: {
         quotes: [2, "single", { "avoidEscape": true }],
+        "import/prefer-default-export": "off"
     }
 };
