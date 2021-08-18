@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
-import { GetServerSideProps } from 'next';
 import Link from 'next/link';
+import { GetServerSideProps } from 'next';
 import { setTitle } from '../../store/title';
 import styles from './admin.module.scss';
 import Glass from '../../shared/components/glass/glass.component';
+import { Roles } from '../../shared/types/roles.enum';
+import RoleGuard from '../../shared/components/role-guard/role-guard.component';
 import { ApiResponse } from '../../shared/types/api-response.interface';
 import { User } from '../../shared/types/user.interface';
-import { Roles } from '../../shared/types/roles.enum';
 
 export default function AdminPage() {
   useEffect(() => {
@@ -15,28 +16,32 @@ export default function AdminPage() {
   });
   return (
     <div className={styles.widgetList}>
-      <div className={styles.widgetOuter}>
-        <Link href="/admin/users">
-          <div>
-            <Glass>
-              <div className={styles.widget}>
-                Users
-              </div>
-            </Glass>
-          </div>
-        </Link>
-      </div>
-      <div className={styles.widgetOuter}>
-        <Link href="/admin/courses">
-          <div>
-            <Glass>
-              <div className={styles.widget}>
-                Courses
-              </div>
-            </Glass>
-          </div>
-        </Link>
-      </div>
+      <RoleGuard someRoles={[Roles.CanEditUser]}>
+        <div className={styles.widgetOuter}>
+          <Link href="/admin/users">
+            <div>
+              <Glass>
+                <div className={styles.widget}>
+                  Users
+                </div>
+              </Glass>
+            </div>
+          </Link>
+        </div>
+      </RoleGuard>
+      <RoleGuard someRoles={[Roles.CanCreateCourse]}>
+        <div className={styles.widgetOuter}>
+          <Link href="/admin/courses">
+            <div>
+              <Glass>
+                <div className={styles.widget}>
+                  Courses
+                </div>
+              </Glass>
+            </div>
+          </Link>
+        </div>
+      </RoleGuard>
     </div>
   );
 }

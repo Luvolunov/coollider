@@ -118,6 +118,7 @@ export default function Profile() {
             </div>
           </div>
         </div>
+        <br />
       </div>
     </>
   );
