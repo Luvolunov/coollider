@@ -38,6 +38,34 @@ $avatar-size: 150px;
   align-items: center;
 }
 
+.rolesBlock {
+  @extend %card-styles;
+  margin-top: 39px;
+}
+
+.rolesInner {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.role {
+  background-color: #bee0ff;
+  border: none;
+  padding: 12px 24px;
+  color: #fff;
+  border-radius: 20px;
+  margin-right: 4px;
+  margin-bottom: 8px;
+}
+
+.role.active {
+  background-color: #51b1ff;
+}
+
+.buttonOuter {
+  margin-top: 16px;
+}
+
 .info {
   margin-top: 39px;
   display: flex;

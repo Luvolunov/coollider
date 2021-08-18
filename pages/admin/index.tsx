@@ -1,19 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
 import { GetServerSideProps } from 'next';
+import Link from 'next/link';
 import { setTitle } from '../../store/title';
 import styles from './admin.module.scss';
 import Glass from '../../shared/components/glass/glass.component';
-import UserAPI from '../../shared/api/user.api';
-import CourseAPI from '../../shared/api/course.api';
-import Spinner from '../../shared/components/spinner/spinner.component';
-import Link from 'next/link';
 import { ApiResponse } from '../../shared/types/api-response.interface';
 import { User } from '../../shared/types/user.interface';
+import { Roles } from '../../shared/types/roles.enum';
 
 export default function AdminPage() {
-  const { data: users } = UserAPI.count();
-  const { data: courses } = CourseAPI.count();
   useEffect(() => {
     setTitle('Админка');
   });
@@ -24,12 +20,7 @@ export default function AdminPage() {
           <div>
             <Glass>
               <div className={styles.widget}>
-                Users:&nbsp;
-                {
-                  users
-                    ? users.count
-                    : <Spinner />
-                }
+                Users
               </div>
             </Glass>
           </div>
@@ -40,12 +31,7 @@ export default function AdminPage() {
           <div>
             <Glass>
               <div className={styles.widget}>
-                Courses:&nbsp;
-                {
-                  courses
-                    ? courses.count
-                    : <Spinner />
-                }
+                Courses
               </div>
             </Glass>
           </div>
@@ -62,8 +48,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     },
   });
   const { body: user } = await res.json() as ApiResponse<User>;
-  const roles = ['Superuser', 'Admin'];
-  const canSee = !!user.roles.find((role) => !!roles.find((roleName) => role.name === roleName));
+  const roles = [Roles.CanSeeStats, Roles.CanCreateCourse, Roles.CanEditUser];
+  const canSee = !!user.roles.find((role) => !!roles.find((roleId) => role.id === roleId));
   if (!canSee) {
     return {
       redirect: {
