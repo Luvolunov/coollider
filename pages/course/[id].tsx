@@ -26,34 +26,36 @@ export default function Course({ course }: CourseProps) {
         </title>
       </Head>
       <Card>
-        <div className={styles.container}>
-          <img width={150} height={150} src={course.imageUrl} alt={course.name} />
-          <div className={styles.info}>
-            <span className={styles.title}>{course?.name}</span>
-            <span className={styles.description}>
-              Матема́тика — наука о структурах, порядке и отношениях, исторически сложившаяся
-              на основе операций подсчёта, измерения и описания формы объектов.
-            </span>
+        <div className={styles.cardInner}>
+          <div className={styles.container}>
+            <img width={150} height={150} src={course.imageUrl} alt={course.name} />
+            <div className={styles.info}>
+              <span className={styles.title}>{course?.name}</span>
+              <span className={styles.description}>
+                Матема́тика — наука о структурах, порядке и отношениях, исторически сложившаяся
+                на основе операций подсчёта, измерения и описания формы объектов.
+              </span>
+            </div>
           </div>
-        </div>
-        <div className={styles.lessonsOuter}>
-          {
-            course.lessons?.map((lesson, index) => (
-              <Link href="/lesson/[id]" as={`/lesson/${lesson.id}`} key={`${lesson.id}${lesson.name}`}>
-                <a className={styles.lesson}>
-                  <div>
-                    <b>
-                      Урок&nbsp;
-                      {index + 1}
-                    </b>
-                    <br />
-                    {lesson.name}
-                  </div>
-                  <img width={20} src="/play.svg" alt="Begin lesson" />
-                </a>
-              </Link>
-            ))
-          }
+          <div className={styles.lessonsOuter}>
+            {
+              course.lessons?.map((lesson, index) => (
+                <Link href="/lesson/[id]" as={`/lesson/${lesson.id}`} key={`${lesson.id}${lesson.name}`}>
+                  <a className={styles.lesson}>
+                    <div>
+                      <b>
+                        Урок&nbsp;
+                        {index + 1}
+                      </b>
+                      <br />
+                      {lesson.name}
+                    </div>
+                    <img width={20} src="/play.svg" alt="Begin lesson" />
+                  </a>
+                </Link>
+              ))
+            }
+          </div>
         </div>
       </Card>
       <br />
