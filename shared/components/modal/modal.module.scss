@@ -1,0 +1,35 @@
+.background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+
+.modal {
+  max-width: 600px;
+  width: 100%;
+  padding: 47px 42px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 14px;
+  position: relative;
+}
+
+.closeButton {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  float: right;
+  right: 30px;
+  top: 40px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
