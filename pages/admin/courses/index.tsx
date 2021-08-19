@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { setTitle } from '../../../store/title';
 import Button from '../../../shared/components/button/button.component';
@@ -9,13 +9,35 @@ import CourseAPI from '../../../shared/api/course.api';
 import Spinner from '../../../shared/components/spinner/spinner.component';
 import Modal from '../../../shared/components/modal/modal.component';
 import Textfield from '../../../shared/components/textfield/textfield.component';
+import { useForm } from '../../../shared/hooks/useForm.hook';
+import { courseSchema } from '../../../shared/schemas/course.schema';
 
 export default function Courses() {
-  const { data: courses } = CourseAPI.list();
+  const { data: courses, revalidate } = CourseAPI.list();
+  const {
+    values, valid, handleInput, errors,
+  } = useForm(courseSchema);
   const [showingModal, setShowingModal] = useState(false);
   useEffect(() => {
     setTitle('Курсы');
   });
+  const [processing, setProcessing] = useState(false);
+  const createCourse = async (event: FormEvent) => {
+    event.preventDefault();
+    if (processing) { return; }
+    setProcessing(true);
+    await fetch('/api/course/create', {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+    await revalidate();
+    setProcessing(false);
+    setShowingModal(false);
+  };
   return (
     <>
       <Card>
@@ -59,12 +81,20 @@ export default function Courses() {
         </div>
       </Card>
       <Modal onRequestToClose={() => setShowingModal(false)} showing={showingModal}>
-        <span>Создать курс</span>
-        <Textfield placeholder="Название" />
-        <Textfield placeholder="Картинка" />
-        <Textfield fieldType="textarea" placeholder="Описание" />
-        <br />
-        <Button>Создать</Button>
+        <form onSubmit={createCourse}>
+          <span className={styles.modalTitle}>Создать курс</span>
+          <Textfield errors={errors.name} name="name" onInput={handleInput} placeholder="Название курса" />
+          <Textfield errors={errors.imageUrl} name="imageUrl" onInput={handleInput} placeholder="Ссылка на картинку" />
+          <Textfield
+            errors={errors.description}
+            fieldType="textarea"
+            name="description"
+            onInput={handleInput}
+            placeholder="Описание курса"
+          />
+          <br />
+          <Button processing={processing} type="submit" disabled={!valid}>Создать</Button>
+        </form>
       </Modal>
     </>
   );

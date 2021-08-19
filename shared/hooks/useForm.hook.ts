@@ -9,7 +9,12 @@ export function useForm(schema: ValidationSchema, defaultValue: any = {}) {
   const [values, setValues] = useState(defaultFieldsState);
   const [errors, setErrors] = useState({} as any);
 
-  const handleInput = ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => {
+  const reset = () => {
+    const fields = Object.keys(values);
+    const resetValues = fields.reduce((acc, field) => ({ ...acc, [field]: null }), {});
+    setValues(resetValues);
+  };
+  const handleInput = ({ target: { name, value } }: ChangeEvent<any>) => {
     setValues({ ...values, [name]: value });
   };
   const handleCheckbox = ({ target: { name, checked } }: ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +37,7 @@ export function useForm(schema: ValidationSchema, defaultValue: any = {}) {
   }, [values]);
 
   return {
+    reset,
     handleInput,
     handleCheckbox,
     values,
