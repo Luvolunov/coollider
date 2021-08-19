@@ -10,7 +10,7 @@
   transition-duration: .2s;
 }
 
-.input {
+.textfield {
   display: block;
   background-color: transparent;
   width: 100%;
@@ -58,7 +58,7 @@
   transition-duration: 0.3s;
 }
 
-.input:focus ~ .line {
+.textfield:focus ~ .line {
   width: 100%;
 }
 

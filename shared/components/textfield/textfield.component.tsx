@@ -15,7 +15,7 @@ export default function Textfield({
   const error = errors.length ? errors[0] : null;
 
   const labelClasses = classNames(styles.label, { [styles.active]: active });
-  const inputClasses = classNames(styles.input, { [styles.error]: error && touched });
+  const inputClasses = classNames(styles.textfield, { [styles.error]: error && touched });
 
   const handleOnFocus = (event: FocusEvent<any>) => {
     setActive(true);
