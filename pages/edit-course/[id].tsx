@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { setTitle } from '../../store/title';
 import styles from './edit-course.module.scss';
-import Input from '../../shared/components/input/input.component';
+import Textfield from '../../shared/components/textfield/textfield.component';
 import Button from '../../shared/components/button/button.component';
 import { useForm } from '../../shared/hooks/useForm.hook';
 import { courseSchema } from '../../shared/schemas/course.schema';
@@ -58,8 +58,8 @@ export default function EditCoursePage({ course }: EditCourseProps) {
       <Card>
         <div className={styles.formContainer}>
           <div className={styles.mainInfo}>
-            <Input value={values.name} name="name" onInput={handleInput} placeholder="Название курса" />
-            <Input value={values.imageUrl} name="imageUrl" onInput={handleInput} placeholder="Ссылка на картинку" />
+            <Textfield value={values.name} name="name" onInput={handleInput} placeholder="Название курса" />
+            <Textfield value={values.imageUrl} name="imageUrl" onInput={handleInput} placeholder="Ссылка на картинку" />
             <br />
             <Button
               processing={processing}

@@ -2,7 +2,7 @@ import React, { FormEvent, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { setTitle } from '../../store/title';
-import Input from '../../shared/components/input/input.component';
+import Textfield from '../../shared/components/textfield/textfield.component';
 import Card from '../../shared/components/card/card.component';
 import Button from '../../shared/components/button/button.component';
 import styles from './edit-lesson.module.scss';
@@ -37,7 +37,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
   return (
     <Card>
       <form onSubmit={createLesson} className={styles.form}>
-        <Input value={values.name} onInput={handleInput} placeholder="Название урока" name="name" errors={errors.name} />
+        <Textfield value={values.name} onInput={handleInput} placeholder="Название урока" name="name" errors={errors.name} />
         <br />
         <Button type="submit">Сохранить</Button>
       </form>

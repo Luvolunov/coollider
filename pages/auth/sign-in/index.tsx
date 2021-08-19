@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Form from '../../../shared/components/form/form.component';
-import Input from '../../../shared/components/input/input.component';
+import Textfield from '../../../shared/components/textfield/textfield.component';
 import styles from './sign-in.module.scss';
 import Button from '../../../shared/components/button/button.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
@@ -51,9 +51,9 @@ export default function SignInPage() {
           <h5 style={{ textAlign: 'center' }}>Вход</h5>
           <br />
           <br />
-          <Input placeholder="Почта" onChange={handleInput} name="email" errors={errors.email} />
+          <Textfield placeholder="Почта" onChange={handleInput} name="email" errors={errors.email} />
           <br />
-          <Input placeholder="Пароль" type="password" onChange={handleInput} name="password" errors={errors.password} />
+          <Textfield placeholder="Пароль" type="password" onChange={handleInput} name="password" errors={errors.password} />
           <br />
           <br />
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

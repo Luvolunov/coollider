@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { setTitle } from '../../store/title';
 import styles from './create-course.module.scss';
-import Input from '../../shared/components/input/input.component';
+import Textfield from '../../shared/components/textfield/textfield.component';
 import Button from '../../shared/components/button/button.component';
 import { useForm } from '../../shared/hooks/useForm.hook';
 import { courseSchema } from '../../shared/schemas/course.schema';
@@ -34,8 +34,8 @@ export default function CreateCoursePage() {
   return (
     <Card>
       <div className={styles.mainInfo}>
-        <Input name="name" onInput={handleInput} placeholder="Название курса" />
-        <Input name="imageUrl" onInput={handleInput} placeholder="Ссылка на картинку" />
+        <Textfield name="name" onInput={handleInput} placeholder="Название курса" />
+        <Textfield name="imageUrl" onInput={handleInput} placeholder="Ссылка на картинку" />
       </div>
       <br />
       <Button processing={processing} onClick={createCourse} disabled={!valid}>Сохранить</Button>

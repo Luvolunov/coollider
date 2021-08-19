@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Form from '../../../shared/components/form/form.component';
-import Input from '../../../shared/components/input/input.component';
+import Textfield from '../../../shared/components/textfield/textfield.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
 import styles from './sign-up.module.scss';
 import { SignUpSchema } from '../../../shared/schemas/sign-up.schema';
@@ -52,28 +52,28 @@ export default function SignUpPage() {
         <Form onSubmit={signUp} style={{ maxWidth: '450px' }}>
           <h5 style={{ textAlign: 'center' }}>Регистрация</h5>
           <br />
-          <Input
+          <Textfield
             name="firstName"
             placeholder="Имя"
             onChange={handleInput}
             errors={errors.firstName}
           />
           <br />
-          <Input
+          <Textfield
             name="lastName"
             placeholder="Фамилия"
             onChange={handleInput}
             errors={errors.lastName}
           />
           <br />
-          <Input
+          <Textfield
             name="email"
             placeholder="Почта"
             onChange={handleInput}
             errors={errors.email}
           />
           <br />
-          <Input
+          <Textfield
             name="password"
             placeholder="Пароль"
             onChange={handleInput}

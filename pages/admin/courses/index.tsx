@@ -8,7 +8,7 @@ import styles from './courses.module.scss';
 import CourseAPI from '../../../shared/api/course.api';
 import Spinner from '../../../shared/components/spinner/spinner.component';
 import Modal from '../../../shared/components/modal/modal.component';
-import Input from '../../../shared/components/input/input.component';
+import Textfield from '../../../shared/components/textfield/textfield.component';
 
 export default function Courses() {
   const { data: courses } = CourseAPI.list();
@@ -60,8 +60,9 @@ export default function Courses() {
       </Card>
       <Modal onRequestToClose={() => setShowingModal(false)} showing={showingModal}>
         <span>Создать курс</span>
-        <Input placeholder="Название" />
-        <Input placeholder="Картинка" />
+        <Textfield placeholder="Название" />
+        <Textfield placeholder="Картинка" />
+        <Textfield fieldType="textarea" placeholder="Описание" />
         <br />
         <Button>Создать</Button>
       </Modal>
