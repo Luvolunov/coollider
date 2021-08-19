@@ -1,9 +1,12 @@
+import { Lesson } from './lesson.interface';
+
 export interface CourseInterface {
   id: number;
   name: string;
+  description: string;
   authorId: number;
   authorName: string;
   imageUrl: string;
   lessonsCount?: number;
-  lessons?: Array<{ id: number, name: number, courseId: number }>;
+  lessons?: Array<Lesson>;
 }

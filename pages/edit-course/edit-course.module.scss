@@ -1,5 +1,12 @@
 @import "../../shared/colors";
 
+.modalTitle {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
 .mainInfo {
   max-width: 360px;
   width: 100%;

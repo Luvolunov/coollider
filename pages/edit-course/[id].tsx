@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -12,6 +12,10 @@ import { courseSchema } from '../../shared/schemas/course.schema';
 import Card from '../../shared/components/card/card.component';
 import { CourseInterface } from '../../shared/types/course.interface';
 import { getCourseServerSide } from '../../shared/utils/get-course-server-side';
+import Modal from '../../shared/components/modal/modal.component';
+import { lessonSchema } from '../../shared/schemas/lesson.schema';
+import { ApiResponse } from '../../shared/types/api-response.interface';
+import { Lesson } from '../../shared/types/lesson.interface';
 
 type EditCourseProps = {
   course: CourseInterface
@@ -19,9 +23,17 @@ type EditCourseProps = {
 
 export default function EditCoursePage({ course }: EditCourseProps) {
   const { values, valid, handleInput } = useForm(courseSchema, course);
+  const {
+    handleInput: handleLessonInput,
+    errors: lessonErrors,
+    values: lessonValues,
+    valid: lessonFormValid,
+  } = useForm(lessonSchema);
   const router = useRouter();
+  const [showing, setShowing] = useState(false);
   const [processing, setProcessing] = useState(false);
-  const [lessons, setLessons] = useState(course.lessons);
+  const [lessonCreating, setLessonCreating] = useState(false);
+  const [lessons, setLessons] = useState<Array<Lesson>>(course.lessons || []);
   const updateCourse = async () => {
     if (processing) { return; }
     setProcessing(true);
@@ -36,16 +48,35 @@ export default function EditCoursePage({ course }: EditCourseProps) {
     setProcessing(false);
     await router.push('/admin/courses');
   };
+  const createLesson = async (event: FormEvent) => {
+    event.preventDefault();
+    if (lessonCreating) { return; }
+    const data = { ...lessonValues, courseId: course.id };
+    setLessonCreating(true);
+    const response = await fetch('/api/lesson/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(data),
+    });
+    const lesson = await response.json() as ApiResponse<Lesson>;
+    if (lesson.success) {
+      setLessons([...lessons, lesson.body]);
+    }
+    setLessonCreating(false);
+    setShowing(false);
+  };
   const removeLesson = async (lessonId: number) => {
     await fetch(`/api/lesson/${lessonId}`, {
       method: 'DELETE',
       credentials: 'include',
     });
-    alert('Lesson was deleted');
     setLessons(lessons?.filter((lesson) => lesson.id !== lessonId));
   };
   useEffect(() => {
-    setTitle('Обновить курс');
+    setTitle('Редактировать курс');
   });
   return (
     <>
@@ -60,21 +91,25 @@ export default function EditCoursePage({ course }: EditCourseProps) {
           <div className={styles.mainInfo}>
             <Textfield value={values.name} name="name" onInput={handleInput} placeholder="Название курса" />
             <Textfield value={values.imageUrl} name="imageUrl" onInput={handleInput} placeholder="Ссылка на картинку" />
+            <Textfield
+              value={values.description}
+              name="description"
+              onInput={handleInput}
+              placeholder="Описание курса"
+            />
             <br />
             <Button
               processing={processing}
               onClick={updateCourse}
               disabled={!valid}
             >
-              Обновить
+              Сохранить
             </Button>
           </div>
           <div className={styles.lessonList}>
-            <Link href="/create-lesson/[id]" as={`/create-lesson/${course.id}`}>
-              <button type="button" className={styles.addLessonButton}>
-                <img width={50} src="/plus.svg" alt="plus" />
-              </button>
-            </Link>
+            <button onClick={() => setShowing(true)} type="button" className={styles.addLessonButton}>
+              <img width={50} src="/plus.svg" alt="plus" />
+            </button>
             <br />
             {
               lessons?.map((lesson) => (
@@ -112,6 +147,14 @@ export default function EditCoursePage({ course }: EditCourseProps) {
           </div>
         </div>
       </Card>
+      <Modal showing={showing} onRequestToClose={() => setShowing(false)}>
+        <form onSubmit={createLesson}>
+          <span className={styles.modalTitle}>Создать урок</span>
+          <Textfield errors={lessonErrors} name="name" onInput={handleLessonInput} placeholder="Название урока" />
+          <br />
+          <Button processing={lessonCreating} type="submit" disabled={!lessonFormValid}>Создать</Button>
+        </form>
+      </Modal>
     </>
   );
 }
