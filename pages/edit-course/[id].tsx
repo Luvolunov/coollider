@@ -1,4 +1,7 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+/* eslint-disable jsx-a11y/control-has-associated-label */
+import React, {
+  FormEvent, useEffect, useState
+} from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -106,44 +109,44 @@ export default function EditCoursePage({ course }: EditCourseProps) {
               Сохранить
             </Button>
           </div>
-          <div className={styles.lessonList}>
+          <div className={styles.lessonsPanel}>
             <button onClick={() => setShowing(true)} type="button" className={styles.addLessonButton}>
               <img width={50} src="/plus.svg" alt="plus" />
             </button>
             <br />
-            {
-              lessons?.map((lesson) => (
-                <div key={`${lesson.id}${lesson.name}`} className={styles.lesson}>
-                  <button
-                    type="button"
-                    className={styles.dragButton}
-                    title="delete lesson"
-                  >
-                    <img className={styles.buttonImage} src="/dots.svg" alt="delete lesson" />
-                  </button>
-                  <span className={styles.lessonName}>{lesson.name}</span>
-                  <div>
-                    <Link href="/edit-lesson/[id]" as={`/edit-lesson/${lesson.id}`}>
+            <div className={styles.lessonList}>
+              {
+                lessons?.map((lesson) => (
+                  <div key={`${lesson.id}${lesson.name}`} className={styles.lesson}>
+                    <button
+                      type="button"
+                      className={styles.dragButton}
+                      title="delete lesson"
+                    />
+                    <span className={styles.lessonName}>{lesson.name}</span>
+                    <div>
+                      <Link href="/edit-lesson/[id]" as={`/edit-lesson/${lesson.id}`}>
+                        <button
+                          type="button"
+                          className={styles.editButton}
+                          title="delete lesson"
+                        >
+                          <img className={styles.buttonImage} src="/settings.svg" alt="delete lesson" />
+                        </button>
+                      </Link>
                       <button
+                        onClick={() => removeLesson(lesson.id)}
                         type="button"
-                        className={styles.editButton}
+                        className={styles.removeButton}
                         title="delete lesson"
                       >
-                        <img className={styles.buttonImage} src="/settings.svg" alt="delete lesson" />
+                        <img className={styles.buttonImage} src="/delete.svg" alt="delete lesson" />
                       </button>
-                    </Link>
-                    <button
-                      onClick={() => removeLesson(lesson.id)}
-                      type="button"
-                      className={styles.removeButton}
-                      title="delete lesson"
-                    >
-                      <img className={styles.buttonImage} src="/delete.svg" alt="delete lesson" />
-                    </button>
+                    </div>
                   </div>
-                </div>
-              ))
-            }
+                ))
+              }
+            </div>
           </div>
         </div>
       </Card>
