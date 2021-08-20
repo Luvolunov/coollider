@@ -6,6 +6,7 @@
   align-items: center;
   width: 100%;
   height: 100vh;
+  background: #fff;
 }
 
 .lessonInner {
@@ -18,7 +19,7 @@
   height: 100%;
   padding: 40px;
   box-sizing: border-box;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
   position: relative;
 }
 
@@ -49,7 +50,7 @@
   border: none;
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  background-color: #ffbf96;
+  background-color: #b8d8ff;
   box-sizing: border-box;
   display: flex;
   align-items: center;
