@@ -24,17 +24,20 @@ export default function Course({ course }: CourseProps) {
           {course.name}
           &nbsp;|&nbsp;Куллайдер
         </title>
+        <meta name="author" content={course.authorName} />
+        <meta name="description" content={course.description} />
+        <meta property="og:title" content={course.name} />
+        <meta property="og:description" content={course.description} />
+        <meta property="og:image" content={course.imageUrl} />
+        <meta property="og:locale" content="ru_RU" />
       </Head>
       <Card>
         <div className={styles.cardInner}>
           <div className={styles.container}>
             <img width={150} height={150} src={course.imageUrl} alt={course.name} />
             <div className={styles.info}>
-              <span className={styles.title}>{course?.name}</span>
-              <span className={styles.description}>
-                Матема́тика — наука о структурах, порядке и отношениях, исторически сложившаяся
-                на основе операций подсчёта, измерения и описания формы объектов.
-              </span>
+              <span className={styles.title}>{course.name}</span>
+              <span className={styles.description}>{course.description}</span>
             </div>
           </div>
           <div className={styles.lessonsOuter}>
