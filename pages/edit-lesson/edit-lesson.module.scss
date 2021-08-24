@@ -1,3 +1,61 @@
+@import "../../shared/colors";
+
 .form {
   max-width: 500px;
+  width: 100%;
+}
+
+%small-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  transition: box-shadow .2s;
+  background-color: #fff;
+  cursor: pointer;
+  border: 1px solid #cbcbcb;
+  margin-right: 10px;
+}
+
+.blockPanel {
+  display: flex;
+}
+
+.createBlockButton {
+  @extend %small-button;
+  &:hover {
+    box-shadow: 0 0 3px #cbcbcb;
+  }
+}
+
+.block {
+  color: #000;
+  @extend %small-button;
+  &:hover {
+    box-shadow: 0 0 3px #cbcbcb;
+  }
+  &.active {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    color: #fff;
+    &:hover {
+      box-shadow: 0 0 3px $primary-color;
+    }
+  }
+}
+
+.currentSlide {
+  max-width: 900px;
+  height: 600px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
+  margin: 20px auto;
+}
+
+
+.editor {
+  height: 100%;
 }
