@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions,
 react/jsx-props-no-spreading,jsx-a11y/label-has-associated-control */
-import React, { useState, FocusEvent, ChangeEvent } from 'react';
+import React, {
+  useState, FocusEvent, ChangeEvent, useRef, useEffect
+} from 'react';
 import classNames from 'classnames';
+import autosize from 'autosize';
 import styles from './textfield.module.scss';
 import { InputField, TextareaField } from './textfield.props';
 
@@ -10,7 +13,7 @@ export default function Textfield({
 }: TextareaField | InputField) {
   const [active, setActive] = useState(!!props.value);
   const [touched, setTouched] = useState(false);
-  const [rows, setRows] = useState(((props.value as string)?.match(/\n/gi)?.length || 0) + 1);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const error = errors.length ? errors[0] : null;
 
@@ -30,10 +33,12 @@ export default function Textfield({
     setActive(true);
     setTouched(true);
     onChange && onChange(event);
-    if (fieldType === 'textarea') {
-      setRows((event.target.value.match(/\n/gi)?.length || 0) + 1);
-    }
   };
+
+  useEffect(() => {
+    if (fieldType !== 'textarea') { return; }
+    autosize(textareaRef.current!);
+  }, [props.value]);
 
   return (
     <label className={labelClasses}>
@@ -44,6 +49,7 @@ export default function Textfield({
             onFocus={handleOnFocus}
             onBlur={handleOnBlur}
             onChange={handleOnChange}
+            value={props.value}
             autoComplete="off"
             className={inputClasses}
             {...props as InputField}
@@ -53,11 +59,13 @@ export default function Textfield({
       {
         fieldType === 'textarea' && (
           <textarea
+            ref={textareaRef}
             onChange={handleOnChange}
             onFocus={handleOnFocus}
             onBlur={handleOnBlur}
+            value={props.value}
+            rows={1}
             className={inputClasses}
-            rows={rows}
             {...props as TextareaField}
           />
         )

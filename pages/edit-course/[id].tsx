@@ -95,6 +95,7 @@ export default function EditCoursePage({ course }: EditCourseProps) {
             <Textfield value={values.name} name="name" onInput={handleInput} placeholder="Название курса" />
             <Textfield value={values.imageUrl} name="imageUrl" onInput={handleInput} placeholder="Ссылка на картинку" />
             <Textfield
+              fieldType="textarea"
               value={values.description}
               name="description"
               onInput={handleInput}
