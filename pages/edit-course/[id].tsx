@@ -25,7 +25,12 @@ type EditCourseProps = {
 };
 
 export default function EditCoursePage({ course }: EditCourseProps) {
-  const { values, valid, handleInput } = useForm(courseSchema, course);
+  const {
+    values,
+    valid,
+    handleInput,
+    errors: courseErrors,
+  } = useForm(courseSchema, course);
   const {
     handleInput: handleLessonInput,
     errors: lessonErrors,
@@ -92,10 +97,23 @@ export default function EditCoursePage({ course }: EditCourseProps) {
       <Card>
         <div className={styles.formContainer}>
           <div className={styles.mainInfo}>
-            <Textfield value={values.name} name="name" onInput={handleInput} placeholder="Название курса" />
-            <Textfield value={values.imageUrl} name="imageUrl" onInput={handleInput} placeholder="Ссылка на картинку" />
+            <Textfield
+              errors={courseErrors.name}
+              value={values.name}
+              name="name"
+              onInput={handleInput}
+              placeholder="Название курса"
+            />
+            <Textfield
+              errors={courseErrors.imageUrl}
+              value={values.imageUrl}
+              name="imageUrl"
+              onInput={handleInput}
+              placeholder="Ссылка на картинку"
+            />
             <Textfield
               fieldType="textarea"
+              errors={courseErrors.description}
               value={values.description}
               name="description"
               onInput={handleInput}
@@ -154,7 +172,7 @@ export default function EditCoursePage({ course }: EditCourseProps) {
       <Modal showing={showing} onRequestToClose={() => setShowing(false)}>
         <form onSubmit={createLesson}>
           <span className={styles.modalTitle}>Создать урок</span>
-          <Textfield errors={lessonErrors} name="name" onInput={handleLessonInput} placeholder="Название урока" />
+          <Textfield errors={lessonErrors.name} name="name" onInput={handleLessonInput} placeholder="Название урока" />
           <br />
           <Button processing={lessonCreating} type="submit" disabled={!lessonFormValid}>Создать</Button>
         </form>

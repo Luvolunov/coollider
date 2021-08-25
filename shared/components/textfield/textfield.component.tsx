@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions,
 react/jsx-props-no-spreading,jsx-a11y/label-has-associated-control */
 import React, {
-  useState, FocusEvent, ChangeEvent, useRef, useEffect
+  useState, FocusEvent, ChangeEvent, useRef, useEffect,
 } from 'react';
 import classNames from 'classnames';
 import autosize from 'autosize';
