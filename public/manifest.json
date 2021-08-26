@@ -2,10 +2,10 @@
   "name": "Куллайдер",
   "short_name": "Куллайдер",
   "description": "Coollider helps you to learn fast",
-  "start_url": "/auth/sign-in",
+  "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "lang": "Russian",
+  "lang": "ru-RU",
   "theme_color": "#6495ED",
   "background_color": "#FFF",
   "icons": [
