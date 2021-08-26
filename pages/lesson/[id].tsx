@@ -35,20 +35,33 @@ export default function LessonPage({ lesson }: LessonPageProps) {
   const router = useRouter();
   const goBack = () => router.back();
   const [started, setStarted] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  const [buttonCaption, setButtonCaption] = useState('Начать');
   const [currentBlockIndex, setCurrentBlockIndex] = useState<number>(0);
   const [progress, setProgress] = useState(0);
   const nextBlock = () => {
+    if (completed) {
+      router.push(`/course/${lesson.courseId}`);
+      return;
+    }
     if (!started) {
       setStarted(true);
+      setButtonCaption('Далее');
       return;
     }
     setCurrentBlockIndex(currentBlockIndex + 1);
     setProgress(((currentBlockIndex + 1) / lesson.blocks.length) * 100);
+    if (currentBlockIndex + 1 === lesson.blocks.length) {
+      setButtonCaption('Завершить');
+      setCompleted(true);
+    }
   };
   return (
     <div className={styles.lesson}>
       <div className={styles.lessonInner}>
-        <Progress progress={progress} />
+        {
+          started && !completed && <Progress progress={progress} />
+        }
         {
           started
             ? (
@@ -67,14 +80,20 @@ export default function LessonPage({ lesson }: LessonPageProps) {
               </div>
             )
         }
+        {
+          completed && (
+            <div className={styles.firstBlock}>
+              <img className={styles.courseImage} src={lesson.courseImage} alt="Course" />
+              <h1 className={styles.lessonName}>Вы успешно прошли урок!</h1>
+            </div>
+          )
+        }
         <div className={styles.footerPanel}>
           <button type="button" onClick={goBack} className={styles.closeButton}>
             <img className={styles.closeImage} src="/icons/log-out.svg" alt="Log out" />
           </button>
           <Button onClick={nextBlock} mode="big">
-            {
-              !started ? 'Начать урок!' : 'Далее'
-            }
+            {buttonCaption}
           </Button>
         </div>
       </div>
