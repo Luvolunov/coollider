@@ -32,4 +32,4 @@ Deploy Client:
     tags:
         - dev-shell
     only:
-        - dev
+        - production
