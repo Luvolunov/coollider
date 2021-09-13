@@ -76,7 +76,7 @@ export default function Coollider({ Component, pageProps }: AppProps) {
 
 Coollider.getInitialProps = async (appContext: AppContext) => {
   const props = await App.getInitialProps(appContext);
-  if (!appContext.ctx.res) {
+  if (!appContext.ctx.res || props.pageProps.statusCode === 500) {
     return { ...props };
   }
   const res = appContext.ctx.req ? await fetch(buildUrl('user/profile'), {
