@@ -29,10 +29,12 @@ $menu-shadow-color: rgba(255, 255, 255, 0.25);
 .menuItem {
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
   color: #fff;
-  &.active {
-    color: #ffff00;
+  width: 100%;
+  padding: 12px 0;
+  transition: background-color linear 0.08s;
+  &.active, &:hover {
+    background-color: rgba(0, 0, 0, 0.06);
   }
 }
 
@@ -62,13 +64,11 @@ $menu-shadow-color: rgba(255, 255, 255, 0.25);
     width: unset;
     top: unset;
     flex-direction: row;
-    align-items: center;
     box-shadow: 0 -5px 15px $menu-shadow-color;
   }
   .firstMenu, .secondMenu {
     flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+    height: 60px;
   }
   .firstMenu {
     flex: 3;
@@ -77,9 +77,12 @@ $menu-shadow-color: rgba(255, 255, 255, 0.25);
     flex: 1;
   }
   .menuItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0;
     padding: 0;
-    height: 40px;
+    height: 100%;
     cursor: default;
   }
   .menuItemImage {

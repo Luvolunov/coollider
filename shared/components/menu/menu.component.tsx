@@ -24,9 +24,9 @@ export default function Menu() {
           <a className={linkClasses('/courses')}>
             <Image
               className={styles.menuItemImage}
-              width={25}
-              height={29}
-              src={`/menu-icons/book${checkActiveLink('/courses') ? '-active' : ''}.svg`}
+              width={22}
+              height={27}
+              src="/menu-icons/book.svg"
             />
             <span className={styles.menuItemTitle}>Курсы</span>
           </a>
@@ -35,9 +35,9 @@ export default function Menu() {
           <a className={linkClasses('/statistics')}>
             <Image
               className={styles.menuItemImage}
-              width={25}
-              height={29}
-              src={`/menu-icons/stats${checkActiveLink('/statistics') ? '-active' : ''}.svg`}
+              width={22}
+              height={27}
+              src="/menu-icons/stats.svg"
             />
             <span className={styles.menuItemTitle}>Статистика</span>
           </a>
@@ -46,9 +46,9 @@ export default function Menu() {
           <a className={linkClasses('/news')}>
             <Image
               className={styles.menuItemImage}
-              width={25}
-              height={29}
-              src={`/menu-icons/news${checkActiveLink('/news') ? '-active' : ''}.svg`}
+              width={22}
+              height={27}
+              src="/menu-icons/news.svg"
             />
             <span className={styles.menuItemTitle}>Новости</span>
           </a>
@@ -58,9 +58,9 @@ export default function Menu() {
             <a className={notMobileClasses('/admin')}>
               <Image
                 className={styles.menuItemImage}
-                width={25}
-                height={29}
-                src={`/menu-icons/admin${checkActiveLink('/admin') ? '-active' : ''}.svg`}
+                width={22}
+                height={27}
+                src="/menu-icons/admin.svg"
               />
               <span className={styles.menuItemTitle}>Админка</span>
             </a>
@@ -72,9 +72,9 @@ export default function Menu() {
           <a className={linkClasses('/settings')}>
             <Image
               className={styles.menuItemImage}
-              width={25}
-              height={29}
-              src={`/menu-icons/cog${checkActiveLink('/settings') ? '-active' : ''}.svg`}
+              width={22}
+              height={27}
+              src="/menu-icons/cog.svg"
             />
             <span className={styles.menuItemTitle}>Настройки</span>
           </a>
@@ -83,9 +83,9 @@ export default function Menu() {
           <a className={notMobileClasses('/faq')}>
             <Image
               className={styles.menuItemImage}
-              width={25}
-              height={29}
-              src={`/menu-icons/question-circle${checkActiveLink('/faq') ? '-active' : ''}.svg`}
+              width={22}
+              height={27}
+              src="/menu-icons/question-circle.svg"
             />
             <span className={styles.menuItemTitle}>Вопросы</span>
           </a>
