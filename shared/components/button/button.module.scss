@@ -9,6 +9,7 @@
   margin: 0;
   cursor: pointer;
   background-color: $primary-color;
+  box-shadow: 0 0 6px $primary-color;
   color: #fff;
   position: relative;
   &.big {
