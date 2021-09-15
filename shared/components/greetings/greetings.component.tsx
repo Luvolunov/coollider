@@ -7,15 +7,15 @@ export default function Greetings() {
   const username = `${data?.firstName} ${data?.lastName}`;
   return (
     <section className={styles.greetings}>
-    <h2 className={styles.title}>Добро пожаловать!</h2>
-    <span className={styles.text}>
-          Здраствуйте,&nbsp;
-      {username}
-      , последний раз вы заходили: 10.03.2021
-        </span>
-    <span className={styles.text}>
-          Ваш уровень: 1
-        </span>
-  </section>
+      <h2 className={styles.title}>Добро пожаловать!</h2>
+      <span className={styles.text}>
+        Здраствуйте,&nbsp;
+        {username}
+        , последний раз вы заходили: 10.03.2021
+      </span>
+      <span className={styles.text}>
+        Ваш уровень: 1
+      </span>
+    </section>
   );
 }
