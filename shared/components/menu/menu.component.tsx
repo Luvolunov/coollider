@@ -20,6 +20,17 @@ export default function Menu() {
   return (
     <nav className={styles.menu}>
       <div className={styles.firstMenu}>
+        <Link href="/">
+          <a className={linkClasses('/')}>
+            <Image
+              className={styles.menuItemImage}
+              width={22}
+              height={27}
+              src="/menu-icons/home.svg"
+            />
+            <span className={styles.menuItemTitle}>Главная</span>
+          </a>
+        </Link>
         <Link href="/courses">
           <a className={linkClasses('/courses')}>
             <Image
