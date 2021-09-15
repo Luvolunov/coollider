@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import { setTitle } from '../../store/title';
 import styles from './admin.module.scss';
-import Glass from '../../shared/components/glass/glass.component';
 import { Roles } from '../../shared/types/roles.enum';
 import RoleGuard from '../../shared/components/role-guard/role-guard.component';
 import { ApiResponse } from '../../shared/types/api-response.interface';
 import { User } from '../../shared/types/user.interface';
+import Card from '../../shared/components/card/card.component';
 
 export default function AdminPage() {
   useEffect(() => {
@@ -20,11 +20,11 @@ export default function AdminPage() {
         <div className={styles.widgetOuter}>
           <Link href="/admin/users">
             <div>
-              <Glass>
+              <Card>
                 <div className={styles.widget}>
                   Users
                 </div>
-              </Glass>
+              </Card>
             </div>
           </Link>
         </div>
@@ -33,11 +33,11 @@ export default function AdminPage() {
         <div className={styles.widgetOuter}>
           <Link href="/admin/courses">
             <div>
-              <Glass>
+              <Card>
                 <div className={styles.widget}>
                   Courses
                 </div>
-              </Glass>
+              </Card>
             </div>
           </Link>
         </div>

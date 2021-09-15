@@ -6,6 +6,9 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .courseOuter {
@@ -38,7 +41,7 @@
   display: inline-block;
   max-width: 120px;
   margin-left: 15px;
-  font-weight: 100;
+  font-weight: 300;
   letter-spacing: .5px;
 }
 
