@@ -31,36 +31,38 @@ export default function Course({ course }: CourseProps) {
         <meta property="og:image" content={course.imageUrl} />
         <meta property="og:locale" content="ru_RU" />
       </Head>
-      <Card>
-        <div className={styles.cardInner}>
-          <div className={styles.container}>
-            <img width={150} height={150} src={course.imageUrl} alt={course.name} />
-            <div className={styles.info}>
-              <span className={styles.title}>{course.name}</span>
-              <span className={styles.description}>{course.description}</span>
+      <div className={styles.cardOuter}>
+        <Card>
+          <div className={styles.cardInner}>
+            <div className={styles.container}>
+              <img width={150} height={150} src={course.imageUrl} alt={course.name} />
+              <div className={styles.info}>
+                <span className={styles.title}>{course.name}</span>
+                <span className={styles.description}>{course.description}</span>
+              </div>
+            </div>
+            <div className={styles.lessonsOuter}>
+              {
+                course.lessons?.map((lesson, index) => (
+                  <Link href="/lesson/[id]" as={`/lesson/${lesson.id}`} key={`${lesson.id}${lesson.name}`}>
+                    <a className={styles.lesson}>
+                      <div>
+                        <b>
+                          Урок&nbsp;
+                          {index + 1}
+                        </b>
+                        <br />
+                        {lesson.name}
+                      </div>
+                      <img width={20} src="/play.svg" alt="Begin lesson" />
+                    </a>
+                  </Link>
+                ))
+              }
             </div>
           </div>
-          <div className={styles.lessonsOuter}>
-            {
-              course.lessons?.map((lesson, index) => (
-                <Link href="/lesson/[id]" as={`/lesson/${lesson.id}`} key={`${lesson.id}${lesson.name}`}>
-                  <a className={styles.lesson}>
-                    <div>
-                      <b>
-                        Урок&nbsp;
-                        {index + 1}
-                      </b>
-                      <br />
-                      {lesson.name}
-                    </div>
-                    <img width={20} src="/play.svg" alt="Begin lesson" />
-                  </a>
-                </Link>
-              ))
-            }
-          </div>
-        </div>
-      </Card>
+        </Card>
+      </div>
       <br />
     </>
   );

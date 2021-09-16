@@ -1,6 +1,11 @@
 @import "../../shared/breakpoints";
 @import "../../shared/colors";
 
+.cardOuter {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .cardInner {
   display: flex;
 }
@@ -34,8 +39,8 @@
 }
 
 .lesson {
-  box-shadow: 0 0 5px $gray-color;
-  background-color: cornflowerblue;
+  box-shadow: 0 0 8px $gray-color;
+  background-color: $primary-color;
   color: #fff;
   border-radius: 15px;
   padding: 20px 25px;
