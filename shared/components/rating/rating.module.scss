@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+$star-size: 35px;
+
+.star {
+  display: block;
+  width: $star-size;
+  height: $star-size;
+  margin-right: 10px;
+  background: url("/icons/star-outline.svg") no-repeat 50% 50%;
+  background-size: $star-size;
+}
+
+.input {
+  display: none;
+  &:checked ~ .star {
+    background-image: url("/icons/star-contain.svg");
+  }
+}

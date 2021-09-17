@@ -8,5 +8,6 @@ export interface CourseInterface {
   authorName: string;
   imageUrl: string;
   lessonsCount?: number;
+  completedLessons?: number;
   lessons?: Array<Lesson>;
 }

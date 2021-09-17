@@ -85,6 +85,31 @@
   height: 25px;
 }
 
+.lastBlock {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.textfieldOuter {
+  max-width: 360px;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.lastQuestion {
+  font-size: 1.8rem;
+  margin: 1rem 0;
+}
+
+.shareOpinion {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
 
 @media (max-width: $x-small) {
   .lessonName {
