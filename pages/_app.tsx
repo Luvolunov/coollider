@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/jsx-props-no-spreading,import/no-mutable-exports */
 import './global.scss';
 import App, { AppContext, AppProps } from 'next/app';
 import React, { useEffect, useState } from 'react';
@@ -7,6 +7,13 @@ import Head from 'next/head';
 import PageContainer from '../shared/components/page-container/page-container.component';
 import Loader from '../shared/components/loader/loader.component';
 import { buildUrl } from '../shared/utils/build-url';
+import { setPrompt } from '../store/prompt';
+
+if (process.browser) {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    setPrompt(e);
+  });
+}
 
 export default function Coollider({ Component, pageProps }: AppProps) {
   const router = useRouter();

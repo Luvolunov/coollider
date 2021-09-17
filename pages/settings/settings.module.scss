@@ -1,0 +1,20 @@
+@import "../../shared/colors";
+
+.installTitle {
+  display: block;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.buttonOuter {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.errorMessage {
+  display: block;
+  text-align: center;
+  font-size: 0.8rem;
+  color: $error-color;
+}
