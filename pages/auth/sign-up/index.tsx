@@ -50,45 +50,49 @@ export default function SignUpPage() {
       </Head>
       <main className={styles.page}>
         <Form onSubmit={signUp} style={{ maxWidth: '450px' }}>
-          <h5 style={{ textAlign: 'center' }}>Регистрация</h5>
-          <br />
-          <Textfield
-            name="firstName"
-            placeholder="Имя"
-            onChange={handleInput}
-            errors={errors.firstName}
-          />
-          <br />
-          <Textfield
-            name="lastName"
-            placeholder="Фамилия"
-            onChange={handleInput}
-            errors={errors.lastName}
-          />
-          <br />
-          <Textfield
-            name="email"
-            placeholder="Почта"
-            onChange={handleInput}
-            errors={errors.email}
-          />
-          <br />
-          <Textfield
-            name="password"
-            placeholder="Пароль"
-            onChange={handleInput}
-            type="password"
-            errors={errors.password}
-          />
-          <br />
-          <Checkbox name="agreement" onChange={handleCheckbox}>Я согласен с условиями пользования</Checkbox>
-          <br />
-          <br />
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <h5 className={styles.title}>Регистрация</h5>
+          <div className={styles.nameFields}>
+            <div className={styles.nameFieldOuter}>
+              <Textfield
+                name="firstName"
+                placeholder="Имя"
+                onChange={handleInput}
+                errors={errors.firstName}
+              />
+            </div>
+            <div className={styles.nameFieldOuter}>
+              <Textfield
+                name="lastName"
+                placeholder="Фамилия"
+                onChange={handleInput}
+                errors={errors.lastName}
+              />
+            </div>
+          </div>
+          <div className={styles.formRow}>
+            <Textfield
+              name="email"
+              placeholder="Почта"
+              onChange={handleInput}
+              errors={errors.email}
+            />
+          </div>
+          <div className={styles.formRow}>
+            <Textfield
+              name="password"
+              placeholder="Пароль"
+              onChange={handleInput}
+              type="password"
+              errors={errors.password}
+            />
+          </div>
+          <div className={styles.formRow}>
+            <Checkbox name="agreement" onChange={handleCheckbox}>Я согласен с условиями пользования</Checkbox>
+          </div>
+          <div className={styles.buttonOuter}>
             <Button processing={processing} type="submit" disabled={!valid}>Зарегистрироваться</Button>
           </div>
-          <br />
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div className={styles.linkOuter}>
             <Link href="/auth/sign-in">
               <a>У меня есть аккаунт :)</a>
             </Link>

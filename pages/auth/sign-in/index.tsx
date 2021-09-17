@@ -48,19 +48,15 @@ export default function SignInPage() {
       </Head>
       <main className={styles.page}>
         <Form onSubmit={signIn} style={{ maxWidth: '400px' }}>
-          <h5 style={{ textAlign: 'center' }}>Вход</h5>
-          <br />
-          <br />
+          <h5 className={styles.title}>Вход</h5>
+          <div className={styles.formRow}></div>
           <Textfield placeholder="Почта" onChange={handleInput} name="email" errors={errors.email} />
-          <br />
+          <div className={styles.formRow}></div>
           <Textfield placeholder="Пароль" type="password" onChange={handleInput} name="password" errors={errors.password} />
-          <br />
-          <br />
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div className={styles.buttonOuter}>
             <Button processing={processing} type="submit" disabled={!valid}>Войти</Button>
           </div>
-          <br />
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div className={styles.linkOuter}>
             <Link href="/auth/sign-up">
               <a>У меня нет аккаунта :(</a>
             </Link>
