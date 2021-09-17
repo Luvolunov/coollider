@@ -8,6 +8,8 @@ import { Lesson } from '../../shared/types/lesson.interface';
 import { getLessonServerSide } from '../../shared/utils/get-lesson-server-side';
 import Progress from '../../shared/components/progress/progress.component';
 import 'react-quill/dist/quill.bubble.css';
+import Rating from '../../shared/components/rating/rating.component';
+import Textfield from '../../shared/components/textfield/textfield.component';
 
 type LessonPageProps = {
   lesson: Lesson
@@ -39,9 +41,26 @@ export default function LessonPage({ lesson }: LessonPageProps) {
   const [buttonCaption, setButtonCaption] = useState('Начать');
   const [currentBlockIndex, setCurrentBlockIndex] = useState<number>(0);
   const [progress, setProgress] = useState(0);
-  const nextBlock = () => {
+  const [rate, setRate] = useState<number>();
+  const [message, setMessage] = useState('');
+  const completeLesson = async () => {
+    const body = {
+      lessonId: lesson.id,
+      rate,
+      message,
+    };
+    await fetch('/api/lesson/complete', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+  };
+  const nextBlock = async () => {
     if (completed) {
-      router.push(`/course/${lesson.courseId}`);
+      await completeLesson();
+      await router.push(`/course/${lesson.courseId}`);
       return;
     }
     if (!started) {
@@ -82,9 +101,17 @@ export default function LessonPage({ lesson }: LessonPageProps) {
         }
         {
           completed && (
-            <div className={styles.firstBlock}>
+            <div className={styles.lastBlock}>
               <img className={styles.courseImage} src={lesson.courseImage} alt="Course" />
-              <h1 className={styles.lessonName}>Вы успешно прошли урок!</h1>
+              <h2 className={styles.lastQuestion}>Вы успешно прошли урок!</h2>
+              <Rating onChange={(rating) => setRate(rating)} />
+              <div className={styles.textfieldOuter}>
+                <Textfield
+                  onChange={({ target: { value } }) => setMessage(value)}
+                  placeholder="Поделитесь своим мнением"
+                  fieldType="textarea"
+                />
+              </div>
             </div>
           )
         }
