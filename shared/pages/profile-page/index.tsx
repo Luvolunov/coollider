@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import Head from 'next/head';
 import classNames from 'classnames';
-import { setTitle } from '../../store/title';
-import styles from './profile.module.scss';
-import UserAPI from '../../shared/api/user.api';
-import RoleGuard from '../../shared/components/role-guard/role-guard.component';
-import { Roles } from '../../shared/types/roles.enum';
-import RoleAPI from '../../shared/api/role.api';
-import Button from '../../shared/components/button/button.component';
-import { Role } from '../../shared/types/role.interface';
+import Head from 'next/head';
+import RoleAPI from '../../api/role.api';
+import { Role } from '../../types/role.interface';
+import { setTitle } from '../../../store/title';
+import styles from '../../../pages/profile/profile.module.scss';
+import RoleGuard from '../../components/role-guard/role-guard.component';
+import { Roles } from '../../types/roles.enum';
+import Button from '../../components/button/button.component';
+import { User } from '../../types/user.interface';
 
-export default function Profile() {
-  const { data: user, revalidate } = UserAPI.current();
+type ProfileProps = {
+  user: User
+};
+
+export default function ProfilePage({ user }: ProfileProps) {
   const { data: roles } = RoleAPI.list();
   const roleMapValue = user?.roles.reduce(
     (acc, role) => ({ ...acc, [role.id]: role }),
@@ -47,7 +50,6 @@ export default function Profile() {
         'Content-Type': 'application/json',
       },
     });
-    await revalidate();
     setSavingRoles(false);
   };
   return (

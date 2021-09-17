@@ -6,6 +6,29 @@
     justify-content: center;
     align-items: center;
     padding: 20px 10px;
-    background: url("/coollider-logo.webp") no-repeat 50% 4%;
+    background: url("/coollider-logo.webp") no-repeat 50% 3%;
     background-size: 280px;
+}
+
+.title {
+    text-align: center;
+}
+
+.nameFields {
+    display: flex;
+    justify-content: space-between;
+}
+
+.formRow, .nameFields, .buttonOuter, .linkOuter {
+    margin-top: 1rem;
+}
+
+.nameFieldOuter {
+    width: 48%;
+}
+
+.buttonOuter, .linkOuter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

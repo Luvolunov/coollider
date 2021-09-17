@@ -9,6 +9,7 @@
   justify-content: center;
   align-items: center;
   z-index: 20;
+  animation: showing-modal .2s forwards 1;
 }
 
 .modal {
@@ -19,6 +20,7 @@
   background-color: #fff;
   border-radius: 14px;
   position: relative;
+  animation: moving-modal .2s forwards 1;
 }
 
 .closeButton {
@@ -32,4 +34,22 @@
   background-color: transparent;
   border: none;
   padding: 0;
+}
+
+@keyframes showing-modal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes moving-modal {
+  from {
+   top: 100px;
+  }
+  to {
+    top: 0;
+  }
 }

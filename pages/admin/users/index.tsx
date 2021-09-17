@@ -4,6 +4,7 @@ import UserAPI from '../../../shared/api/user.api';
 import styles from './users.module.scss';
 import Spinner from '../../../shared/components/spinner/spinner.component';
 import Card from '../../../shared/components/card/card.component';
+import Link from 'next/link';
 
 export default function Users() {
   useEffect(() => {
@@ -27,9 +28,13 @@ export default function Users() {
                 <tr key={`${user.id}${user.firstName}`}>
                   <td>{user.id}</td>
                   <td>
-                    {user.firstName}
-                    &nbsp;
-                    {user.lastName}
+                    <Link href="/admin/user/[id]" as={`/admin/user/${user.id}`}>
+                      <span className={styles.link}>
+                        {user.firstName}
+                        &nbsp;
+                        {user.lastName}
+                      </span>
+                    </Link>
                   </td>
                   <td>{user.email}</td>
                 </tr>

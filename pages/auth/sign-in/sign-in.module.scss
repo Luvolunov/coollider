@@ -9,3 +9,17 @@
   background: url("/coollider-logo.webp") no-repeat 50% 10%;
   background-size: 280px;
 }
+
+.title {
+  text-align: center;
+}
+
+.formRow, .buttonOuter, .linkOuter {
+  margin-top: 1rem;
+}
+
+.buttonOuter, .linkOuter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
