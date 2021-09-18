@@ -5,5 +5,6 @@ export interface Lesson {
   name: string;
   courseId: number;
   courseImage: string;
-  blocks: Array<Block>
+  blocks: Array<Block>,
+  completed?: boolean;
 }

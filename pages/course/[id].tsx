@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import classnames from 'classnames';
 import styles from './course.module.scss';
 import { setTitle } from '../../store/title';
 import Card from '../../shared/components/card/card.component';
@@ -16,6 +17,9 @@ type CourseProps = {
 export default function Course({ course }: CourseProps) {
   useEffect(() => {
     setTitle('Курс');
+  });
+  const lessonClasses = (completed: boolean | undefined) => classnames(styles.lesson, {
+    [styles.completed]: completed,
   });
   return (
     <>
@@ -45,7 +49,7 @@ export default function Course({ course }: CourseProps) {
               {
                 course.lessons?.map((lesson, index) => (
                   <Link href="/lesson/[id]" as={`/lesson/${lesson.id}`} key={`${lesson.id}${lesson.name}`}>
-                    <a className={styles.lesson}>
+                    <a className={lessonClasses(lesson.completed)}>
                       <div>
                         <b>
                           Урок&nbsp;
@@ -54,7 +58,7 @@ export default function Course({ course }: CourseProps) {
                         <br />
                         {lesson.name}
                       </div>
-                      <img width={20} src="/play.svg" alt="Begin lesson" />
+                      <img width={20} src={lesson.completed ? '/check.svg' : '/play.svg'} alt="lesson state" />
                     </a>
                   </Link>
                 ))
