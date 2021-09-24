@@ -20,6 +20,18 @@
   margin-right: 10px;
 }
 
+.removePlace {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px red dashed;
+  border-radius: 6px;
+  background-color: #ff000022;
+  margin-bottom: 1rem;
+  color: #ff0000dd;
+}
+
 .blockPanel {
   display: flex;
 }

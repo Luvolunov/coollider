@@ -1,8 +1,10 @@
+/* eslint-disable object-curly-newline */
 import React, { FormEvent, useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import classNames from 'classnames';
+import { useDrag, useDrop } from 'react-dnd';
 import { setTitle } from '../../store/title';
 import Textfield from '../../shared/components/textfield/textfield.component';
 import Card from '../../shared/components/card/card.component';
@@ -35,6 +37,40 @@ const ReactQuillWithNoSSR = dynamic(() => import('react-quill'), {
 
 type EditLessonPageProps = {
   lesson: Lesson;
+};
+
+type LessonSlideProps = {
+  onClick: () => void;
+  isActive: boolean;
+  order: number;
+  index: number;
+};
+
+const LessonSlide = ({ onClick, isActive, order, index }: LessonSlideProps) => {
+  const [collected, drag] = useDrag({
+    type: 'slide',
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+      readyToRemove: monitor.getDropResult(),
+    }),
+    item: () => ({ index }),
+  });
+  const activeSlideClasses = classNames(styles.block, {
+    [styles.active]: isActive,
+  });
+  return (
+    <button
+      ref={drag}
+      onClick={onClick}
+      type="button"
+      className={activeSlideClasses}
+      style={{
+        opacity: collected.isDragging ? '0' : '1',
+      }}
+    >
+      {order}
+    </button>
+  );
 };
 
 export default function EditLessonPage({ lesson }: EditLessonPageProps) {
@@ -75,8 +111,15 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
     updatedBlocks.splice(currentBlockIndex, 1, block);
     setBlocks(updatedBlocks);
   };
-  const activeSlideClasses = (index: number) => classNames(styles.block, {
-    [styles.active]: index === currentBlockIndex,
+  const removeSlide = (index: number) => {
+    const filteredSlides = blocks
+      .filter((_, idx) => idx !== index)
+      .map((slide, idx) => ({ ...slide, order: idx + 1 }));
+    setBlocks(filteredSlides);
+  };
+  const [, removeDrop] = useDrop({
+    accept: 'slide',
+    drop: (item: any) => removeSlide(item.index),
   });
   return (
     <>
@@ -91,20 +134,22 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
       </Card>
       <br />
       <Card>
+        <div ref={removeDrop} className={styles.removePlace}>
+          Зона для удаления слайда
+        </div>
         <div className={styles.blockPanel}>
           <button onClick={createBlock} type="button" className={styles.createBlockButton}>
             <img width={20} src="/plus.svg" alt="plus" />
           </button>
           {
             blocks.map((slide, index) => (
-              <button
+              <LessonSlide
                 key={Math.random()}
                 onClick={() => setCurrentBlockIndex(index)}
-                type="button"
-                className={activeSlideClasses(index)}
-              >
-                {slide.order}
-              </button>
+                order={slide.order}
+                isActive={index === currentBlockIndex}
+                index={index}
+              />
             ))
           }
         </div>

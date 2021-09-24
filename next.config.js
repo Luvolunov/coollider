@@ -13,5 +13,5 @@ module.exports = withBundleAnalyzer({
         destination: `${process.env.API_HOST}/:path*`,
       },
     ];
-  }
+  },
 });

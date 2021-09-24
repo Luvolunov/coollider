@@ -4,6 +4,8 @@ import App, { AppContext, AppProps } from 'next/app';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import PageContainer from '../shared/components/page-container/page-container.component';
 import Loader from '../shared/components/loader/loader.component';
 import { buildUrl } from '../shared/utils/build-url';
@@ -71,9 +73,11 @@ export default function Coollider({ Component, pageProps }: AppProps) {
       {
         !isAuth && !isError && !isLesson
           ? (
-            <PageContainer>
-              <Component {...pageProps} />
-            </PageContainer>
+            <DndProvider backend={HTML5Backend}>
+              <PageContainer>
+                <Component {...pageProps} />
+              </PageContainer>
+            </DndProvider>
           )
           : <Component {...pageProps} />
       }
