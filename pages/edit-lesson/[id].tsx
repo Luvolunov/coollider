@@ -88,6 +88,7 @@ const LessonSlide = ({ onClick, isActive, order, index, moveSlide }: LessonSlide
       className={activeSlideClasses}
       style={{
         opacity: collected.isDragging ? '0' : '1',
+        cursor: collected.isDragging ? 'move' : 'pointer',
       }}
       data-handler-id={dropProps.handlerId}
     >

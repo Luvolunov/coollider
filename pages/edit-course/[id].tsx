@@ -1,11 +1,12 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable jsx-a11y/control-has-associated-label,object-curly-newline,no-param-reassign */
 import React, {
-  FormEvent, useEffect, useState
+  FormEvent, useCallback, useEffect, useRef, useState,
 } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
+import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { setTitle } from '../../store/title';
 import styles from './edit-course.module.scss';
 import Textfield from '../../shared/components/textfield/textfield.component';
@@ -22,6 +23,80 @@ import { Lesson } from '../../shared/types/lesson.interface';
 
 type EditCourseProps = {
   course: CourseInterface
+};
+
+type LessonProps = {
+  lesson: Lesson,
+  removeLesson: (id: number) => void,
+  index: number;
+  moveLesson: (from: number, to: number) => void;
+};
+
+const LessonRow = ({ lesson, removeLesson, index, moveLesson }: LessonProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [dragProps, drag] = useDrag({
+    type: 'lesson',
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+    item: () => ({ index }),
+  });
+  const [, drop] = useDrop({
+    accept: 'lesson',
+    collect: (monitor) => ({
+      handlerId: monitor.getHandlerId(),
+    }),
+    hover: (item: any, monitor) => {
+      const itemIndex = item.index;
+      if (itemIndex === index || !ref.current) { return; }
+
+      const hoverLessonRect = ref.current?.getBoundingClientRect();
+      const middlePoint = (hoverLessonRect.bottom - hoverLessonRect.top) / 2;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientY = (clientOffset as XYCoord).y - hoverLessonRect.top;
+      if ((itemIndex < index && hoverClientY < middlePoint)
+        || (itemIndex > index && hoverClientY > middlePoint)) { return; }
+      setTimeout(() => moveLesson(itemIndex, index));
+      item.index = index;
+    },
+  });
+  drag(drop(ref));
+  return (
+    <div
+      ref={ref}
+      className={styles.lesson}
+      style={{
+        opacity: dragProps.isDragging ? 0 : 1,
+        cursor: dragProps.isDragging ? 'move' : 'pointer',
+      }}
+    >
+      <button
+        type="button"
+        className={styles.dragButton}
+        title="move lesson"
+      />
+      <span className={styles.lessonName}>{lesson.name}</span>
+      <div>
+        <Link href="/edit-lesson/[id]" as={`/edit-lesson/${lesson.id}`}>
+          <button
+            type="button"
+            className={styles.editButton}
+            title="delete lesson"
+          >
+            <img className={styles.buttonImage} src="/settings.svg" alt="delete lesson" />
+          </button>
+        </Link>
+        <button
+          onClick={() => removeLesson(lesson.id)}
+          type="button"
+          className={styles.removeButton}
+          title="delete lesson"
+        >
+          <img className={styles.buttonImage} src="/delete.svg" alt="delete lesson" />
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default function EditCoursePage({ course }: EditCourseProps) {
@@ -45,9 +120,16 @@ export default function EditCoursePage({ course }: EditCourseProps) {
   const updateCourse = async () => {
     if (processing) { return; }
     setProcessing(true);
+    const body = {
+      ...values,
+      lessons: lessons.map((lesson) => ({
+        lessonId: lesson.id,
+        order: lesson.order,
+      })),
+    };
     await fetch(`/api/course/${course.id}`, {
       method: 'PUT',
-      body: JSON.stringify(values),
+      body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -79,10 +161,26 @@ export default function EditCoursePage({ course }: EditCourseProps) {
   const removeLesson = async (lessonId: number) => {
     await fetch(`/api/lesson/${lessonId}`, {
       method: 'DELETE',
-      credentials: 'include',
     });
     setLessons(lessons?.filter((lesson) => lesson.id !== lessonId));
   };
+  const moveLesson = useCallback((fromIndex: number, toIndex: number) => {
+    const updatedLessons = lessons.slice();
+    if (toIndex > fromIndex) {
+      const currentSlide = lessons[fromIndex];
+      currentSlide.order = toIndex + 1;
+      updatedLessons.splice(toIndex + 1, 0, currentSlide);
+      updatedLessons.splice(fromIndex, 1);
+    } else {
+      const currentSlide = lessons[toIndex];
+      currentSlide.order = fromIndex + 1;
+      updatedLessons.splice(fromIndex + 1, 0, currentSlide);
+      updatedLessons.splice(toIndex, 1);
+    }
+    const changedOrderLessons = updatedLessons
+      .map((lesson, idx) => ({ ...lesson, order: idx + 1 }));
+    setLessons(changedOrderLessons);
+  }, [lessons]);
   useEffect(() => {
     setTitle('Редактировать курс');
   });
@@ -135,34 +233,14 @@ export default function EditCoursePage({ course }: EditCourseProps) {
             <br />
             <div className={styles.lessonList}>
               {
-                lessons?.map((lesson) => (
-                  <div key={`${lesson.id}${lesson.name}`} className={styles.lesson}>
-                    <button
-                      type="button"
-                      className={styles.dragButton}
-                      title="delete lesson"
-                    />
-                    <span className={styles.lessonName}>{lesson.name}</span>
-                    <div>
-                      <Link href="/edit-lesson/[id]" as={`/edit-lesson/${lesson.id}`}>
-                        <button
-                          type="button"
-                          className={styles.editButton}
-                          title="delete lesson"
-                        >
-                          <img className={styles.buttonImage} src="/settings.svg" alt="delete lesson" />
-                        </button>
-                      </Link>
-                      <button
-                        onClick={() => removeLesson(lesson.id)}
-                        type="button"
-                        className={styles.removeButton}
-                        title="delete lesson"
-                      >
-                        <img className={styles.buttonImage} src="/delete.svg" alt="delete lesson" />
-                      </button>
-                    </div>
-                  </div>
+                lessons?.map((lesson, index) => (
+                  <LessonRow
+                    key={`${lesson.id}${lesson.name}`}
+                    lesson={lesson}
+                    removeLesson={removeLesson}
+                    index={index}
+                    moveLesson={moveLesson}
+                  />
                 ))
               }
             </div>
