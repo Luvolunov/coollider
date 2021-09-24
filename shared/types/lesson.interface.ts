@@ -7,4 +7,5 @@ export interface Lesson {
   courseImage: string;
   blocks: Array<Block>,
   completed?: boolean;
+  order: number;
 }
