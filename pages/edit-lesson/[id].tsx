@@ -1,10 +1,10 @@
-/* eslint-disable object-curly-newline */
-import React, { FormEvent, useEffect, useState } from 'react';
+/* eslint-disable object-curly-newline,no-param-reassign */
+import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import classNames from 'classnames';
-import { useDrag, useDrop } from 'react-dnd';
+import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { setTitle } from '../../store/title';
 import Textfield from '../../shared/components/textfield/textfield.component';
 import Card from '../../shared/components/card/card.component';
@@ -44,9 +44,11 @@ type LessonSlideProps = {
   isActive: boolean;
   order: number;
   index: number;
+  moveSlide: (from: number, to: number) => void;
 };
 
-const LessonSlide = ({ onClick, isActive, order, index }: LessonSlideProps) => {
+const LessonSlide = ({ onClick, isActive, order, index, moveSlide }: LessonSlideProps) => {
+  const ref = useRef<HTMLButtonElement>(null);
   const [collected, drag] = useDrag({
     type: 'slide',
     collect: (monitor) => ({
@@ -55,18 +57,39 @@ const LessonSlide = ({ onClick, isActive, order, index }: LessonSlideProps) => {
     }),
     item: () => ({ index }),
   });
+  const [dropProps, drop] = useDrop({
+    accept: 'slide',
+    collect: (monitor) => ({
+      handlerId: monitor.getHandlerId(),
+    }),
+    hover: (item: any, monitor) => {
+      const dragIndex = item.index;
+      if (dragIndex === index || !ref.current) { return; }
+
+      const hoverSlideRect = ref.current?.getBoundingClientRect();
+      const middlePoint = (hoverSlideRect.right - hoverSlideRect.left) / 2;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientX = (clientOffset as XYCoord).x - hoverSlideRect.left;
+      if ((dragIndex < index && hoverClientX < middlePoint)
+          || (dragIndex > index && hoverClientX > middlePoint)) { return; }
+      setTimeout(() => moveSlide(dragIndex, index));
+      item.index = index;
+    },
+  });
   const activeSlideClasses = classNames(styles.block, {
     [styles.active]: isActive,
   });
+  drag(drop(ref));
   return (
     <button
-      ref={drag}
+      ref={ref}
       onClick={onClick}
       type="button"
       className={activeSlideClasses}
       style={{
         opacity: collected.isDragging ? '0' : '1',
       }}
+      data-handler-id={dropProps.handlerId}
     >
       {order}
     </button>
@@ -117,6 +140,21 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
       .map((slide, idx) => ({ ...slide, order: idx + 1 }));
     setBlocks(filteredSlides);
   };
+  const moveSlide = useCallback((fromIndex: number, toIndex: number) => {
+    const slides = blocks.slice();
+    if (toIndex > fromIndex) {
+      const currentSlide = blocks[fromIndex];
+      slides.splice(toIndex + 1, 0, currentSlide);
+      slides.splice(fromIndex, 1);
+      setCurrentBlockIndex(toIndex);
+    } else {
+      const currentSlide = blocks[toIndex];
+      slides.splice(fromIndex + 1, 0, currentSlide);
+      slides.splice(toIndex, 1);
+      setCurrentBlockIndex(fromIndex - 1);
+    }
+    setBlocks(slides);
+  }, [blocks]);
   const [, removeDrop] = useDrop({
     accept: 'slide',
     drop: (item: any) => removeSlide(item.index),
@@ -149,6 +187,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
                 order={slide.order}
                 isActive={index === currentBlockIndex}
                 index={index}
+                moveSlide={moveSlide}
               />
             ))
           }
