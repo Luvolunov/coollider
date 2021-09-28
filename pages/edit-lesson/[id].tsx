@@ -1,4 +1,4 @@
-/* eslint-disable object-curly-newline,no-param-reassign */
+/* eslint-disable object-curly-newline,no-param-reassign,jsx-a11y/label-has-associated-control */
 import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
@@ -16,6 +16,7 @@ import { Lesson } from '../../shared/types/lesson.interface';
 import { getLessonServerSide } from '../../shared/utils/get-lesson-server-side';
 import 'react-quill/dist/quill.bubble.css';
 import { Block } from '../../shared/types/block.interface';
+import Modal from '../../shared/components/modal/modal.component';
 
 const quillModules = {
   toolbar: {
@@ -101,6 +102,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
   const { handleInput, errors, values } = useForm(lessonSchema, lesson);
   const [blocks, setBlocks] = useState<Array<Block>>(lesson.blocks || []);
   const [currentBlockIndex, setCurrentBlockIndex] = useState<number>(0);
+  const [slideCreating, setSlideCreating] = useState(false);
   const router = useRouter();
   useEffect(() => {
     setTitle('Редактирование урока');
@@ -125,6 +127,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
       type: 1,
     };
     setBlocks([...blocks, block]);
+    setSlideCreating(false);
   };
   const changeHandler = (value: string) => {
     const block = {
@@ -162,6 +165,20 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
   });
   return (
     <>
+      <Modal showing={slideCreating} onRequestToClose={() => setSlideCreating(false)}>
+        <span className={styles.modalTitle}>Создать слайд</span>
+        <br />
+        <label htmlFor="slide-type">
+          Тип слайда
+        </label>
+        <select id="slide-type">
+          <option value="1">Текст</option>
+          <option value="2">Тест</option>
+        </select>
+        <br />
+        <br />
+        <Button onClick={createBlock}>Создать</Button>
+      </Modal>
       <Card>
         <div className={styles.cardInner}>
           <form onSubmit={createLesson} className={styles.form}>
@@ -177,7 +194,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
           Зона для удаления слайда
         </div>
         <div className={styles.blockPanel}>
-          <button onClick={createBlock} type="button" className={styles.createBlockButton}>
+          <button onClick={() => setSlideCreating(true)} type="button" className={styles.createBlockButton}>
             <img width={20} src="/plus.svg" alt="plus" />
           </button>
           {
