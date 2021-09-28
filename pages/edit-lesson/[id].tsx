@@ -17,6 +17,7 @@ import { getLessonServerSide } from '../../shared/utils/get-lesson-server-side';
 import 'react-quill/dist/quill.bubble.css';
 import { Block } from '../../shared/types/block.interface';
 import Modal from '../../shared/components/modal/modal.component';
+import { lessonBlockSchema } from '../../shared/schemas/lesson-block.schema';
 
 const quillModules = {
   toolbar: {
@@ -103,6 +104,9 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
   const [blocks, setBlocks] = useState<Array<Block>>(lesson.blocks || []);
   const [currentBlockIndex, setCurrentBlockIndex] = useState<number>(0);
   const [slideCreating, setSlideCreating] = useState(false);
+  const {
+    handleInput: handleBlockInput, values: lessonBlockValues, valid,
+  } = useForm(lessonBlockSchema, { blockTypeId: 1 });
   const router = useRouter();
   useEffect(() => {
     setTitle('Редактирование урока');
@@ -121,11 +125,24 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
     await router.push(`/edit-course/${lesson.courseId}`);
   };
   const createBlock = () => {
-    const block = {
+    const block: any = {
       order: blocks.length + 1,
       content: '<p><br></p>',
-      type: 1,
+      type: +lessonBlockValues.blockTypeId,
     };
+    if (block.type === 2) {
+      block.content = {
+        answer: '5 + 5 is ..?',
+        variants: [
+          { id: 1, text: '1' },
+          { id: 2, text: '10' },
+          { id: 3, text: '15' },
+          { id: 4, text: '11' },
+        ],
+        correctVariantId: 2,
+      };
+    }
+    console.log(block);
     setBlocks([...blocks, block]);
     setSlideCreating(false);
   };
@@ -171,13 +188,13 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
         <label htmlFor="slide-type">
           Тип слайда
         </label>
-        <select id="slide-type">
+        <select name="blockTypeId" onInput={handleBlockInput} id="slide-type" value={lessonBlockValues.blockTypeId}>
           <option value="1">Текст</option>
           <option value="2">Тест</option>
         </select>
         <br />
         <br />
-        <Button onClick={createBlock}>Создать</Button>
+        <Button disabled={!valid} onClick={createBlock}>Создать</Button>
       </Modal>
       <Card>
         <div className={styles.cardInner}>
@@ -213,13 +230,22 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
         {
           !!blocks.length && (
             <div className={styles.currentSlide}>
-              <ReactQuillWithNoSSR
-                className={styles.editor}
-                theme="bubble"
-                modules={quillModules}
-                value={blocks[currentBlockIndex]?.content}
-                onChange={changeHandler}
-              />
+              {
+                blocks[currentBlockIndex]?.type === 1 && (
+                  <ReactQuillWithNoSSR
+                    className={styles.editor}
+                    theme="bubble"
+                    modules={quillModules}
+                    value={blocks[currentBlockIndex]?.content}
+                    onChange={changeHandler}
+                  />
+                )
+              }
+              {
+                blocks[currentBlockIndex]?.type === 2 && (
+                  blocks[currentBlockIndex].content.answer
+                )
+              }
             </div>
           )
         }
