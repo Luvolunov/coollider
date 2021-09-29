@@ -13,11 +13,11 @@ import { useForm } from '../../shared/hooks/useForm.hook';
 import { lessonSchema } from '../../shared/schemas/lesson.schema';
 import { Lesson } from '../../shared/types/lesson.interface';
 import { getLessonServerSide } from '../../shared/utils/get-lesson-server-side';
-import 'react-quill/dist/quill.bubble.css';
 import { Slide } from '../../shared/types/block.interface';
 import Modal from '../../shared/components/modal/modal.component';
 import { lessonBlockSchema } from '../../shared/schemas/lesson-block.schema';
 import AdminSliderSwitcher from '../../shared/components/admin-slider-switcher/admin-slider-switcher.component';
+import { SlideType } from '../../shared/types/slide-type.enum';
 
 type EditLessonPageProps = {
   lesson: Lesson;
@@ -29,6 +29,11 @@ type LessonSlideProps = {
   order: number;
   index: number;
   moveSlide: (from: number, to: number) => void;
+};
+
+const slideTypeName = {
+  [SlideType.Text]: 'Текст',
+  [SlideType.Test]: 'Тест',
 };
 
 const LessonSlide = ({ onClick, isActive, order, index, moveSlide }: LessonSlideProps) => {
@@ -207,6 +212,14 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
         {
           !!blocks.length && (
             <div className={styles.currentSlide}>
+              <div className={styles.currentSlideHeader}>
+                Слайд №
+                {currentBlockIndex + 1}
+                &nbsp;
+                —
+                &nbsp;
+                {slideTypeName[blocks[currentBlockIndex].type]}
+              </div>
               <AdminSliderSwitcher
                 slide={blocks[currentBlockIndex]}
                 changeHandler={changeHandler}
