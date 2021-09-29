@@ -1,11 +1,11 @@
-import { Block } from './block.interface';
+import { Slide } from './block.interface';
 
 export interface Lesson {
   id: number;
   name: string;
   courseId: number;
   courseImage: string;
-  blocks: Array<Block>,
+  blocks: Array<Slide>,
   completed?: boolean;
   order: number;
 }

@@ -2,7 +2,6 @@
 import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
 import classNames from 'classnames';
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { setTitle } from '../../store/title';
@@ -15,27 +14,10 @@ import { lessonSchema } from '../../shared/schemas/lesson.schema';
 import { Lesson } from '../../shared/types/lesson.interface';
 import { getLessonServerSide } from '../../shared/utils/get-lesson-server-side';
 import 'react-quill/dist/quill.bubble.css';
-import { Block } from '../../shared/types/block.interface';
+import { Slide } from '../../shared/types/block.interface';
 import Modal from '../../shared/components/modal/modal.component';
 import { lessonBlockSchema } from '../../shared/schemas/lesson-block.schema';
-
-const quillModules = {
-  toolbar: {
-    container: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ align: [] }],
-      ['link', 'image'],
-      ['clean'],
-      [{ color: [] }],
-    ],
-  },
-};
-
-const ReactQuillWithNoSSR = dynamic(() => import('react-quill'), {
-  ssr: false,
-});
+import AdminSliderSwitcher from '../../shared/components/admin-slider-switcher/admin-slider-switcher.component';
 
 type EditLessonPageProps = {
   lesson: Lesson;
@@ -101,7 +83,7 @@ const LessonSlide = ({ onClick, isActive, order, index, moveSlide }: LessonSlide
 
 export default function EditLessonPage({ lesson }: EditLessonPageProps) {
   const { handleInput, errors, values } = useForm(lessonSchema, lesson);
-  const [blocks, setBlocks] = useState<Array<Block>>(lesson.blocks || []);
+  const [blocks, setBlocks] = useState<Array<Slide>>(lesson.blocks || []);
   const [currentBlockIndex, setCurrentBlockIndex] = useState<number>(0);
   const [slideCreating, setSlideCreating] = useState(false);
   const {
@@ -145,13 +127,9 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
     setBlocks([...blocks, block]);
     setSlideCreating(false);
   };
-  const changeHandler = (value: string) => {
-    const block = {
-      ...blocks[currentBlockIndex],
-      content: value,
-    };
+  const changeHandler = (slide: Slide) => {
     const updatedBlocks = blocks.slice();
-    updatedBlocks.splice(currentBlockIndex, 1, block);
+    updatedBlocks.splice(currentBlockIndex, 1, slide);
     setBlocks(updatedBlocks);
   };
   const removeSlide = (index: number) => {
@@ -229,24 +207,10 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
         {
           !!blocks.length && (
             <div className={styles.currentSlide}>
-              {
-                blocks[currentBlockIndex]?.type === 1 && (
-                  <ReactQuillWithNoSSR
-                    className={styles.editor}
-                    theme="bubble"
-                    modules={quillModules}
-                    value={blocks[currentBlockIndex]?.content}
-                    onChange={changeHandler}
-                  />
-                )
-              }
-              {
-                blocks[currentBlockIndex]?.type === 2 && (
-                  <div className={styles.testSlide}>
-                    <Textfield value={blocks[currentBlockIndex]?.content.question} placeholder="Введите вопрос" />
-                  </div>
-                )
-              }
+              <AdminSliderSwitcher
+                slide={blocks[currentBlockIndex]}
+                changeHandler={changeHandler}
+              />
             </div>
           )
         }

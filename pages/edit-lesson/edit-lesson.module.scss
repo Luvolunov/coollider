@@ -60,20 +60,11 @@
 }
 
 .currentSlide {
-  max-width: 900px;
   height: 600px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
   margin: 20px auto;
-  border-radius: 4px;
-}
-
-.testSlide {
-  padding: 20px;
-}
-
-.editor {
-  height: 100%;
+  border-radius: 8px;
 }
 
 .modalTitle {
