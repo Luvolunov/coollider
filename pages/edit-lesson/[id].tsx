@@ -132,7 +132,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
     };
     if (block.type === 2) {
       block.content = {
-        answer: '5 + 5 is ..?',
+        question: '',
         variants: [
           { id: 1, text: '1' },
           { id: 2, text: '10' },
@@ -142,7 +142,6 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
         correctVariantId: 2,
       };
     }
-    console.log(block);
     setBlocks([...blocks, block]);
     setSlideCreating(false);
   };
@@ -243,7 +242,9 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
               }
               {
                 blocks[currentBlockIndex]?.type === 2 && (
-                  blocks[currentBlockIndex].content.answer
+                  <div className={styles.testSlide}>
+                    <Textfield value={blocks[currentBlockIndex]?.content.question} placeholder="Введите вопрос" />
+                  </div>
                 )
               }
             </div>
