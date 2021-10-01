@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
@@ -69,12 +69,15 @@ export default function LessonPage({ lesson }: LessonPageProps) {
       return;
     }
     setCurrentBlockIndex(currentBlockIndex + 1);
-    setProgress(((currentBlockIndex + 1) / lesson.blocks.length) * 100);
-    if (currentBlockIndex + 1 === lesson.blocks.length) {
-      setButtonCaption('Завершить');
-      setCompleted(true);
-    }
   };
+  useEffect(() => {
+    setProgress((currentBlockIndex / lesson.blocks.length) * 100);
+  }, [currentBlockIndex]);
+  useEffect(() => {
+    if (currentBlockIndex !== lesson.blocks.length) { return; }
+    setButtonCaption('Завершить');
+    setCompleted(true);
+  }, [currentBlockIndex]);
   return (
     <div className={styles.lesson}>
       <div className={styles.lessonInner}>
