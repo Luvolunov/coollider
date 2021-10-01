@@ -59,6 +59,8 @@
 .variantInput {
   background-color: transparent;
   border: none;
+  display: block;
+  width: 100%;
   &:focus {
     background-color: $light-gray-color;
   }

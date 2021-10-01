@@ -98,9 +98,15 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
   useEffect(() => {
     setTitle('Редактирование урока');
   });
-  const createLesson = async (event: FormEvent) => {
+  const updateLesson = async (event: FormEvent) => {
     event.preventDefault();
-    const data = { id: lesson.id, blocks, ...values };
+    const lessonBlocks = blocks.map((slide) => {
+      if (slide.type === SlideType.Test) {
+        return { ...slide, content: JSON.stringify(slide.content) };
+      }
+      return slide;
+    });
+    const data = { id: lesson.id, blocks: lessonBlocks, ...values };
     await fetch(`/api/lesson/${lesson.id}`, {
       method: 'PUT',
       headers: {
@@ -121,12 +127,12 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
       block.content = {
         question: '',
         variants: [
-          { id: 1, text: '1' },
-          { id: 2, text: '10' },
-          { id: 3, text: '15' },
-          { id: 4, text: '11' },
+          { id: 1, text: 'Вариант ответа 1' },
+          { id: 2, text: 'Вариант ответа 2' },
+          { id: 3, text: 'Вариант ответа 3' },
+          { id: 4, text: 'Вариант ответа 4' },
         ],
-        correctVariantId: 2,
+        correctVariantId: 1,
       };
     }
     setBlocks([...blocks, block]);
@@ -180,7 +186,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
       </Modal>
       <Card>
         <div className={styles.cardInner}>
-          <form onSubmit={createLesson} className={styles.form}>
+          <form onSubmit={updateLesson} className={styles.form}>
             <Textfield value={values.name} onInput={handleInput} placeholder="Название урока" name="name" errors={errors.name} />
             <br />
             <Button type="submit">Сохранить</Button>

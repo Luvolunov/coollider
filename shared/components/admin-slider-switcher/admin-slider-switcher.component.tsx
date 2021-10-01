@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Slide } from '../../types/block.interface';
 import { SlideType } from '../../types/slide-type.enum';
@@ -40,6 +40,32 @@ export default function AdminSliderSwitcher({ slide, changeHandler }: AdminSlide
     setCurrentSlide(updatedSlide);
     changeHandler(updatedSlide);
   };
+  const changeCorrectAnswer = (id: string) => {
+    const content = {
+      ...currentSlide.content,
+      correctVariantId: +id,
+    };
+    const updatedSlide = { ...currentSlide, content };
+    setCurrentSlide(updatedSlide);
+  };
+  const changeQuestion = (question: string) => {
+    const content = { ...currentSlide.content, question };
+    const updatedSlide = { ...currentSlide, content };
+    setCurrentSlide(updatedSlide);
+  };
+  const changeVariantText = (index: number, text: string) => {
+    const variants = [...currentSlide.content.variants];
+    variants[index].text = text;
+    const content = { ...currentSlide.content, variants };
+    const updatedSlide = { ...currentSlide, content };
+    setCurrentSlide(updatedSlide);
+  };
+  useEffect(() => {
+    setCurrentSlide(slide);
+  }, [slide]);
+  useEffect(() => {
+    changeHandler(currentSlide);
+  }, [currentSlide]);
   switch (slide.type) {
     case SlideType.Text: {
       return (
@@ -56,28 +82,35 @@ export default function AdminSliderSwitcher({ slide, changeHandler }: AdminSlide
     case SlideType.Test: {
       return (
         <div className={styles.testSlide}>
-          <Textfield value={slide.content.question} placeholder="Введите вопрос" />
+          <Textfield
+            onChange={({ target }: any) => changeQuestion(target.value)}
+            value={slide.content.question}
+            placeholder="Введите вопрос"
+          />
           <div className={styles.variants}>
-            <div className={styles.variant}>
-              <input className={styles.radio} id="answer-1" type="radio" name="correctAnswer" />
-              <label className={styles.label} htmlFor="answer-1" />
-              <input className={styles.variantInput} type="text" />
-            </div>
-            <div className={styles.variant}>
-              <input className={styles.radio} id="answer-2" type="radio" name="correctAnswer" />
-              <label className={styles.label} htmlFor="answer-2" />
-              <input className={styles.variantInput} type="text" />
-            </div>
-            <div className={styles.variant}>
-              <input className={styles.radio} id="answer-3" type="radio" name="correctAnswer" />
-              <label className={styles.label} htmlFor="answer-3" />
-              <input className={styles.variantInput} type="text" />
-            </div>
-            <div className={styles.variant}>
-              <input className={styles.radio} id="answer-4" type="radio" name="correctAnswer" />
-              <label className={styles.label} htmlFor="answer-4" />
-              <input className={styles.variantInput} type="text" />
-            </div>
+            {
+              currentSlide.content
+                .variants?.map((variant: { id: number, text: string }, idx: number) => (
+                  <div key={`${variant.id}`} className={styles.variant}>
+                    <input
+                      className={styles.radio}
+                      id={`variant-${variant.id}`}
+                      type="radio"
+                      name="correctAnswer"
+                      value={variant.id}
+                      onChange={({ target }) => changeCorrectAnswer(target.value)}
+                      checked={currentSlide.content.correctVariantId === variant.id}
+                    />
+                    <label className={styles.label} htmlFor={`variant-${variant.id}`} />
+                    <input
+                      onChange={({ target }) => changeVariantText(idx, target.value)}
+                      value={variant.text}
+                      className={styles.variantInput}
+                      type="text"
+                    />
+                  </div>
+                ))
+            }
           </div>
         </div>
       );
