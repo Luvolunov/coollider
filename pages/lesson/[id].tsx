@@ -9,6 +9,7 @@ import Progress from '../../shared/components/progress/progress.component';
 import Rating from '../../shared/components/rating/rating.component';
 import Textfield from '../../shared/components/textfield/textfield.component';
 import SlideSwitcher from '../../shared/components/slide-switcher/slide-switcher.component';
+import { SlideType } from '../../shared/types/slide-type.enum';
 
 type LessonPageProps = {
   lesson: Lesson
@@ -29,6 +30,7 @@ export default function LessonPage({ lesson }: LessonPageProps) {
   const [progress, setProgress] = useState(0);
   const [rate, setRate] = useState<number>();
   const [message, setMessage] = useState('');
+  const [answered, setAnswered] = useState(false);
   const completeLesson = async () => {
     const body = {
       lessonId: lesson.id,
@@ -56,6 +58,11 @@ export default function LessonPage({ lesson }: LessonPageProps) {
     }
     setCurrentBlockIndex(currentBlockIndex + 1);
   };
+  const onAnswer = () => {
+    setAnswered(true);
+  };
+  const buttonDisabled = lesson.blocks[currentBlockIndex]
+    && lesson.blocks[currentBlockIndex].type === SlideType.Test && !answered;
   useEffect(() => {
     setProgress((currentBlockIndex / lesson.blocks.length) * 100);
   }, [currentBlockIndex]);
@@ -72,7 +79,7 @@ export default function LessonPage({ lesson }: LessonPageProps) {
         }
         {
           lessonStage === LessonStage.progress && lesson.blocks[currentBlockIndex]
-            && <SlideSwitcher slide={lesson.blocks[currentBlockIndex]} />
+            && <SlideSwitcher onAnswer={onAnswer} slide={lesson.blocks[currentBlockIndex]} />
         }
         {
           lessonStage === LessonStage.notStarted && (
@@ -104,7 +111,7 @@ export default function LessonPage({ lesson }: LessonPageProps) {
           <button type="button" onClick={goBack} className={styles.closeButton}>
             <img className={styles.closeImage} src="/icons/log-out.svg" alt="Log out" />
           </button>
-          <Button onClick={nextBlock} mode="big">
+          <Button disabled={buttonDisabled} onClick={nextBlock} mode="big">
             {buttonCaption}
           </Button>
         </div>

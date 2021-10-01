@@ -1,0 +1,44 @@
+@import "../../colors";
+@import "../../shadows";
+
+.testSlideOuter {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.question {
+  display: block;
+  padding: 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.editor {
+  width: 100%;
+  flex: 1;
+}
+
+.variants {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto 2rem;
+}
+
+.variant {
+  padding: 1.3rem 1rem;
+  width: 49%;
+  margin-bottom: 2%;
+  border: 1px solid $light-gray-color;
+  box-shadow: 0 0 4px #ddd;
+  font-weight: bold;
+  border-radius: 1rem;
+  text-align: center;
+  background-color: #fff;
+  color: $dark-color;
+}
