@@ -16,7 +16,7 @@ import { getLessonServerSide } from '../../shared/utils/get-lesson-server-side';
 import { Slide } from '../../shared/types/block.interface';
 import Modal from '../../shared/components/modal/modal.component';
 import { lessonBlockSchema } from '../../shared/schemas/lesson-block.schema';
-import AdminSliderSwitcher from '../../shared/components/admin-slider-switcher/admin-slider-switcher.component';
+import AdminSliderSwitcher from '../../shared/components/admin-slide-switcher/admin-slide-switcher.component';
 import { SlideType } from '../../shared/types/slide-type.enum';
 
 type EditLessonPageProps = {

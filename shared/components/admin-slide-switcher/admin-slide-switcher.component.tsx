@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Slide } from '../../types/block.interface';
 import { SlideType } from '../../types/slide-type.enum';
-import styles from './admin-slider-switcher.module.scss';
+import styles from './admin-slide-switcher.module.scss';
 import Textfield from '../textfield/textfield.component';
 import 'react-quill/dist/quill.bubble.css';
 
@@ -84,7 +84,7 @@ export default function AdminSliderSwitcher({ slide, changeHandler }: AdminSlide
         <div className={styles.testSlide}>
           <Textfield
             onChange={({ target }: any) => changeQuestion(target.value)}
-            value={slide.content.question}
+            defaultValue={slide.content.question}
             placeholder="Введите вопрос"
           />
           <div className={styles.variants}>
@@ -104,7 +104,7 @@ export default function AdminSliderSwitcher({ slide, changeHandler }: AdminSlide
                     <label className={styles.label} htmlFor={`variant-${variant.id}`} />
                     <input
                       onChange={({ target }) => changeVariantText(idx, target.value)}
-                      value={variant.text}
+                      defaultValue={variant.text}
                       className={styles.variantInput}
                       type="text"
                     />
