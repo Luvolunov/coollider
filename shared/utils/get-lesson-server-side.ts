@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { GetServerSideProps } from 'next';
 import { buildUrl } from './build-url';
+import { SlideType } from '../types/slide-type.enum';
 
 export const getLessonServerSide: GetServerSideProps = async ({ req, params }) => {
   if (Number.isNaN(+params?.id!)) {
@@ -15,5 +16,11 @@ export const getLessonServerSide: GetServerSideProps = async ({ req, params }) =
   if (!success) {
     return { props: {}, notFound: true };
   }
+  body.blocks = body?.blocks.map((slide: any) => {
+    if (slide.type === SlideType.Test) {
+      return { ...slide, content: JSON.parse(slide.content) };
+    }
+    return slide;
+  });
   return { props: { lesson: body } };
 };

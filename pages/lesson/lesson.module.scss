@@ -1,4 +1,5 @@
 @import "../../shared/breakpoints";
+@import "../../shared/colors";
 
 .lesson {
   display: flex;
@@ -21,6 +22,7 @@
   box-sizing: border-box;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
   position: relative;
+  border: 1px solid $light-gray-color;
 }
 
 .firstBlock {
@@ -34,11 +36,6 @@
 
 .currentBlock {
   width: 100%;
-}
-
-.editor {
-  width: 100%;
-  flex: 1;
 }
 
 .lessonName {

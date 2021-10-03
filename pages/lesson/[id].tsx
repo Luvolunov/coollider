@@ -1,48 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
-import dynamic from 'next/dynamic';
 import styles from './lesson.module.scss';
 import Button from '../../shared/components/button/button.component';
 import { Lesson } from '../../shared/types/lesson.interface';
 import { getLessonServerSide } from '../../shared/utils/get-lesson-server-side';
 import Progress from '../../shared/components/progress/progress.component';
-import 'react-quill/dist/quill.bubble.css';
 import Rating from '../../shared/components/rating/rating.component';
 import Textfield from '../../shared/components/textfield/textfield.component';
+import SlideSwitcher from '../../shared/components/slide-switcher/slide-switcher.component';
+import { SlideType } from '../../shared/types/slide-type.enum';
 
 type LessonPageProps = {
   lesson: Lesson
 };
 
-const quillModules = {
-  toolbar: {
-    container: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ align: [] }],
-      ['link', 'image'],
-      ['clean'],
-      [{ color: [] }],
-    ],
-  },
-};
-
-const ReactQuillWithNoSSR = dynamic(() => import('react-quill'), {
-  ssr: false,
-});
+enum LessonStage {
+  notStarted,
+  progress,
+  completed,
+}
 
 export default function LessonPage({ lesson }: LessonPageProps) {
   const router = useRouter();
   const goBack = () => router.back();
-  const [started, setStarted] = useState(false);
-  const [completed, setCompleted] = useState(false);
+  const [lessonStage, setLessonStage] = useState(LessonStage.notStarted);
   const [buttonCaption, setButtonCaption] = useState('Начать');
   const [currentBlockIndex, setCurrentBlockIndex] = useState<number>(0);
   const [progress, setProgress] = useState(0);
   const [rate, setRate] = useState<number>();
   const [message, setMessage] = useState('');
+  const [answered, setAnswered] = useState(false);
   const completeLesson = async () => {
     const body = {
       lessonId: lesson.id,
@@ -58,49 +46,53 @@ export default function LessonPage({ lesson }: LessonPageProps) {
     });
   };
   const nextBlock = async () => {
-    if (completed) {
+    if (lessonStage === LessonStage.completed) {
       await completeLesson();
       await router.push(`/course/${lesson.courseId}`);
       return;
     }
-    if (!started) {
-      setStarted(true);
+    if (lessonStage === LessonStage.notStarted) {
+      setLessonStage(LessonStage.progress);
       setButtonCaption('Далее');
       return;
     }
     setCurrentBlockIndex(currentBlockIndex + 1);
-    setProgress(((currentBlockIndex + 1) / lesson.blocks.length) * 100);
-    if (currentBlockIndex + 1 === lesson.blocks.length) {
-      setButtonCaption('Завершить');
-      setCompleted(true);
-    }
   };
+  const onAnswer = () => {
+    setAnswered(true);
+  };
+  const buttonDisabled = lesson.blocks[currentBlockIndex]
+    && lesson.blocks[currentBlockIndex].type === SlideType.Test && !answered;
+  useEffect(() => {
+    setProgress((currentBlockIndex / lesson.blocks.length) * 100);
+  }, [currentBlockIndex]);
+  useEffect(() => {
+    if (currentBlockIndex < lesson.blocks.length) { return; }
+    setButtonCaption('Завершить');
+    setLessonStage(LessonStage.completed);
+  }, [currentBlockIndex]);
   return (
     <div className={styles.lesson}>
       <div className={styles.lessonInner}>
         {
-          started && !completed && <Progress progress={progress} />
+          lessonStage === LessonStage.progress && <Progress progress={progress} />
         }
         {
-          started
-            ? (
-              <ReactQuillWithNoSSR
-                className={styles.editor}
-                theme="bubble"
-                modules={quillModules}
-                value={lesson.blocks[currentBlockIndex]?.content}
-                readOnly
-              />
-            )
-            : (
+          lessonStage === LessonStage.progress && lesson.blocks[currentBlockIndex]
+            && <SlideSwitcher onAnswer={onAnswer} slide={lesson.blocks[currentBlockIndex]} />
+        }
+        {
+          lessonStage === LessonStage.notStarted && (
+            (
               <div className={styles.firstBlock}>
                 <img className={styles.courseImage} src={lesson.courseImage} alt="Course" />
                 <h1 className={styles.lessonName}>{lesson.name}</h1>
               </div>
             )
+          )
         }
         {
-          completed && (
+          lessonStage === LessonStage.completed && (
             <div className={styles.lastBlock}>
               <img className={styles.courseImage} src={lesson.courseImage} alt="Course" />
               <h2 className={styles.lastQuestion}>Вы успешно прошли урок!</h2>
@@ -119,7 +111,7 @@ export default function LessonPage({ lesson }: LessonPageProps) {
           <button type="button" onClick={goBack} className={styles.closeButton}>
             <img className={styles.closeImage} src="/icons/log-out.svg" alt="Log out" />
           </button>
-          <Button onClick={nextBlock} mode="big">
+          <Button disabled={buttonDisabled} onClick={nextBlock} mode="big">
             {buttonCaption}
           </Button>
         </div>

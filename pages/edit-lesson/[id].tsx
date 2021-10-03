@@ -1,8 +1,7 @@
-/* eslint-disable object-curly-newline,no-param-reassign */
+/* eslint-disable object-curly-newline,no-param-reassign,jsx-a11y/label-has-associated-control */
 import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
 import classNames from 'classnames';
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { setTitle } from '../../store/title';
@@ -14,26 +13,11 @@ import { useForm } from '../../shared/hooks/useForm.hook';
 import { lessonSchema } from '../../shared/schemas/lesson.schema';
 import { Lesson } from '../../shared/types/lesson.interface';
 import { getLessonServerSide } from '../../shared/utils/get-lesson-server-side';
-import 'react-quill/dist/quill.bubble.css';
-import { Block } from '../../shared/types/block.interface';
-
-const quillModules = {
-  toolbar: {
-    container: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ align: [] }],
-      ['link', 'image'],
-      ['clean'],
-      [{ color: [] }],
-    ],
-  },
-};
-
-const ReactQuillWithNoSSR = dynamic(() => import('react-quill'), {
-  ssr: false,
-});
+import { Slide } from '../../shared/types/block.interface';
+import Modal from '../../shared/components/modal/modal.component';
+import { lessonBlockSchema } from '../../shared/schemas/lesson-block.schema';
+import AdminSliderSwitcher from '../../shared/components/admin-slide-switcher/admin-slide-switcher.component';
+import { SlideType } from '../../shared/types/slide-type.enum';
 
 type EditLessonPageProps = {
   lesson: Lesson;
@@ -45,6 +29,11 @@ type LessonSlideProps = {
   order: number;
   index: number;
   moveSlide: (from: number, to: number) => void;
+};
+
+const slideTypeName = {
+  [SlideType.Text]: 'Текст',
+  [SlideType.Test]: 'Тест',
 };
 
 const LessonSlide = ({ onClick, isActive, order, index, moveSlide }: LessonSlideProps) => {
@@ -99,15 +88,25 @@ const LessonSlide = ({ onClick, isActive, order, index, moveSlide }: LessonSlide
 
 export default function EditLessonPage({ lesson }: EditLessonPageProps) {
   const { handleInput, errors, values } = useForm(lessonSchema, lesson);
-  const [blocks, setBlocks] = useState<Array<Block>>(lesson.blocks || []);
+  const [blocks, setBlocks] = useState<Array<Slide>>(lesson.blocks || []);
   const [currentBlockIndex, setCurrentBlockIndex] = useState<number>(0);
+  const [slideCreating, setSlideCreating] = useState(false);
+  const {
+    handleInput: handleBlockInput, values: lessonBlockValues, valid,
+  } = useForm(lessonBlockSchema, { blockTypeId: 1 });
   const router = useRouter();
   useEffect(() => {
     setTitle('Редактирование урока');
   });
-  const createLesson = async (event: FormEvent) => {
+  const updateLesson = async (event: FormEvent) => {
     event.preventDefault();
-    const data = { id: lesson.id, blocks, ...values };
+    const lessonBlocks = blocks.map((slide) => {
+      if (slide.type === SlideType.Test) {
+        return { ...slide, content: JSON.stringify(slide.content) };
+      }
+      return slide;
+    });
+    const data = { id: lesson.id, blocks: lessonBlocks, ...values };
     await fetch(`/api/lesson/${lesson.id}`, {
       method: 'PUT',
       headers: {
@@ -119,20 +118,29 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
     await router.push(`/edit-course/${lesson.courseId}`);
   };
   const createBlock = () => {
-    const block = {
+    const block: any = {
       order: blocks.length + 1,
       content: '<p><br></p>',
-      type: 1,
+      type: +lessonBlockValues.blockTypeId,
     };
+    if (block.type === 2) {
+      block.content = {
+        question: '',
+        variants: [
+          { id: 1, text: 'Вариант ответа 1' },
+          { id: 2, text: 'Вариант ответа 2' },
+          { id: 3, text: 'Вариант ответа 3' },
+          { id: 4, text: 'Вариант ответа 4' },
+        ],
+        correctVariantId: 1,
+      };
+    }
     setBlocks([...blocks, block]);
+    setSlideCreating(false);
   };
-  const changeHandler = (value: string) => {
-    const block = {
-      ...blocks[currentBlockIndex],
-      content: value,
-    };
+  const changeHandler = (slide: Slide) => {
     const updatedBlocks = blocks.slice();
-    updatedBlocks.splice(currentBlockIndex, 1, block);
+    updatedBlocks.splice(currentBlockIndex, 1, slide);
     setBlocks(updatedBlocks);
   };
   const removeSlide = (index: number) => {
@@ -162,9 +170,23 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
   });
   return (
     <>
+      <Modal showing={slideCreating} onRequestToClose={() => setSlideCreating(false)}>
+        <span className={styles.modalTitle}>Создать слайд</span>
+        <br />
+        <label htmlFor="slide-type">
+          Тип слайда
+        </label>
+        <select name="blockTypeId" onInput={handleBlockInput} id="slide-type" value={lessonBlockValues.blockTypeId}>
+          <option value="1">Текст</option>
+          <option value="2">Тест</option>
+        </select>
+        <br />
+        <br />
+        <Button disabled={!valid} onClick={createBlock}>Создать</Button>
+      </Modal>
       <Card>
         <div className={styles.cardInner}>
-          <form onSubmit={createLesson} className={styles.form}>
+          <form onSubmit={updateLesson} className={styles.form}>
             <Textfield value={values.name} onInput={handleInput} placeholder="Название урока" name="name" errors={errors.name} />
             <br />
             <Button type="submit">Сохранить</Button>
@@ -177,7 +199,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
           Зона для удаления слайда
         </div>
         <div className={styles.blockPanel}>
-          <button onClick={createBlock} type="button" className={styles.createBlockButton}>
+          <button onClick={() => setSlideCreating(true)} type="button" className={styles.createBlockButton}>
             <img width={20} src="/plus.svg" alt="plus" />
           </button>
           {
@@ -196,12 +218,17 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
         {
           !!blocks.length && (
             <div className={styles.currentSlide}>
-              <ReactQuillWithNoSSR
-                className={styles.editor}
-                theme="bubble"
-                modules={quillModules}
-                value={blocks[currentBlockIndex]?.content}
-                onChange={changeHandler}
+              <div className={styles.currentSlideHeader}>
+                Слайд №
+                {currentBlockIndex + 1}
+                &nbsp;
+                —
+                &nbsp;
+                {slideTypeName[blocks[currentBlockIndex].type]}
+              </div>
+              <AdminSliderSwitcher
+                slide={blocks[currentBlockIndex]}
+                changeHandler={changeHandler}
               />
             </div>
           )
