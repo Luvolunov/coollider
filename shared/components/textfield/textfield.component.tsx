@@ -11,7 +11,7 @@ import { InputField, TextareaField } from './textfield.props';
 export default function Textfield({
   placeholder, onFocus, onBlur, errors = [], onChange, fieldType = 'input', ...props
 }: TextareaField | InputField) {
-  const [active, setActive] = useState(!!props.value);
+  const [active, setActive] = useState(!!props.value || !!props.defaultValue);
   const [touched, setTouched] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
