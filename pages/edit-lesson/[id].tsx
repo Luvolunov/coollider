@@ -22,7 +22,6 @@ import { buildUrl } from '../../shared/utils/build-url';
 import { ApiResponse } from '../../shared/types/api-response.interface';
 import { User } from '../../shared/types/user.interface';
 import { Roles } from '../../shared/types/roles.enum';
-import { getCourseServerSide } from '../../shared/utils/get-course-server-side';
 
 type EditLessonPageProps = {
   lesson: Lesson;

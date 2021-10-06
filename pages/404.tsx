@@ -8,7 +8,7 @@ export default function NotFoundPage() {
   return (
     <div className={styles.page}>
       <span className={styles.title}>Упс! Кажется, тут ничего нет :(</span>
-      <Button onClick={() => router.back()}>Вернуться</Button>
+      <Button onClick={() => router.push('/courses')}>Вернуться</Button>
     </div>
   );
 }
