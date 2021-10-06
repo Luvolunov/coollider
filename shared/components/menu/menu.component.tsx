@@ -7,8 +7,10 @@ import { useRouter } from 'next/router';
 import styles from './menu.module.scss';
 import RoleGuard from '../role-guard/role-guard.component';
 import { Roles } from '../../types/roles.enum';
+import UserAPI from '../../api/user.api';
 
 export default function Menu() {
+  const { data: user } = UserAPI.current();
   const router = useRouter();
   const checkActiveLink = (path: string) => router.asPath === path;
   const notMobileClasses = (path: string) => classnames(styles.menuItem, styles.notMobile, {
@@ -17,9 +19,12 @@ export default function Menu() {
   const linkClasses = (path: string) => classnames(styles.menuItem, {
     [styles.active]: checkActiveLink(path),
   });
+  const firstMenuClasses = classnames(styles.firstMenu, {
+    [styles.unauth]: !user,
+  });
   return (
     <nav className={styles.menu}>
-      <div className={styles.firstMenu}>
+      <div className={firstMenuClasses}>
         <Link href="/courses">
           <a className={linkClasses('/courses')}>
             <Image
@@ -31,17 +36,21 @@ export default function Menu() {
             <span className={styles.menuItemTitle}>Курсы</span>
           </a>
         </Link>
-        <Link href="/statistics">
-          <a className={linkClasses('/statistics')}>
-            <Image
-              className={styles.menuItemImage}
-              width={22}
-              height={27}
-              src="/menu-icons/stats.svg"
-            />
-            <span className={styles.menuItemTitle}>Статистика</span>
-          </a>
-        </Link>
+        {
+          user && (
+            <Link href="/statistics">
+              <a className={linkClasses('/statistics')}>
+                <Image
+                  className={styles.menuItemImage}
+                  width={22}
+                  height={27}
+                  src="/menu-icons/stats.svg"
+                />
+                <span className={styles.menuItemTitle}>Статистика</span>
+              </a>
+            </Link>
+          )
+        }
         <Link href="/news">
           <a className={linkClasses('/news')}>
             <Image

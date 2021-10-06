@@ -72,6 +72,9 @@ $menu-shadow-color: rgba(255, 255, 255, 0.25);
   }
   .firstMenu {
     flex: 3;
+    &.unauth {
+      flex: 2;
+    }
   }
   .secondMenu {
     flex: 1;
