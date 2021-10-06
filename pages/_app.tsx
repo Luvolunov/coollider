@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading,import/no-mutable-exports */
 import './global.scss';
-import App, { AppContext, AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -8,7 +8,6 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import PageContainer from '../shared/components/page-container/page-container.component';
 import Loader from '../shared/components/loader/loader.component';
-import { buildUrl } from '../shared/utils/build-url';
 import { setPrompt } from '../store/prompt';
 
 if (process.browser) {
@@ -84,30 +83,3 @@ export default function Coollider({ Component, pageProps }: AppProps) {
     </React.StrictMode>
   );
 }
-
-Coollider.getInitialProps = async (appContext: AppContext) => {
-  const props = await App.getInitialProps(appContext);
-  if (!appContext.ctx.res || props.pageProps.statusCode === 500) {
-    return { ...props };
-  }
-  const res = appContext.ctx.req ? await fetch(buildUrl('user/profile'), {
-    headers: {
-      Cookie: appContext.ctx.req?.headers.cookie || '',
-    },
-  }) : null;
-  const isAuthPages = appContext.ctx.req?.url?.indexOf('auth') !== -1;
-  const authorized = res?.status !== 401;
-  if (appContext.ctx.res.writeHead && ((isAuthPages && authorized) || (appContext.ctx.req?.url === '/' && authorized))) {
-    appContext.ctx.res?.writeHead(301, {
-      Location: '/courses',
-    });
-    appContext.ctx.res?.end();
-  }
-  if (appContext.ctx.res.writeHead && ((!authorized && !isAuthPages) || (appContext.ctx.req?.url === '/' && !authorized))) {
-    appContext.ctx.res?.writeHead(301, {
-      Location: '/auth/sign-in',
-    });
-    appContext.ctx.res?.end();
-  }
-  return { ...props };
-};
