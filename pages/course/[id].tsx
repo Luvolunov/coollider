@@ -1,25 +1,38 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
 import classnames from 'classnames';
+import { useRouter } from 'next/router';
 import styles from './course.module.scss';
 import { setTitle } from '../../store/title';
 import Card from '../../shared/components/card/card.component';
 import { CourseInterface } from '../../shared/types/course.interface';
 import { getCourseServerSide } from '../../shared/utils/get-course-server-side';
+import UserAPI from '../../shared/api/user.api';
+import Modal from '../../shared/components/modal/modal.component';
+import Button from '../../shared/components/button/button.component';
 
 type CourseProps = {
   course: CourseInterface;
 };
 
 export default function Course({ course }: CourseProps) {
-  useEffect(() => {
-    setTitle('Курс');
-  });
+  const { data: user } = UserAPI.current();
+  const [showing, setShowing] = useState(false);
+  const router = useRouter();
+  const goToLesson = (id: number) => {
+    if (user) {
+      router.push(`/lesson/${id}`);
+      return;
+    }
+    setShowing(true);
+  };
   const lessonClasses = (completed: boolean | undefined) => classnames(styles.lesson, {
     [styles.completed]: completed,
+  });
+  useEffect(() => {
+    setTitle('Курс');
   });
   return (
     <>
@@ -48,19 +61,21 @@ export default function Course({ course }: CourseProps) {
             <div className={styles.lessonsOuter}>
               {
                 course.lessons?.map((lesson, index) => (
-                  <Link href="/lesson/[id]" as={`/lesson/${lesson.id}`} key={`${lesson.id}${lesson.name}`}>
-                    <a className={lessonClasses(lesson.completed)}>
-                      <div>
-                        <b>
-                          Урок&nbsp;
-                          {index + 1}
-                        </b>
-                        <br />
-                        {lesson.name}
-                      </div>
-                      <img width={20} src={lesson.completed ? '/check.svg' : '/play.svg'} alt="lesson state" />
-                    </a>
-                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => goToLesson(lesson.id)}
+                    className={lessonClasses(lesson.completed)}
+                  >
+                    <div>
+                      <b>
+                        Урок&nbsp;
+                        {index + 1}
+                      </b>
+                      <br />
+                      {lesson.name}
+                    </div>
+                    <img width={20} src={lesson.completed ? '/check.svg' : '/play.svg'} alt="lesson state" />
+                  </button>
                 ))
               }
             </div>
@@ -68,6 +83,15 @@ export default function Course({ course }: CourseProps) {
         </Card>
       </div>
       <br />
+      <Modal showing={showing} onRequestToClose={() => setShowing(false)}>
+        <span className={styles.modalTitle}>Подожди!</span>
+        <span className={styles.message}>
+          Прежде, чем начать проходить уроки, нужно авторизоваться, чтобы не потерять свой прогресс
+        </span>
+        <div className={styles.buttonOuter}>
+          <Button onClick={() => router.push('/auth/sign-in')} mode="big">Войти</Button>
+        </div>
+      </Modal>
     </>
   );
 }
