@@ -63,7 +63,7 @@
   border: none;
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  background-color: #b8d8ff;
+  background-color: $secondary-color;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -80,6 +80,7 @@
 .closeImage {
   width: 25px;
   height: 25px;
+  margin-left: -5px;
 }
 
 .lastBlock {

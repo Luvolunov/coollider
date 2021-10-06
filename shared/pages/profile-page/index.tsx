@@ -4,7 +4,7 @@ import Head from 'next/head';
 import RoleAPI from '../../api/role.api';
 import { Role } from '../../types/role.interface';
 import { setTitle } from '../../../store/title';
-import styles from '../../../pages/profile/profile.module.scss';
+import styles from './profile-page.module.scss';
 import RoleGuard from '../../components/role-guard/role-guard.component';
 import { Roles } from '../../types/roles.enum';
 import Button from '../../components/button/button.component';
