@@ -54,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   });
   const { body: user } = await res.json() as ApiResponse<User>;
   const roles = [Roles.CanSeeStats, Roles.CanCreateCourse, Roles.CanEditUser];
-  const canSee = !!user.roles.find((role) => !!roles.find((roleId) => role.id === roleId));
+  const canSee = !!user?.roles.find((role) => !!roles.find((roleId) => role.id === roleId));
   if (!canSee) {
     return {
       redirect: {
