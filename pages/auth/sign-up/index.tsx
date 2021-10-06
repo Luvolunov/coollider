@@ -3,6 +3,7 @@ import React, { FormEvent, useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
 import Form from '../../../shared/components/form/form.component';
 import Textfield from '../../../shared/components/textfield/textfield.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
@@ -10,6 +11,7 @@ import styles from './sign-up.module.scss';
 import { SignUpSchema } from '../../../shared/schemas/sign-up.schema';
 import Button from '../../../shared/components/button/button.component';
 import Checkbox from '../../../shared/components/checkbox/checkbox.component';
+import { authCheck } from '../../../shared/utils/auth-check';
 
 export default function SignUpPage() {
   const {
@@ -102,3 +104,5 @@ export default function SignUpPage() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = authCheck;

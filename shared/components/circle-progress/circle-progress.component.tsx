@@ -19,7 +19,6 @@ export default function CircleProgress({ progress }: CircleProgressProps) {
       >
         <circle
           className={styles.progressLine}
-          stroke="#66A1D9"
           strokeWidth="3"
           fill="transparent"
           strokeDasharray={`${circumference} ${circumference}`}

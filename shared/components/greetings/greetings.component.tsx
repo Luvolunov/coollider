@@ -1,21 +1,34 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import styles from './greetings.module.scss';
 import UserAPI from '../../api/user.api';
 
 export default function Greetings() {
   const { data } = UserAPI.current();
-  const username = `${data?.firstName} ${data?.lastName}`;
   return (
     <section className={styles.greetings}>
-      <h2 className={styles.title}>Добро пожаловать!</h2>
-      <span className={styles.text}>
-        Здраствуйте,&nbsp;
-        {username}
-        , последний раз вы заходили: 10.03.2021
-      </span>
-      <span className={styles.text}>
-        Ваш уровень: 1
-      </span>
+      <br />
+      {
+        data ? (
+          <>
+            <h2 className={styles.title}>С возвращением!</h2>
+            <span className={styles.text}>
+              Ниже мы подобрали список курсов для Вас, {data?.firstName}.
+            </span>
+            <span className={styles.text}>
+              Приятного обучения!
+            </span>
+          </>
+        ) : (
+          <>
+            <h2 className={styles.title}>Добро пожаловать!</h2>
+            <span className={styles.text}>
+              На нашей платформе ты сможешь пройти курсы для айти профессий!
+            </span>
+          </>
+        )
+      }
+      <br />
     </section>
   );
 }

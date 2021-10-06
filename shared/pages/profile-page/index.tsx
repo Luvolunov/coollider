@@ -4,7 +4,7 @@ import Head from 'next/head';
 import RoleAPI from '../../api/role.api';
 import { Role } from '../../types/role.interface';
 import { setTitle } from '../../../store/title';
-import styles from '../../../pages/profile/profile.module.scss';
+import styles from './profile-page.module.scss';
 import RoleGuard from '../../components/role-guard/role-guard.component';
 import { Roles } from '../../types/roles.enum';
 import Button from '../../components/button/button.component';
@@ -16,18 +16,21 @@ type ProfileProps = {
 
 export default function ProfilePage({ user }: ProfileProps) {
   const { data: roles } = RoleAPI.list();
-  const roleMapValue = user?.roles.reduce(
-    (acc, role) => ({ ...acc, [role.id]: role }),
-    {},
-  ) as { [key: number]: Role };
   const [savingRoles, setSavingRoles] = useState(false);
-  const [roleMap, setRoleMap] = useState(roleMapValue);
+  const [roleMap, setRoleMap] = useState<any>({});
   useEffect(() => {
     setTitle('Профиль');
   });
+  useEffect(() => {
+    const roleMapValue = user?.roles.reduce(
+      (acc, role) => ({ ...acc, [role.id]: role }),
+      {},
+    ) as { [key: number]: Role };
+    setRoleMap(roleMapValue);
+  }, [user]);
   const registrationDate = new Date(user?.createdAt || 0);
   const roleIsActive = (roleId: number) => classNames(styles.role, {
-    [styles.active]: !!roleMap[roleId],
+    [styles.active]: roleMap && !!roleMap[roleId],
   });
   const toggleRole = (role: Role) => {
     const map = { ...roleMap };

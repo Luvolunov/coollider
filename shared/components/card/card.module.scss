@@ -1,11 +1,12 @@
 @import "../../breakpoints";
+@import "../../colors";
 
 .card {
   color: #000;
-  background-color: rgb(255, 255, 255);
+  background-color: #fff;
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px $fourth-color;
 }
 
 @media (max-width: $x-small) {

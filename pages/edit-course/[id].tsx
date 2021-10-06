@@ -20,6 +20,9 @@ import Modal from '../../shared/components/modal/modal.component';
 import { lessonSchema } from '../../shared/schemas/lesson.schema';
 import { ApiResponse } from '../../shared/types/api-response.interface';
 import { Lesson } from '../../shared/types/lesson.interface';
+import { buildUrl } from '../../shared/utils/build-url';
+import { Roles } from '../../shared/types/roles.enum';
+import { User } from '../../shared/types/user.interface';
 
 type EditCourseProps = {
   course: CourseInterface
@@ -259,4 +262,20 @@ export default function EditCoursePage({ course }: EditCourseProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = getCourseServerSide;
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const res = await fetch(buildUrl('/user/profile'), {
+    headers: {
+      Cookie: ctx.req.headers.cookie || '',
+    },
+  });
+  const { body: user } = await res.json() as ApiResponse<User>;
+  const canSee = !!user?.roles.find((role) => Roles.CanCreateCourse === role.id);
+  if (!user || !canSee) {
+    return {
+      notFound: true,
+      props: {},
+    };
+  }
+  const props = await getCourseServerSide(ctx);
+  return { ...props };
+};

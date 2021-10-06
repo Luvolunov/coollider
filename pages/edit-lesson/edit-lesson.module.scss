@@ -38,6 +38,7 @@
 
 .createBlockButton {
   @extend %small-button;
+  background-color: $primary-color;
   &:hover {
     box-shadow: 0 0 3px #cbcbcb;
   }
@@ -66,6 +67,7 @@
   margin: 20px auto;
   border-radius: 8px;
   position: relative;
+  background-color: #fff;
 }
 
 .currentSlideHeader {

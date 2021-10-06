@@ -1,125 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import Head from 'next/head';
-import classNames from 'classnames';
-import { setTitle } from '../../store/title';
-import styles from './profile.module.scss';
-import UserAPI from '../../shared/api/user.api';
-import RoleGuard from '../../shared/components/role-guard/role-guard.component';
-import { Roles } from '../../shared/types/roles.enum';
-import RoleAPI from '../../shared/api/role.api';
-import Button from '../../shared/components/button/button.component';
-import { Role } from '../../shared/types/role.interface';
+import React from 'react';
+import { GetServerSideProps } from 'next';
+import ProfilePage from '../../shared/pages/profile-page';
+import { buildUrl } from '../../shared/utils/build-url';
+import { User } from '../../shared/types/user.interface';
 
-export default function Profile() {
-  const { data: user, revalidate } = UserAPI.current();
-  const { data: roles } = RoleAPI.list();
-  const roleMapValue = user?.roles.reduce(
-    (acc, role) => ({ ...acc, [role.id]: role }),
-    {},
-  ) as { [key: number]: Role };
-  const [savingRoles, setSavingRoles] = useState(false);
-  const [roleMap, setRoleMap] = useState(roleMapValue);
-  useEffect(() => {
-    setTitle('Профиль');
-  });
-  const registrationDate = new Date(user?.createdAt || 0);
-  const roleIsActive = (roleId: number) => classNames(styles.role, {
-    [styles.active]: !!roleMap[roleId],
-  });
-  const toggleRole = (role: Role) => {
-    const map = { ...roleMap };
-    if (map[role.id]) {
-      delete map[role.id];
-      setRoleMap(map);
-      return;
-    }
-    map[role.id] = role;
-    setRoleMap(map);
-  };
-  const saveRoles = async () => {
-    if (savingRoles) { return; }
-    const body = { userId: user?.id, roles: Object.keys(roleMap) };
-    setSavingRoles(true);
-    await fetch('/api/user/setRoles', {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    await revalidate();
-    setSavingRoles(false);
-  };
+type ProfileProps = {
+  user: User;
+};
+
+export default function Profile({ user }: ProfileProps) {
   return (
-    <>
-      <Head>
-        <title>
-          Профиль | Куллайдер
-        </title>
-      </Head>
-      <div>
-        <div className={styles.mainInfo}>
-          <div className={styles.avatar}>
-            {user?.firstName[0]}
-            {user?.lastName[0]}
-          </div>
-          <div className={styles.infoColumn}>
-            <b className={styles.name}>
-              {user?.firstName}
-              &nbsp;
-              {user?.lastName}
-            </b>
-            <br />
-            <br />
-            <span className={styles.date}>
-              Дата регистрации:&nbsp;
-              <b>{registrationDate.toLocaleDateString('ru-RU')}</b>
-            </span>
-            <br />
-            <br />
-            <span className={styles.courses}>
-              Пройдено курсов:&nbsp;
-              <b>0</b>
-            </span>
-          </div>
-        </div>
-        <RoleGuard someRoles={[Roles.CanManageRoles]}>
-          <div className={styles.rolesBlock}>
-            <div className={styles.rolesInner}>
-              {
-                roles?.map((role) => (
-                  <button
-                    onClick={() => toggleRole(role)}
-                    type="button"
-                    className={roleIsActive(role.id)}
-                    key={role.name}
-                  >
-                    {role.name}
-                  </button>
-                ))
-              }
-            </div>
-            <div className={styles.buttonOuter}>
-              <Button processing={savingRoles} onClick={saveRoles}>Сохранить</Button>
-            </div>
-          </div>
-        </RoleGuard>
-        <div className={styles.info}>
-          <div className={styles.achievements}>
-            <span className={styles.cardTitle}>Достижения</span>
-            <div>
-              Здесь пока ничего нет
-            </div>
-          </div>
-          <div className={styles.userProgress}>
-            <span className={styles.cardTitle}>Прогресс</span>
-            <div>
-              Здесь пока ничего нет
-            </div>
-          </div>
-        </div>
-        <br />
-      </div>
-    </>
+    <ProfilePage user={user} />
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const res = await fetch(buildUrl('/user/profile'), {
+    headers: {
+      Cookie: ctx.req.headers.cookie || '',
+    },
+  });
+  const { body: user } = await res.json();
+  if (!user) {
+    return {
+      notFound: true,
+      props: {},
+    };
+  }
+  return { props: { user } };
+};
