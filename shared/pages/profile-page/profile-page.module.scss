@@ -6,7 +6,7 @@
   background-color: #fff;
   padding: 60px;
   border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px $fourth-color;
 }
 
 .mainInfo {
@@ -32,7 +32,7 @@ $avatar-size: 150px;
   font-size: 3rem;
   font-weight: 700;
   border-radius: 50%;
-  background-color: #66D2D9;
+  background-color: $secondary-color;
   color: #fff;
   display: flex;
   justify-content: center;

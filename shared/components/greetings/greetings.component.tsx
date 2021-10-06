@@ -8,13 +8,26 @@ export default function Greetings() {
   return (
     <section className={styles.greetings}>
       <br />
-      <h2 className={styles.title}>С возвращением!</h2>
-      <span className={styles.text}>
-        Ниже мы подобрали список курсов для Вас, {data?.firstName}.
-      </span>
-      <span className={styles.text}>
-        Приятного обучения!
-      </span>
+      {
+        data ? (
+          <>
+            <h2 className={styles.title}>С возвращением!</h2>
+            <span className={styles.text}>
+              Ниже мы подобрали список курсов для Вас, {data?.firstName}.
+            </span>
+            <span className={styles.text}>
+              Приятного обучения!
+            </span>
+          </>
+        ) : (
+          <>
+            <h2 className={styles.title}>Добро пожаловать!</h2>
+            <span className={styles.text}>
+              На нашей платформе ты сможешь пройти курсы для айти профессий!
+            </span>
+          </>
+        )
+      }
       <br />
     </section>
   );
