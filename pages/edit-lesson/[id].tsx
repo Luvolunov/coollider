@@ -18,6 +18,11 @@ import Modal from '../../shared/components/modal/modal.component';
 import { lessonBlockSchema } from '../../shared/schemas/lesson-block.schema';
 import AdminSliderSwitcher from '../../shared/components/admin-slide-switcher/admin-slide-switcher.component';
 import { SlideType } from '../../shared/types/slide-type.enum';
+import { buildUrl } from '../../shared/utils/build-url';
+import { ApiResponse } from '../../shared/types/api-response.interface';
+import { User } from '../../shared/types/user.interface';
+import { Roles } from '../../shared/types/roles.enum';
+import { getCourseServerSide } from '../../shared/utils/get-course-server-side';
 
 type EditLessonPageProps = {
   lesson: Lesson;
@@ -239,4 +244,20 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = getLessonServerSide;
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const res = await fetch(buildUrl('/user/profile'), {
+    headers: {
+      Cookie: ctx.req.headers.cookie || '',
+    },
+  });
+  const { body: user } = await res.json() as ApiResponse<User>;
+  const canSee = !!user?.roles.find((role) => Roles.CanCreateCourse === role.id);
+  if (!user || !canSee) {
+    return {
+      notFound: true,
+      props: {},
+    };
+  }
+  const props = await getLessonServerSide(ctx);
+  return { ...props };
+};
