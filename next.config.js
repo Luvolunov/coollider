@@ -6,6 +6,14 @@ module.exports = withBundleAnalyzer({
   env: {
     API_HOST: process.env.API_HOST,
   },
+  redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/courses',
+      },
+    ];
+  },
   rewrites() {
     return [
       {
