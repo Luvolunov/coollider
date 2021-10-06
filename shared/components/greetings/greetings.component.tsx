@@ -7,13 +7,15 @@ export default function Greetings() {
   const { data } = UserAPI.current();
   return (
     <section className={styles.greetings}>
+      <br />
       <h2 className={styles.title}>С возвращением!</h2>
       <span className={styles.text}>
-        Ниже мы подобрали список курсов на сегодня для Вас, {data?.firstName}.
+        Ниже мы подобрали список курсов для Вас, {data?.firstName}.
       </span>
       <span className={styles.text}>
         Приятного обучения!
       </span>
+      <br />
     </section>
   );
 }
