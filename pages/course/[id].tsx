@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/anchor-is-valid,react/jsx-one-expression-per-line */
 import React, { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
@@ -38,8 +38,7 @@ export default function Course({ course }: CourseProps) {
     <>
       <Head>
         <title>
-          {course.name}
-          &nbsp;|&nbsp;Куллайдер
+          {course.name} | Куллайдер
         </title>
         <meta name="author" content={course.authorName} />
         <meta name="description" content={course.description} />
