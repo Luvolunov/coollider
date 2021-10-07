@@ -1,13 +1,15 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
+import { useRouter } from 'next/router';
 import styles from './greetings.module.scss';
 import UserAPI from '../../api/user.api';
+import Button from '../button/button.component';
 
 export default function Greetings() {
   const { data } = UserAPI.current();
+  const router = useRouter();
   return (
     <section className={styles.greetings}>
-      <br />
       {
         data ? (
           <>
@@ -23,12 +25,15 @@ export default function Greetings() {
           <>
             <h2 className={styles.title}>Добро пожаловать!</h2>
             <span className={styles.text}>
-              На нашей платформе ты сможешь пройти курсы для айти профессий!
+              Хочешь научиться создавать сайты, но нет практически никаких знаний об этом?
             </span>
+            <span className={styles.text}>
+              Тогда начни изучать веб-разработку прямо сейчас!
+            </span>
+            <Button onClick={() => router.push('/auth/sign-in')} mode="big">Войти</Button>
           </>
         )
       }
-      <br />
     </section>
   );
 }
