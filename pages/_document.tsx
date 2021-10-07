@@ -27,7 +27,7 @@ const googleAnalytics = `
 export default class AppDocument extends NextDocument {
   render() {
     return (
-      <Html lang="ru">
+      <Html lang="ru" prefix="og: http://ogp.me/ns#">
         <Head>
           <script
             async
