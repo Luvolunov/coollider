@@ -44,7 +44,7 @@ export default function Course({ course }: CourseProps) {
         <meta name="description" content={course.description} />
         <meta property="og:title" content={course.name} />
         <meta property="og:description" content={course.description} />
-        <meta property="og:image" content={course.imageUrl} />
+        <meta property="og:image" content={`https://learn.coollider.ru${course.imageUrl}`} />
         <meta property="og:locale" content="ru_RU" />
       </Head>
       <div className={styles.cardOuter}>
