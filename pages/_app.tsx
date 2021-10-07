@@ -44,8 +44,8 @@ export default function Coollider({ Component, pageProps }: AppProps) {
           content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0"
         />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-        <meta name="description" content="Начни своё путешествие вместе с Куллайдером!" />
-        <meta name="theme-color" content="#fff" />
+        <meta name="description" content="Начни обучаться на платформе Куллайдер прямо сейчас!" />
+        <meta name="theme-color" content="#E9EBF8" />
         <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-icon-57x57.png" />
         <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-icon-60x60.png" />
         <link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-icon-72x72.png" />
