@@ -45,6 +45,9 @@
   text-align: center;
   background-color: $third-color;
   color: $dark-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .radio {
