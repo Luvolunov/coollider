@@ -12,7 +12,6 @@ import styles from './edit-lesson.module.scss';
 import { useForm } from '../../shared/hooks/useForm.hook';
 import { lessonSchema } from '../../shared/schemas/lesson.schema';
 import { Lesson } from '../../shared/types/lesson.interface';
-import { getLessonServerSide } from '../../shared/utils/get-lesson-server-side';
 import { Slide } from '../../shared/types/block.interface';
 import Modal from '../../shared/components/modal/modal.component';
 import { lessonBlockSchema } from '../../shared/schemas/lesson-block.schema';
@@ -22,6 +21,7 @@ import { buildUrl } from '../../shared/utils/build-url';
 import { ApiResponse } from '../../shared/types/api-response.interface';
 import { User } from '../../shared/types/user.interface';
 import { Roles } from '../../shared/types/roles.enum';
+import { getLesson } from '../../shared/utils/get-lesson.function';
 
 type EditLessonPageProps = {
   lesson: Lesson;
@@ -244,6 +244,9 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  if (Number.isNaN(+ctx.params?.id!)) {
+    return { props: {}, notFound: true };
+  }
   const res = await fetch(buildUrl('/user/profile'), {
     headers: {
       Cookie: ctx.req.headers.cookie || '',
@@ -257,6 +260,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       props: {},
     };
   }
-  const props = await getLessonServerSide(true)(ctx);
-  return { ...props };
+  const { success, body } = await getLesson(ctx, true);
+  if (!success) {
+    return { props: {}, notFound: true };
+  }
+  return { props: { lesson: body } };
 };

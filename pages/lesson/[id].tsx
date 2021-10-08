@@ -4,12 +4,12 @@ import { GetServerSideProps } from 'next';
 import styles from './lesson.module.scss';
 import Button from '../../shared/components/button/button.component';
 import { Lesson } from '../../shared/types/lesson.interface';
-import { getLessonServerSide } from '../../shared/utils/get-lesson-server-side';
 import Progress from '../../shared/components/progress/progress.component';
 import Rating from '../../shared/components/rating/rating.component';
 import Textfield from '../../shared/components/textfield/textfield.component';
 import SlideSwitcher from '../../shared/components/slide-switcher/slide-switcher.component';
 import { SlideType } from '../../shared/types/slide-type.enum';
+import { getLesson } from '../../shared/utils/get-lesson.function';
 
 type LessonPageProps = {
   lesson: Lesson
@@ -120,4 +120,13 @@ export default function LessonPage({ lesson }: LessonPageProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = getLessonServerSide(false);
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  if (Number.isNaN(+ctx.params?.id!)) {
+    return { props: {}, notFound: true };
+  }
+  const { success, body: lesson } = await getLesson(ctx);
+  if (!success) {
+    return { props: {}, notFound: true };
+  }
+  return { props: { lesson } };
+};
