@@ -15,7 +15,6 @@ import { useForm } from '../../shared/hooks/useForm.hook';
 import { courseSchema } from '../../shared/schemas/course.schema';
 import Card from '../../shared/components/card/card.component';
 import { CourseInterface } from '../../shared/types/course.interface';
-import { getCourseServerSide } from '../../shared/utils/get-course-server-side';
 import Modal from '../../shared/components/modal/modal.component';
 import { lessonSchema } from '../../shared/schemas/lesson.schema';
 import { ApiResponse } from '../../shared/types/api-response.interface';
@@ -23,6 +22,8 @@ import { Lesson } from '../../shared/types/lesson.interface';
 import { buildUrl } from '../../shared/utils/build-url';
 import { Roles } from '../../shared/types/roles.enum';
 import { User } from '../../shared/types/user.interface';
+import Checkbox from '../../shared/components/checkbox/checkbox.component';
+import { getCourse } from '../../shared/utils/get-course.function';
 
 type EditCourseProps = {
   course: CourseInterface
@@ -107,6 +108,7 @@ export default function EditCoursePage({ course }: EditCourseProps) {
     values,
     valid,
     handleInput,
+    handleCheckbox,
     errors: courseErrors,
   } = useForm(courseSchema, course);
   const {
@@ -220,6 +222,14 @@ export default function EditCoursePage({ course }: EditCourseProps) {
               onInput={handleInput}
               placeholder="Описание курса"
             />
+            <Checkbox
+              checked={values.published}
+              name="published"
+              onChange={handleCheckbox}
+            >
+              Опубликован
+            </Checkbox>
+            <br />
             <br />
             <Button
               processing={processing}
@@ -263,6 +273,9 @@ export default function EditCoursePage({ course }: EditCourseProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  if (Number.isNaN(+ctx.params?.id!)) {
+    return { props: {}, notFound: true };
+  }
   const res = await fetch(buildUrl('/user/profile'), {
     headers: {
       Cookie: ctx.req.headers.cookie || '',
@@ -276,6 +289,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       props: {},
     };
   }
-  const props = await getCourseServerSide(ctx);
-  return { ...props };
+  const { success, body } = await getCourse(ctx, true);
+  if (!success) {
+    return { props: {}, notFound: true };
+  }
+  return { props: { course: body } };
 };

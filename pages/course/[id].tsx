@@ -8,10 +8,10 @@ import styles from './course.module.scss';
 import { setTitle } from '../../store/title';
 import Card from '../../shared/components/card/card.component';
 import { CourseInterface } from '../../shared/types/course.interface';
-import { getCourseServerSide } from '../../shared/utils/get-course-server-side';
 import UserAPI from '../../shared/api/user.api';
 import Modal from '../../shared/components/modal/modal.component';
 import Button from '../../shared/components/button/button.component';
+import { getCourse } from '../../shared/utils/get-course.function';
 
 type CourseProps = {
   course: CourseInterface;
@@ -61,6 +61,7 @@ export default function Course({ course }: CourseProps) {
               {
                 course.lessons?.map((lesson, index) => (
                   <button
+                    key={`${lesson.id}${lesson.name}`}
                     type="button"
                     onClick={() => goToLesson(lesson.id)}
                     className={lessonClasses(lesson.completed)}
@@ -95,4 +96,13 @@ export default function Course({ course }: CourseProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = getCourseServerSide;
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  if (Number.isNaN(+ctx.params?.id!)) {
+    return { props: {}, notFound: true };
+  }
+  const { success, body: course } = await getCourse(ctx);
+  if (!success) {
+    return { props: {}, notFound: true };
+  }
+  return { props: { course } };
+};

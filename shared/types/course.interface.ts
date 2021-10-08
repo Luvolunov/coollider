@@ -10,4 +10,5 @@ export interface CourseInterface {
   lessonsCount?: number;
   completedLessons?: number;
   lessons?: Array<Lesson>;
+  published?: boolean;
 }
