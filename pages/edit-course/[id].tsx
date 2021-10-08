@@ -23,6 +23,7 @@ import { Lesson } from '../../shared/types/lesson.interface';
 import { buildUrl } from '../../shared/utils/build-url';
 import { Roles } from '../../shared/types/roles.enum';
 import { User } from '../../shared/types/user.interface';
+import Checkbox from '../../shared/components/checkbox/checkbox.component';
 
 type EditCourseProps = {
   course: CourseInterface
@@ -107,6 +108,7 @@ export default function EditCoursePage({ course }: EditCourseProps) {
     values,
     valid,
     handleInput,
+    handleCheckbox,
     errors: courseErrors,
   } = useForm(courseSchema, course);
   const {
@@ -220,6 +222,14 @@ export default function EditCoursePage({ course }: EditCourseProps) {
               onInput={handleInput}
               placeholder="Описание курса"
             />
+            <Checkbox
+              checked={values.published}
+              name="published"
+              onChange={handleCheckbox}
+            >
+              Опубликован
+            </Checkbox>
+            <br />
             <br />
             <Button
               processing={processing}

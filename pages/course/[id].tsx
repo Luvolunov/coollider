@@ -61,6 +61,7 @@ export default function Course({ course }: CourseProps) {
               {
                 course.lessons?.map((lesson, index) => (
                   <button
+                    key={`${lesson.id}${lesson.name}`}
                     type="button"
                     onClick={() => goToLesson(lesson.id)}
                     className={lessonClasses(lesson.completed)}
