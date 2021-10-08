@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import classnames from 'classnames';
 import { Slide } from '../../types/block.interface';
 import { SlideType } from '../../types/slide-type.enum';
 import 'react-quill/dist/quill.bubble.css';
 import styles from './slide-switcher.module.scss';
-import classnames from 'classnames';
 
 type SlideSwitcherProps = {
   slide: Slide;
