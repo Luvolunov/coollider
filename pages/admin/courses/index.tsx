@@ -13,7 +13,7 @@ import { useForm } from '../../../shared/hooks/useForm.hook';
 import { courseSchema } from '../../../shared/schemas/course.schema';
 
 export default function Courses() {
-  const { data: courses, revalidate } = CourseAPI.list();
+  const { data: courses, revalidate } = CourseAPI.adminList();
   const {
     values, valid, handleInput, errors,
   } = useForm(courseSchema);
@@ -50,6 +50,7 @@ export default function Courses() {
                 <td width={100}>Изображение</td>
                 <td width={200}>Название</td>
                 <td width={200}>Инструменты</td>
+                <td width={50}>Опубликован</td>
               </tr>
             </thead>
             <tbody>
@@ -66,13 +67,14 @@ export default function Courses() {
                         <a><Button>Редактировать</Button></a>
                       </Link>
                     </td>
+                    <td>{course.published ? 'Да' : 'Нет'}</td>
                   </tr>
                 ))
               }
               {
                 !courses && (
                   <tr>
-                    <td colSpan={4}><Spinner /></td>
+                    <td colSpan={5}><Spinner /></td>
                   </tr>
                 )
               }

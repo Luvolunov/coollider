@@ -3,11 +3,14 @@ import { GetServerSideProps } from 'next';
 import { buildUrl } from './build-url';
 import { Lesson } from '../types/lesson.interface';
 
-export const getCourseServerSide: GetServerSideProps = async ({ req, params }) => {
+export const getCourseServerSide: (admin?: boolean) => GetServerSideProps = (admin) => async ({
+  req,
+  params,
+}) => {
   if (Number.isNaN(+params?.id!)) {
     return { props: {}, notFound: true };
   }
-  const response = await fetch(buildUrl(`/course/${params?.id}`), {
+  const response = await fetch(buildUrl(`/course/${admin ? 'admin/' : ''}${params?.id}`), {
     headers: {
       cookie: req.headers.cookie as string,
     },

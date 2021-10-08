@@ -3,11 +3,14 @@ import { GetServerSideProps } from 'next';
 import { buildUrl } from './build-url';
 import { SlideType } from '../types/slide-type.enum';
 
-export const getLessonServerSide: GetServerSideProps = async ({ req, params }) => {
+export const getLessonServerSide: (admin?: boolean) => GetServerSideProps = (admin) => async ({
+  req,
+  params,
+}) => {
   if (Number.isNaN(+params?.id!)) {
     return { props: {}, notFound: true };
   }
-  const response = await fetch(buildUrl(`/lesson/${params?.id}`), {
+  const response = await fetch(buildUrl(`/lesson/${admin ? 'admin/' : ''}${params?.id}`), {
     headers: {
       cookie: req.headers.cookie as string,
     },

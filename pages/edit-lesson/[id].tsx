@@ -257,6 +257,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       props: {},
     };
   }
-  const props = await getLessonServerSide(ctx);
+  const props = await getLessonServerSide(true)(ctx);
   return { ...props };
 };

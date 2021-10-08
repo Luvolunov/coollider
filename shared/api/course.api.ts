@@ -12,6 +12,7 @@ const getFetcher = (url: string) => fetch(url, {
 
 const CourseAPI = {
   list: () => useSWR<Array<CourseInterface>>('/api/course/list', getFetcher),
+  adminList: () => useSWR<Array<CourseInterface>>('/api/course/admin/list', getFetcher),
   count: () => useSWR<{ count: number }>('/api/course/count', getFetcher),
 };
 

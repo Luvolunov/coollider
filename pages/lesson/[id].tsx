@@ -120,4 +120,4 @@ export default function LessonPage({ lesson }: LessonPageProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = getLessonServerSide;
+export const getServerSideProps: GetServerSideProps = getLessonServerSide(false);

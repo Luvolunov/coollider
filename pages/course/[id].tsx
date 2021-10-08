@@ -95,4 +95,4 @@ export default function Course({ course }: CourseProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = getCourseServerSide;
+export const getServerSideProps: GetServerSideProps = getCourseServerSide(false);
