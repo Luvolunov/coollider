@@ -31,6 +31,7 @@ type AdminSliderSwitcherProps = {
 };
 
 export default function AdminSliderSwitcher({ slide, changeHandler }: AdminSliderSwitcherProps) {
+  if (!slide) { return null; }
   const [currentSlide, setCurrentSlide] = useState(slide);
   const textChange = (value: string) => {
     const updatedSlide = {
@@ -84,7 +85,7 @@ export default function AdminSliderSwitcher({ slide, changeHandler }: AdminSlide
         <div className={styles.testSlide}>
           <Textfield
             onChange={({ target }: any) => changeQuestion(target.value)}
-            defaultValue={slide.content.question}
+            value={slide.content.question}
             placeholder="Введите вопрос"
           />
           <div className={styles.variants}>
@@ -104,7 +105,7 @@ export default function AdminSliderSwitcher({ slide, changeHandler }: AdminSlide
                     <label className={styles.label} htmlFor={`variant-${variant.id}`} />
                     <input
                       onChange={({ target }) => changeVariantText(idx, target.value)}
-                      defaultValue={variant.text}
+                      value={variant.text}
                       className={styles.variantInput}
                       type="text"
                     />

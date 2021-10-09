@@ -95,6 +95,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
   const [blocks, setBlocks] = useState<Array<Slide>>(lesson.blocks || []);
   const [currentBlockIndex, setCurrentBlockIndex] = useState<number>(0);
   const [slideCreating, setSlideCreating] = useState(false);
+  const [slidesUpdating, setSlidesUpdating] = useState(false); // fixes memory leak
   const {
     handleInput: handleBlockInput, values: lessonBlockValues, valid,
   } = useForm(lessonBlockSchema, { blockTypeId: 1 });
@@ -148,31 +149,40 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
     setBlocks(updatedBlocks);
   };
   const removeSlide = (index: number) => {
+    if (blocks.length < 2) { return; }
     const filteredSlides = blocks
       .filter((_, idx) => idx !== index)
       .map((slide, idx) => ({ ...slide, order: idx + 1 }));
+    setSlidesUpdating(true);
     setBlocks(filteredSlides);
+    if (index === currentBlockIndex && index === blocks.length - 1) {
+      setCurrentBlockIndex(index - 1);
+    }
   };
   const moveSlide = useCallback((fromIndex: number, toIndex: number) => {
     const slides = blocks.slice();
+    let slideIndex = 0;
     if (toIndex > fromIndex) {
       const currentSlide = blocks[fromIndex];
       slides.splice(toIndex + 1, 0, currentSlide);
       slides.splice(fromIndex, 1);
-      setCurrentBlockIndex(toIndex);
+      slideIndex = toIndex;
     } else {
       const currentSlide = blocks[toIndex];
       slides.splice(fromIndex + 1, 0, currentSlide);
       slides.splice(toIndex, 1);
-      setCurrentBlockIndex(fromIndex - 1);
+      slideIndex = fromIndex - 1;
     }
     setBlocks(slides);
+    setCurrentBlockIndex(slideIndex);
   }, [blocks]);
   const [, removeDrop] = useDrop({
     accept: 'slide',
     drop: (item: any) => removeSlide(item.index),
   });
-  console.log(blocks);
+  useEffect(() => {
+    setSlidesUpdating(false);
+  }, [blocks]);
   return (
     <>
       <Modal showing={slideCreating} onRequestToClose={() => setSlideCreating(false)}>
@@ -207,7 +217,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
           <button onClick={() => setSlideCreating(true)} type="button" className={styles.createBlockButton}>
             <img width={20} src="/plus.svg" alt="plus" />
           </button>
-          {
+          { !slidesUpdating && (
             blocks.map((slide, index) => (
               <LessonSlide
                 key={Math.random()}
@@ -218,7 +228,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
                 moveSlide={moveSlide}
               />
             ))
-          }
+          )}
         </div>
         {
           !!blocks.length && (
@@ -229,7 +239,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
                 &nbsp;
                 —
                 &nbsp;
-                {slideTypeName[blocks[currentBlockIndex].type]}
+                {slideTypeName[blocks[currentBlockIndex]?.type]}
               </div>
               <AdminSliderSwitcher
                 slide={blocks[currentBlockIndex]}
