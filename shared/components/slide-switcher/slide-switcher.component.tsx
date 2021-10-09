@@ -82,6 +82,7 @@ export default function SlideSwitcher({ slide, onAnswer }: SlideSwitcherProps) {
                     type="radio"
                     name="variant"
                     id={`variant-${variant.id}`}
+                    checked={false}
                   />
                   <label htmlFor={`variant-${variant.id}`} className={styles.variant}>
                     {variant.text}
