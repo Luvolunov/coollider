@@ -172,6 +172,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
     accept: 'slide',
     drop: (item: any) => removeSlide(item.index),
   });
+  console.log(blocks);
   return (
     <>
       <Modal showing={slideCreating} onRequestToClose={() => setSlideCreating(false)}>
