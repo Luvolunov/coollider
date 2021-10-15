@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
+import highlight from 'highlight.js';
 import { Slide } from '../../types/block.interface';
 import { SlideType } from '../../types/slide-type.enum';
 import 'react-quill/dist/quill.bubble.css';
 import styles from './slide-switcher.module.scss';
+import 'highlight.js/styles/monokai-sublime.css';
+
+highlight.configure({
+  languages: ['javascript', 'html', 'css'],
+});
 
 type SlideSwitcherProps = {
   slide: Slide;
@@ -12,6 +18,9 @@ type SlideSwitcherProps = {
 };
 
 const quillModules = {
+  syntax: {
+    highlight: (text: string) => highlight.highlightAuto(text).value,
+  },
   toolbar: {
     container: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
