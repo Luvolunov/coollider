@@ -17,5 +17,6 @@ export async function getLesson({ req, params }: GetServerSidePropsContext, admi
     }
     return { ...slide };
   });
+  lesson.body.blocks.sort((current, next) => current.order - next.order);
   return lesson;
 }
