@@ -95,7 +95,7 @@ export default function AdminSliderSwitcher({ slide, changeHandler }: AdminSlide
         <div className={styles.testSlide}>
           <Textfield
             onChange={({ target }: any) => changeQuestion(target.value)}
-            value={slide.content.question}
+            defaultValue={slide.content.question}
             placeholder="Введите вопрос"
           />
           <div className={styles.variants}>

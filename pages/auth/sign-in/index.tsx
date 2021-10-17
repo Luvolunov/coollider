@@ -50,7 +50,9 @@ export default function SignInPage() {
       </Head>
       <main className={styles.page}>
         <Form onSubmit={signIn} style={{ maxWidth: '400px' }}>
-          <h5 className={styles.title}>Вход</h5>
+          <div className={styles.logoOuter}>
+            <img className={styles.logo} src="/big-logo.svg" alt="logo" />
+          </div>
           <div className={styles.formRow}>
             <Textfield placeholder="Почта" onChange={handleInput} name="email" errors={errors.email} />
           </div>

@@ -6,7 +6,6 @@
     justify-content: center;
     align-items: center;
     padding: 20px 10px;
-    background: url("/coollider-logo.webp") no-repeat 50% 3%;
     background-size: 280px;
 }
 
@@ -31,4 +30,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.logoOuter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 90%;
 }

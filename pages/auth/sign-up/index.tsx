@@ -52,7 +52,9 @@ export default function SignUpPage() {
       </Head>
       <main className={styles.page}>
         <Form onSubmit={signUp} style={{ maxWidth: '450px' }}>
-          <h5 className={styles.title}>Регистрация</h5>
+          <div className={styles.logoOuter}>
+            <img className={styles.logo} src="/big-logo.svg" alt="logo" />
+          </div>
           <div className={styles.nameFields}>
             <div className={styles.nameFieldOuter}>
               <Textfield
