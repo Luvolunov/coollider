@@ -96,6 +96,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
   const [currentBlockIndex, setCurrentBlockIndex] = useState<number>(0);
   const [slideCreating, setSlideCreating] = useState(false);
   const [slidesUpdating, setSlidesUpdating] = useState(false); // fixes memory leak
+  const [currentSlideChanging, setCurrentSlideChanging] = useState(false); // fixes bugs w/ updating
   const {
     handleInput: handleBlockInput, values: lessonBlockValues, valid,
   } = useForm(lessonBlockSchema, { blockTypeId: 1 });
@@ -180,9 +181,16 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
     accept: 'slide',
     drop: (item: any) => removeSlide(item.index),
   });
+  const changeCurrentSlide = (index: number) => {
+    setCurrentBlockIndex(index);
+    setCurrentSlideChanging(true);
+  };
   useEffect(() => {
     setSlidesUpdating(false);
   }, [blocks]);
+  useEffect(() => {
+    setCurrentSlideChanging(false);
+  }, [currentBlockIndex]);
   return (
     <>
       <Modal showing={slideCreating} onRequestToClose={() => setSlideCreating(false)}>
@@ -221,7 +229,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
             blocks.map((slide, index) => (
               <LessonSlide
                 key={Math.random()}
-                onClick={() => setCurrentBlockIndex(index)}
+                onClick={() => changeCurrentSlide(index)}
                 order={slide.order}
                 isActive={index === currentBlockIndex}
                 index={index}
@@ -231,7 +239,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
           )}
         </div>
         {
-          !!blocks.length && (
+          !currentSlideChanging && !!blocks.length && (
             <div className={styles.currentSlide}>
               <div className={styles.currentSlideHeader}>
                 Слайд №
