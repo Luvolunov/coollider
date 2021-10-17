@@ -84,7 +84,7 @@ export default function AdminSliderSwitcher({ slide, changeHandler }: AdminSlide
           className={styles.editor}
           theme="bubble"
           modules={quillModules}
-          value={currentSlide.content}
+          defaultValue={currentSlide.content}
           onChange={textChange}
           placeholder="Введите текст"
         />
