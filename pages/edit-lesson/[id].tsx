@@ -92,7 +92,13 @@ const LessonSlide = ({ onClick, isActive, order, index, moveSlide }: LessonSlide
 };
 
 export default function EditLessonPage({ lesson }: EditLessonPageProps) {
-  const { handleInput, handleCheckbox, errors, values, valid: lessonValid } = useForm(lessonSchema, lesson);
+  const {
+    handleInput,
+    handleCheckbox,
+    errors,
+    values,
+    valid: lessonValid,
+  } = useForm(lessonSchema, lesson);
   const [blocks, setBlocks] = useState<Array<Slide>>(lesson.blocks || []);
   const [currentBlockIndex, setCurrentBlockIndex] = useState<number>(0);
   const [slideCreating, setSlideCreating] = useState(false);
@@ -221,7 +227,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
             </Checkbox>
             <br />
             <br />
-            <Button disabled={lessonValid} type="submit">Сохранить</Button>
+            <Button disabled={!lessonValid} type="submit">Сохранить</Button>
           </form>
         </div>
       </Card>

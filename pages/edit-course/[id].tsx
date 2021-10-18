@@ -116,7 +116,8 @@ export default function EditCoursePage({ course }: EditCourseProps) {
     errors: lessonErrors,
     values: lessonValues,
     valid: lessonFormValid,
-  } = useForm(lessonSchema);
+    handleCheckbox: handleLessonCheckbox,
+  } = useForm(lessonSchema, { available: true });
   const router = useRouter();
   const [showing, setShowing] = useState(false);
   const [processing, setProcessing] = useState(false);
@@ -264,6 +265,14 @@ export default function EditCoursePage({ course }: EditCourseProps) {
         <form onSubmit={createLesson}>
           <span className={styles.modalTitle}>Создать урок</span>
           <Textfield errors={lessonErrors.name} name="name" onInput={handleLessonInput} placeholder="Название урока" />
+          <Checkbox
+            checked={lessonValues.available}
+            onChange={handleLessonCheckbox}
+            name="available"
+          >
+            Доступен
+          </Checkbox>
+          <br />
           <br />
           <Button processing={lessonCreating} type="submit" disabled={!lessonFormValid}>Создать</Button>
         </form>
