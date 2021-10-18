@@ -4,4 +4,5 @@ import { minLength } from '../validators/min-length.validator';
 
 export const lessonSchema: ValidationSchema = {
   name: [minLength(1, 'Обязательное поле')],
+  available: [],
 };

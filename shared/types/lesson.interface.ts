@@ -7,5 +7,6 @@ export interface Lesson {
   courseImage: string;
   blocks: Array<Slide>,
   completed?: boolean;
+  available?: boolean;
   order: number;
 }

@@ -28,8 +28,9 @@ export default function Course({ course }: CourseProps) {
     }
     setShowing(true);
   };
-  const lessonClasses = (completed: boolean | undefined) => classnames(styles.lesson, {
-    [styles.completed]: completed,
+  const lessonClasses = (completed: boolean, available: boolean) => classnames(styles.lesson, {
+    [styles.completed]: available && completed,
+    [styles.unavailable]: !available,
   });
   useEffect(() => {
     setTitle('Курс');
@@ -63,8 +64,8 @@ export default function Course({ course }: CourseProps) {
                   <button
                     key={`${lesson.id}${lesson.name}`}
                     type="button"
-                    onClick={() => goToLesson(lesson.id)}
-                    className={lessonClasses(lesson.completed)}
+                    onClick={lesson.available ? () => goToLesson(lesson.id) : undefined}
+                    className={lessonClasses(!!lesson.completed, !!lesson.available)}
                   >
                     <div>
                       <b>
@@ -74,7 +75,14 @@ export default function Course({ course }: CourseProps) {
                       <br />
                       {lesson.name}
                     </div>
-                    <img width={20} src={lesson.completed ? '/check.svg' : '/play.svg'} alt="lesson state" />
+                    {
+                      lesson.available
+                        ? (
+                          <img width={20} src={lesson.completed && lesson.available ? '/check.svg' : '/play.svg'} alt="lesson state" />
+                        ) : (
+                          <img width={20} src="/lock.svg" alt="lesson state" />
+                        )
+                    }
                   </button>
                 ))
               }

@@ -54,6 +54,9 @@
   &.completed {
     background-color: $success-color;
   }
+  &.unavailable {
+    opacity: 0.5;
+  }
   &:last-child {
     margin: 0;
   }
