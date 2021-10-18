@@ -20,8 +20,14 @@ type CourseProps = {
 export default function Course({ course }: CourseProps) {
   const { data: user } = UserAPI.current();
   const [showing, setShowing] = useState(false);
+  const [warningShowing, setWarningShowing] = useState(false);
   const router = useRouter();
   const goToLesson = (id: number) => {
+    const lesson = course.lessons?.find((currentLesson) => currentLesson.id === id);
+    if (!lesson?.available) {
+      setWarningShowing(true);
+      return;
+    }
     if (user) {
       router.push(`/lesson/${id}`);
       return;
@@ -64,7 +70,7 @@ export default function Course({ course }: CourseProps) {
                   <button
                     key={`${lesson.id}${lesson.name}`}
                     type="button"
-                    onClick={lesson.available ? () => goToLesson(lesson.id) : undefined}
+                    onClick={() => goToLesson(lesson.id)}
                     className={lessonClasses(!!lesson.completed, !!lesson.available)}
                   >
                     <div>
@@ -98,6 +104,16 @@ export default function Course({ course }: CourseProps) {
         </span>
         <div className={styles.buttonOuter}>
           <Button onClick={() => router.push('/auth/sign-in')} mode="big">Войти</Button>
+        </div>
+      </Modal>
+      <Modal showing={warningShowing} onRequestToClose={() => setWarningShowing(false)}>
+        <span className={styles.modalTitle}>Урок недоступен</span>
+        <span className={styles.message}>
+          В данный момент над уроком ведётся работа. <br />
+          Он будет доступен в ближайшее время!
+        </span>
+        <div className={styles.buttonOuter}>
+          <Button onClick={() => setWarningShowing(false)} mode="big">Ок</Button>
         </div>
       </Modal>
     </>
