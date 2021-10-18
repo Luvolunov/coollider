@@ -11,6 +11,7 @@ export async function getLesson({ req, params }: GetServerSidePropsContext, admi
     },
   });
   const lesson = await lessonResponse.json() as ApiResponse<Lesson>;
+  if (!lesson.success) { return lesson; }
   lesson.body.blocks = lesson.body.blocks.map((slide) => {
     if (slide.type === SlideType.Test) {
       return { ...slide, content: JSON.parse(slide.content) };
