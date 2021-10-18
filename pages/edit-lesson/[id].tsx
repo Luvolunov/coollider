@@ -22,6 +22,7 @@ import { ApiResponse } from '../../shared/types/api-response.interface';
 import { User } from '../../shared/types/user.interface';
 import { Roles } from '../../shared/types/roles.enum';
 import { getLesson } from '../../shared/utils/get-lesson.function';
+import Checkbox from '../../shared/components/checkbox/checkbox.component';
 
 type EditLessonPageProps = {
   lesson: Lesson;
@@ -91,7 +92,7 @@ const LessonSlide = ({ onClick, isActive, order, index, moveSlide }: LessonSlide
 };
 
 export default function EditLessonPage({ lesson }: EditLessonPageProps) {
-  const { handleInput, errors, values } = useForm(lessonSchema, lesson);
+  const { handleInput, handleCheckbox, errors, values, valid: lessonValid } = useForm(lessonSchema, lesson);
   const [blocks, setBlocks] = useState<Array<Slide>>(lesson.blocks || []);
   const [currentBlockIndex, setCurrentBlockIndex] = useState<number>(0);
   const [slideCreating, setSlideCreating] = useState(false);
@@ -211,8 +212,16 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
         <div className={styles.cardInner}>
           <form onSubmit={updateLesson} className={styles.form}>
             <Textfield value={values.name} onInput={handleInput} placeholder="Название урока" name="name" errors={errors.name} />
+            <Checkbox
+              checked={values.available}
+              onChange={handleCheckbox}
+              name="available"
+            >
+              Доступен
+            </Checkbox>
             <br />
-            <Button type="submit">Сохранить</Button>
+            <br />
+            <Button disabled={lessonValid} type="submit">Сохранить</Button>
           </form>
         </div>
       </Card>
