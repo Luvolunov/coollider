@@ -14,7 +14,7 @@ highlight.configure({
 
 type SlideSwitcherProps = {
   slide: Slide;
-  onAnswer: (correct?: boolean) => void
+  onAnswer: (correct: boolean) => void
 };
 
 const quillModules = {
@@ -54,7 +54,7 @@ export default function SlideSwitcher({ slide, onAnswer }: SlideSwitcherProps) {
   });
   useEffect(() => {
     if (!answered) { return; }
-    onAnswer();
+    onAnswer(correct);
   }, [answered]);
   useEffect(() => {
     setAnswered(false);

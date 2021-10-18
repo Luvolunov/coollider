@@ -31,11 +31,14 @@ export default function LessonPage({ lesson }: LessonPageProps) {
   const [rate, setRate] = useState<number>();
   const [message, setMessage] = useState('');
   const [answered, setAnswered] = useState(false);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
   const completeLesson = async () => {
     const body = {
       lessonId: lesson.id,
       rate,
       message,
+      questionCount: lesson.blocks.filter((slide) => slide.type === SlideType.Test).length,
+      correctAnswerCount: correctAnswers,
     };
     await fetch('/api/lesson/complete', {
       method: 'POST',
@@ -58,7 +61,10 @@ export default function LessonPage({ lesson }: LessonPageProps) {
     }
     setCurrentBlockIndex(currentBlockIndex + 1);
   };
-  const onAnswer = () => {
+  const onAnswer = (correct: boolean) => {
+    if (correct) {
+      setCorrectAnswers(correctAnswers + 1);
+    }
     setAnswered(true);
   };
   const buttonDisabled = lesson.blocks[currentBlockIndex]
