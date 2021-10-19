@@ -57,7 +57,7 @@ export default function SignInPage() {
             <Textfield placeholder="Почта" onChange={handleInput} name="email" errors={errors.email} />
           </div>
           <div className={styles.formRow}>
-            <Textfield placeholder="Пароль" type="password" onChange={handleInput} name="password" errors={errors.password} />
+            <Textfield showPassword placeholder="Пароль" type="password" onChange={handleInput} name="password" errors={errors.password} />
           </div>
           <div className={styles.buttonOuter}>
             <Button processing={processing} type="submit" disabled={!valid}>Войти</Button>
