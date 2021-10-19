@@ -83,6 +83,7 @@ export default function SignUpPage() {
           </div>
           <div className={styles.formRow}>
             <Textfield
+              showPassword
               name="password"
               placeholder="Пароль"
               onChange={handleInput}

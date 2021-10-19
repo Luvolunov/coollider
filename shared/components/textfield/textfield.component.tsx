@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable @typescript-eslint/no-unused-expressions,
 react/jsx-props-no-spreading,jsx-a11y/label-has-associated-control */
 import React, {
-  useState, FocusEvent, ChangeEvent, useRef, useEffect,
+  useState, FocusEvent, ChangeEvent, useRef, useEffect, MouseEvent
 } from 'react';
 import classNames from 'classnames';
 import autosize from 'autosize';
@@ -9,12 +10,12 @@ import styles from './textfield.module.scss';
 import { InputField, TextareaField } from './textfield.props';
 
 export default function Textfield({
-  placeholder, onFocus, onBlur, errors = [], onChange, fieldType = 'input', ...props
+  placeholder, onFocus, onBlur, errors = [], onChange, fieldType = 'input', showPassword, ...props
 }: TextareaField | InputField) {
   const [active, setActive] = useState(!!props.value || !!props.defaultValue);
   const [touched, setTouched] = useState(false);
+  const [type, setType] = useState((props as any).type);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
   const error = errors.length ? errors[0] : null;
 
   const labelClasses = classNames(styles.label, { [styles.active]: active });
@@ -34,6 +35,11 @@ export default function Textfield({
     setTouched(true);
     onChange && onChange(event);
   };
+  const handleShowPassword = (event: MouseEvent<any>) => {
+    event.preventDefault();
+    const changedType = type === 'text' ? 'password' : 'text';
+    setType(changedType);
+  };
 
   useEffect(() => {
     if (fieldType !== 'textarea') { return; }
@@ -45,15 +51,28 @@ export default function Textfield({
       <small className={styles.small}>{placeholder}</small>
       {
         fieldType === 'input' && (
-          <input
-            onFocus={handleOnFocus}
-            onBlur={handleOnBlur}
-            onChange={handleOnChange}
-            value={props.value}
-            autoComplete="off"
-            className={inputClasses}
-            {...props as InputField}
-          />
+          <>
+            <input
+              onFocus={handleOnFocus}
+              onBlur={handleOnBlur}
+              onChange={handleOnChange}
+              value={props.value}
+              autoComplete="off"
+              className={inputClasses}
+              {...props as InputField}
+              type={type}
+            />
+            {
+              showPassword && (
+                <img
+                  onClick={handleShowPassword}
+                  className={styles.passwordEye}
+                  src={type === 'text' ? '/icons/eye-slash.svg' : '/icons/eye.svg'}
+                  alt="eye"
+                />
+              )
+            }
+          </>
         )
       }
       {

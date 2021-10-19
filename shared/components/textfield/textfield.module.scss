@@ -6,6 +6,16 @@
   padding-bottom: 1rem;
 }
 
+.passwordEye {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
 .hint {
   color: $error-color;
   font-size: 14px;
@@ -24,6 +34,9 @@
   font-size: 1rem;
   outline: none;
   resize: none;
+  &::-webkit-credentials-auto-fill-button {
+    background-color: white;
+  }
   &.error ~ .line{
     width: 100%;
     background-color: $error-color;
