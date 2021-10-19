@@ -71,6 +71,7 @@ export default function LessonPage({ lesson }: LessonPageProps) {
     && lesson.blocks[currentBlockIndex].type === SlideType.Test && !answered;
   useEffect(() => {
     setProgress((currentBlockIndex / lesson.blocks.length) * 100);
+    setAnswered(false);
   }, [currentBlockIndex]);
   useEffect(() => {
     if (currentBlockIndex < lesson.blocks.length) { return; }
