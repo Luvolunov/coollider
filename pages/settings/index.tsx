@@ -28,15 +28,20 @@ export default function SettingsPage() {
             ? <span className={styles.installTitle}>Версия приложения: {packageJson.version}</span>
             : (
               <>
-                <span className={styles.installTitle}>Установка приложения</span>
+                <span className={styles.installTitle}>Установить приложение</span>
                 <div className={styles.buttonOuter}>
-                  <Button onClick={promptInstall} disabled={!promptEvent}>Install</Button>
+                  <Button onClick={promptInstall} disabled={!promptEvent}>Скачать</Button>
                 </div>
                 {
                   !promptEvent && (
-                    <span className={styles.errorMessage}>
-                      Ваш браузер не поддерживает установку PWA :(
-                    </span>
+                    <>
+                      <span className={styles.errorMessage}>
+                        Ваш браузер не поддерживает установку PWA :(
+                      </span>
+                      <span className={styles.smallMessage}>
+                        Установку приложения поддерживают браузеры: <b>Chrome</b>, <b>Firefox</b>
+                      </span>
+                    </>
                   )
                 }
               </>
