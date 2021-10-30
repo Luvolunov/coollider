@@ -12,9 +12,18 @@
   margin: 1rem 0;
 }
 
-.errorMessage {
+%message {
   display: block;
   text-align: center;
   font-size: 0.8rem;
+}
+
+.smallMessage {
+  @extend %message;
+  margin-top: .5rem;
+}
+
+.errorMessage {
+  @extend %message;
   color: $error-color;
 }
