@@ -6,7 +6,7 @@ import { Slide } from '../../types/block.interface';
 import { SlideType } from '../../types/slide-type.enum';
 import styles from './admin-slide-switcher.module.scss';
 import Textfield from '../textfield/textfield.component';
-import 'react-quill/dist/quill.bubble.css';
+import 'react-quill/dist/quill.snow.css';
 import 'highlight.js/styles/monokai-sublime.css';
 
 highlight.configure({
@@ -82,7 +82,7 @@ export default function AdminSliderSwitcher({ slide, changeHandler }: AdminSlide
       return (
         <ReactQuillWithNoSSR
           className={styles.editor}
-          theme="bubble"
+          theme="snow"
           modules={quillModules}
           defaultValue={currentSlide.content}
           onChange={textChange}

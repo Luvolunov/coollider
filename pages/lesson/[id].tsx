@@ -32,6 +32,7 @@ export default function LessonPage({ lesson }: LessonPageProps) {
   const [message, setMessage] = useState('');
   const [answered, setAnswered] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [slideChanging, setSlideChanging] = useState(false); // fixes rendering bug of the quill js
   const completeLesson = async () => {
     const body = {
       lessonId: lesson.id,
@@ -59,6 +60,7 @@ export default function LessonPage({ lesson }: LessonPageProps) {
       setButtonCaption('Далее');
       return;
     }
+    setSlideChanging(true);
     setCurrentBlockIndex(currentBlockIndex + 1);
   };
   const onAnswer = (correct: boolean) => {
@@ -78,6 +80,9 @@ export default function LessonPage({ lesson }: LessonPageProps) {
     setButtonCaption('Завершить');
     setLessonStage(LessonStage.completed);
   }, [currentBlockIndex]);
+  useEffect(() => {
+    setSlideChanging(false);
+  }, [slideChanging]);
   return (
     <div className={styles.lesson}>
       <div className={styles.lessonInner}>
@@ -85,7 +90,7 @@ export default function LessonPage({ lesson }: LessonPageProps) {
           lessonStage === LessonStage.progress && <Progress progress={progress} />
         }
         {
-          lessonStage === LessonStage.progress && lesson.blocks[currentBlockIndex]
+          lessonStage === LessonStage.progress && !slideChanging && lesson.blocks[currentBlockIndex]
             && <SlideSwitcher onAnswer={onAnswer} slide={lesson.blocks[currentBlockIndex]} />
         }
         {
