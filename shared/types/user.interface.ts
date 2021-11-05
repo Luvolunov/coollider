@@ -7,4 +7,6 @@ export interface User {
   email: string;
   roles: Array<Role>;
   createdAt: string;
+  uniqCompletedLessons?: number;
+  completedLessons?: number;
 }
