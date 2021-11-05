@@ -165,6 +165,7 @@ export default function EditCoursePage({ course }: EditCourseProps) {
     setShowing(false);
   };
   const removeLesson = async (lessonId: number) => {
+    if (!window.confirm('Вы точно хотите удалить урок?')) { return; }
     await fetch(`/api/lesson/${lessonId}`, {
       method: 'DELETE',
     });
