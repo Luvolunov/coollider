@@ -8,5 +8,6 @@ export interface Lesson {
   blocks: Array<Slide>,
   completed?: boolean;
   available?: boolean;
+  rating?: number;
   order: number;
 }

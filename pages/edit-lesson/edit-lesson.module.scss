@@ -5,6 +5,14 @@
   width: 100%;
 }
 
+.cardInner {
+  display: flex;
+}
+
+.rating {
+  margin-left: 30px;
+}
+
 %small-button {
   display: flex;
   justify-content: center;
