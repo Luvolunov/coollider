@@ -1,4 +1,4 @@
-/* eslint-disable object-curly-newline,no-param-reassign,jsx-a11y/label-has-associated-control */
+/* eslint-disable object-curly-newline,no-param-reassign,jsx-a11y/label-has-associated-control,react/jsx-one-expression-per-line */
 import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
@@ -230,6 +230,9 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
             <br />
             <Button disabled={!lessonValid} type="submit">Сохранить</Button>
           </form>
+          <div className={styles.rating}>
+            Рейтинг урока: <b>{lesson.rating}</b>
+          </div>
         </div>
       </Card>
       <br />
