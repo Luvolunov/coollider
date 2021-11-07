@@ -9,5 +9,6 @@ export interface Lesson {
   completed?: boolean;
   available?: boolean;
   rating?: number;
+  ratingsCount?: number;
   order: number;
 }

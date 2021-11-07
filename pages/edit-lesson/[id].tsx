@@ -231,7 +231,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
             <Button disabled={!lessonValid} type="submit">Сохранить</Button>
           </form>
           <div className={styles.rating}>
-            Рейтинг урока: <b>{lesson.rating}</b>
+            Рейтинг урока: <b>{lesson.rating}</b> ({lesson.ratingsCount})
           </div>
         </div>
       </Card>
