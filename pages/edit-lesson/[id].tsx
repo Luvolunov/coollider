@@ -189,6 +189,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
     drop: (item: any) => removeSlide(item.index),
   });
   const changeCurrentSlide = (index: number) => {
+    if (index === currentBlockIndex) { return; }
     setCurrentBlockIndex(index);
     setCurrentSlideChanging(true);
   };
