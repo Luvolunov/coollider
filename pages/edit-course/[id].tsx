@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/control-has-associated-label,object-curly-newline,no-param-reassign */
+/* eslint-disable jsx-a11y/control-has-associated-label,object-curly-newline,no-param-reassign,react/jsx-one-expression-per-line */
 import React, {
   FormEvent, useCallback, useEffect, useRef, useState,
 } from 'react';
@@ -79,7 +79,15 @@ const LessonRow = ({ lesson, removeLesson, index, moveLesson }: LessonProps) => 
         className={styles.dragButton}
         title="move lesson"
       />
-      <span className={styles.lessonName}>{lesson.name}</span>
+      <div>
+        <span className={styles.lessonName}>
+          {lesson.name}
+        </span>
+        <span className={styles.rating}>
+          <b>{lesson.rating}</b> ({lesson.ratingsCount})
+        </span>
+      </div>
+
       <div>
         <Link href="/edit-lesson/[id]" as={`/edit-lesson/${lesson.id}`}>
           <button
