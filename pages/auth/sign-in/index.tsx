@@ -41,6 +41,10 @@ export default function SignInPage() {
       return;
     }
     await revalidate();
+    if (router.query.returnUrl) {
+      await router.push(router.query.returnUrl as string);
+      return;
+    }
     await router.push('/courses');
   };
   return (

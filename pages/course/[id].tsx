@@ -21,6 +21,7 @@ export default function Course({ course }: CourseProps) {
   const { data: user } = UserAPI.current();
   const [showing, setShowing] = useState(false);
   const [warningShowing, setWarningShowing] = useState(false);
+  const [unauthButtonUrl, setUnauthButtonUrl] = useState('');
   const router = useRouter();
   const goToLesson = (id: number) => {
     const lesson = course.lessons?.find((currentLesson) => currentLesson.id === id);
@@ -33,6 +34,7 @@ export default function Course({ course }: CourseProps) {
       return;
     }
     setShowing(true);
+    setUnauthButtonUrl(`/auth/sign-in?returnUrl=/lesson/${id}`);
   };
   const lessonClasses = (completed: boolean, available: boolean) => classnames(styles.lesson, {
     [styles.completed]: available && completed,
@@ -103,7 +105,7 @@ export default function Course({ course }: CourseProps) {
           Прежде, чем начать проходить уроки, нужно авторизоваться, чтобы не потерять свой прогресс
         </span>
         <div className={styles.buttonOuter}>
-          <Button onClick={() => router.push('/auth/sign-in')} mode="big">Войти</Button>
+          <Button onClick={() => router.push(unauthButtonUrl)} mode="big">Войти</Button>
         </div>
       </Modal>
       <Modal showing={warningShowing} onRequestToClose={() => setWarningShowing(false)}>

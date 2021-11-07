@@ -12,7 +12,7 @@ import { SlideType } from '../../shared/types/slide-type.enum';
 import { getLesson } from '../../shared/utils/get-lesson.function';
 
 type LessonPageProps = {
-  lesson: Lesson
+  lesson: Lesson;
 };
 
 enum LessonStage {
@@ -136,7 +136,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (Number.isNaN(+ctx.params?.id!)) {
     return { props: {}, notFound: true };
   }
-  const { success, body: lesson } = await getLesson(ctx);
+  const { success, body: lesson, message } = await getLesson(ctx);
+  if (message === 'Unauthorized') {
+    return {
+      props: {},
+      redirect: {
+        permanent: false,
+        destination: `/auth/sign-in?returnUrl=${ctx.req.url}`,
+      },
+    };
+  }
   if (!success) {
     return { props: {}, notFound: true };
   }
