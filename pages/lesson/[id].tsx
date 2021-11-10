@@ -28,18 +28,18 @@ export default function LessonPage({ lesson }: LessonPageProps) {
   const [buttonCaption, setButtonCaption] = useState('Начать');
   const [currentBlockIndex, setCurrentBlockIndex] = useState<number>(0);
   const [progress, setProgress] = useState(0);
-  const [rate, setRate] = useState<number>();
-  const [message, setMessage] = useState('');
   const [answered, setAnswered] = useState(false);
-  const [correctAnswers, setCorrectAnswers] = useState(0);
   const [slideChanging, setSlideChanging] = useState(false); // fixes rendering bug of the quill js
+  const [activityData, setActivityData] = useState({
+    rate: 0,
+    message: '',
+    correctAnswerCount: 0,
+  });
   const completeLesson = async () => {
     const body = {
       lessonId: lesson.id,
-      rate,
-      message,
       questionCount: lesson.blocks.filter((slide) => slide.type === SlideType.Test).length,
-      correctAnswerCount: correctAnswers,
+      ...activityData,
     };
     await fetch('/api/lesson/complete', {
       method: 'POST',
@@ -65,7 +65,7 @@ export default function LessonPage({ lesson }: LessonPageProps) {
   };
   const onAnswer = (correct: boolean) => {
     if (correct) {
-      setCorrectAnswers(correctAnswers + 1);
+      setActivityData({ ...activityData, correctAnswerCount: activityData.correctAnswerCount + 1 });
     }
     setAnswered(true);
   };
@@ -108,10 +108,14 @@ export default function LessonPage({ lesson }: LessonPageProps) {
             <div className={styles.lastBlock}>
               <img className={styles.courseImage} src={lesson.courseImage} alt="Course" />
               <h2 className={styles.lastQuestion}>Вы успешно прошли урок!</h2>
-              <Rating onChange={(rating) => setRate(rating)} />
+              <Rating onChange={(rate) => setActivityData({ ...activityData, rate })} />
               <div className={styles.textfieldOuter}>
                 <Textfield
-                  onChange={({ target: { value } }) => setMessage(value)}
+                  onChange={
+                    ({ target: { value: message } }) => setActivityData({
+                      ...activityData, message,
+                    })
+                  }
                   placeholder="Поделитесь своим мнением"
                   fieldType="textarea"
                 />
