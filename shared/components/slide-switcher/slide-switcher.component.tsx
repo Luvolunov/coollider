@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import highlight from 'highlight.js';
@@ -14,7 +14,9 @@ highlight.configure({
 
 type SlideSwitcherProps = {
   slide: Slide;
-  onAnswer: (correct: boolean) => void
+  correct?: boolean,
+  answered?: boolean,
+  onChange: (value: number) => void
 };
 
 const quillModules = {
@@ -38,12 +40,12 @@ const ReactQuillWithNoSSR = dynamic(() => import('react-quill'), {
   ssr: false,
 });
 
-export default function SlideSwitcher({ slide, onAnswer }: SlideSwitcherProps) {
-  const [answered, setAnswered] = useState(false);
-  const [correct, setCorrect] = useState(false);
+export default function SlideSwitcher({
+  slide, onChange, answered, correct,
+}: SlideSwitcherProps) {
   const answerHandler = (id: number) => {
-    setCorrect(slide.content.correctVariantId === id);
-    setAnswered(true);
+    if (!onChange) { return; }
+    onChange(id);
   };
   const gradeClasses = classnames(styles.grade, {
     [styles.show]: answered,
@@ -52,14 +54,6 @@ export default function SlideSwitcher({ slide, onAnswer }: SlideSwitcherProps) {
   const variantsClasses = classnames(styles.variants, {
     [styles.hide]: answered,
   });
-  useEffect(() => {
-    if (!answered) { return; }
-    onAnswer(correct);
-  }, [answered]);
-  useEffect(() => {
-    setAnswered(false);
-    setCorrect(false);
-  }, [slide]);
   switch (slide.type) {
     case SlideType.Text: {
       return (
@@ -91,7 +85,6 @@ export default function SlideSwitcher({ slide, onAnswer }: SlideSwitcherProps) {
                     type="radio"
                     name="variant"
                     id={`variant-${variant.id}`}
-                    checked={false}
                   />
                   <label htmlFor={`variant-${variant.id}`} className={styles.variant}>
                     {variant.text}

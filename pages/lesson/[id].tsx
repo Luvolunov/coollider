@@ -18,6 +18,8 @@ type LessonPageProps = {
 enum LessonStage {
   notStarted,
   progress,
+  chosen,
+  answered,
   completed,
 }
 
@@ -28,18 +30,18 @@ export default function LessonPage({ lesson }: LessonPageProps) {
   const [buttonCaption, setButtonCaption] = useState('Начать');
   const [currentBlockIndex, setCurrentBlockIndex] = useState<number>(0);
   const [progress, setProgress] = useState(0);
-  const [rate, setRate] = useState<number>();
-  const [message, setMessage] = useState('');
-  const [answered, setAnswered] = useState(false);
-  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [correct, setCorrect] = useState(false);
   const [slideChanging, setSlideChanging] = useState(false); // fixes rendering bug of the quill js
+  const [activityData, setActivityData] = useState({
+    rate: 0,
+    message: '',
+    correctAnswerCount: 0,
+  });
   const completeLesson = async () => {
     const body = {
       lessonId: lesson.id,
-      rate,
-      message,
       questionCount: lesson.blocks.filter((slide) => slide.type === SlideType.Test).length,
-      correctAnswerCount: correctAnswers,
+      ...activityData,
     };
     await fetch('/api/lesson/complete', {
       method: 'POST',
@@ -60,20 +62,27 @@ export default function LessonPage({ lesson }: LessonPageProps) {
       setButtonCaption('Далее');
       return;
     }
+    if (lessonStage === LessonStage.chosen) {
+      setLessonStage(LessonStage.answered);
+      setButtonCaption('Далее');
+      return;
+    }
     setSlideChanging(true);
     setCurrentBlockIndex(currentBlockIndex + 1);
   };
-  const onAnswer = (correct: boolean) => {
-    if (correct) {
-      setCorrectAnswers(correctAnswers + 1);
-    }
-    setAnswered(true);
+  const onAnswer = (variant: number) => {
+    setCorrect(variant === lesson.blocks[currentBlockIndex].content.correctVariantId);
+    setLessonStage(LessonStage.chosen);
+    setButtonCaption('Проверить');
   };
   const buttonDisabled = lesson.blocks[currentBlockIndex]
-    && lesson.blocks[currentBlockIndex].type === SlideType.Test && !answered;
+    && lesson.blocks[currentBlockIndex].type === SlideType.Test
+    && lessonStage !== LessonStage.chosen && lessonStage !== LessonStage.answered;
   useEffect(() => {
+    if (!currentBlockIndex) { return; }
     setProgress((currentBlockIndex / lesson.blocks.length) * 100);
-    setAnswered(false);
+    setLessonStage(LessonStage.progress);
+    setCorrect(false);
   }, [currentBlockIndex]);
   useEffect(() => {
     if (currentBlockIndex < lesson.blocks.length) { return; }
@@ -83,15 +92,28 @@ export default function LessonPage({ lesson }: LessonPageProps) {
   useEffect(() => {
     setSlideChanging(false);
   }, [slideChanging]);
+  const isSliderShown = (lessonStage === LessonStage.progress
+    || lessonStage === LessonStage.chosen
+    || lessonStage === LessonStage.answered) && !slideChanging && lesson.blocks[currentBlockIndex];
   return (
     <div className={styles.lesson}>
       <div className={styles.lessonInner}>
         {
-          lessonStage === LessonStage.progress && <Progress progress={progress} />
+          (
+            lessonStage === LessonStage.progress
+            || lessonStage === LessonStage.chosen
+            || lessonStage === LessonStage.answered
+          ) && <Progress progress={progress} />
         }
         {
-          lessonStage === LessonStage.progress && !slideChanging && lesson.blocks[currentBlockIndex]
-            && <SlideSwitcher onAnswer={onAnswer} slide={lesson.blocks[currentBlockIndex]} />
+          isSliderShown && (
+            <SlideSwitcher
+              onChange={onAnswer}
+              slide={lesson.blocks[currentBlockIndex]}
+              answered={lessonStage === LessonStage.answered}
+              correct={correct}
+            />
+          )
         }
         {
           lessonStage === LessonStage.notStarted && (
@@ -108,10 +130,14 @@ export default function LessonPage({ lesson }: LessonPageProps) {
             <div className={styles.lastBlock}>
               <img className={styles.courseImage} src={lesson.courseImage} alt="Course" />
               <h2 className={styles.lastQuestion}>Вы успешно прошли урок!</h2>
-              <Rating onChange={(rating) => setRate(rating)} />
+              <Rating onChange={(rate) => setActivityData({ ...activityData, rate })} />
               <div className={styles.textfieldOuter}>
                 <Textfield
-                  onChange={({ target: { value } }) => setMessage(value)}
+                  onChange={
+                    ({ target: { value: message } }) => setActivityData({
+                      ...activityData, message,
+                    })
+                  }
                   placeholder="Поделитесь своим мнением"
                   fieldType="textarea"
                 />
