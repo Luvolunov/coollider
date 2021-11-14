@@ -23,21 +23,11 @@ const quillModules = {
   syntax: {
     highlight: (text: string) => highlight.highlightAuto(text).value,
   },
-  toolbar: {
-    container: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ align: [] }],
-      ['link', 'image'],
-      ['clean'],
-      [{ color: [] }],
-    ],
-  },
 };
 
 const ReactQuillWithNoSSR = dynamic(() => import('react-quill'), {
   ssr: false,
+  loading: () => <span>Загрузка...</span>,
 });
 
 export default function SlideSwitcher({
