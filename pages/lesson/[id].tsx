@@ -131,7 +131,7 @@ export default function LessonPage({ lesson }: LessonPageProps) {
               <img className={styles.courseImage} src={lesson.courseImage} alt="Course" />
               <h2 className={styles.lastQuestion}>Вы успешно прошли урок!</h2>
               <Rating onChange={(rate) => setActivityData({ ...activityData, rate })} />
-              <div className={styles.textfieldOuter}>
+              <div style={{ opacity: activityData.rate ? 1 : 0 }} className={styles.textfieldOuter}>
                 <Textfield
                   onChange={
                     ({ target: { value: message } }) => setActivityData({
@@ -146,9 +146,13 @@ export default function LessonPage({ lesson }: LessonPageProps) {
           )
         }
         <div className={styles.footerPanel}>
-          <button type="button" onClick={goBack} className={styles.closeButton}>
-            <img className={styles.closeImage} src="/icons/log-out.svg" alt="Log out" />
-          </button>
+          {
+            lessonStage !== LessonStage.completed && (
+              <button type="button" onClick={goBack} className={styles.closeButton}>
+                <img className={styles.closeImage} src="/icons/log-out.svg" alt="Log out" />
+              </button>
+            )
+          }
           <Button disabled={buttonDisabled} onClick={nextBlock} mode="big">
             {buttonCaption}
           </Button>

@@ -76,12 +76,14 @@ export default function Course({ course }: CourseProps) {
                     className={lessonClasses(!!lesson.completed, !!lesson.available)}
                   >
                     <div>
-                      <b>
-                        Урок&nbsp;
-                        {index + 1}
+                      <b style={{ fontSize: '1.05rem' }}>
+                        {lesson.name}
                       </b>
                       <br />
-                      {lesson.name}
+                      <span style={{ fontWeight: 200 }}>
+                        Урок&nbsp;
+                        {index + 1}
+                      </span>
                     </div>
                     {
                       lesson.available
