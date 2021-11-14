@@ -84,7 +84,7 @@ const LessonRow = ({ lesson, removeLesson, index, moveLesson }: LessonProps) => 
           {lesson.name}
         </span>
         <span className={styles.rating}>
-          <b>{lesson.rating}</b> ({lesson.ratingsCount})
+          <b>{lesson.rating || 0}</b> ({lesson.ratingsCount || 0})
         </span>
       </div>
 
