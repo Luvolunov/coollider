@@ -65,6 +65,12 @@ export default function LessonPage({ lesson }: LessonPageProps) {
     if (lessonStage === LessonStage.chosen) {
       setLessonStage(LessonStage.answered);
       setButtonCaption('Далее');
+      if (correct) {
+        setActivityData({
+          ...activityData,
+          correctAnswerCount: activityData.correctAnswerCount + 1,
+        });
+      }
       return;
     }
     setSlideChanging(true);
@@ -83,6 +89,7 @@ export default function LessonPage({ lesson }: LessonPageProps) {
     setProgress((currentBlockIndex / lesson.blocks.length) * 100);
     setLessonStage(LessonStage.progress);
     setCorrect(false);
+    console.log(activityData);
   }, [currentBlockIndex]);
   useEffect(() => {
     if (currentBlockIndex < lesson.blocks.length) { return; }
