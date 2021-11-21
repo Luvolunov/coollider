@@ -89,7 +89,6 @@ export default function LessonPage({ lesson }: LessonPageProps) {
     setProgress((currentBlockIndex / lesson.blocks.length) * 100);
     setLessonStage(LessonStage.progress);
     setCorrect(false);
-    console.log(activityData);
   }, [currentBlockIndex]);
   useEffect(() => {
     if (currentBlockIndex < lesson.blocks.length) { return; }
