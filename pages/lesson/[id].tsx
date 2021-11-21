@@ -65,6 +65,12 @@ export default function LessonPage({ lesson }: LessonPageProps) {
     if (lessonStage === LessonStage.chosen) {
       setLessonStage(LessonStage.answered);
       setButtonCaption('Далее');
+      if (correct) {
+        setActivityData({
+          ...activityData,
+          correctAnswerCount: activityData.correctAnswerCount + 1,
+        });
+      }
       return;
     }
     setSlideChanging(true);
