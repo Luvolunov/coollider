@@ -14,7 +14,7 @@ export default function Button({ children, processing, ...props }: ButtonProps) 
   const buttonClassName = classnames(styles.button, {
     [styles.processing]: processing,
     [styles.big]: props.mode === 'big',
-    [styles.outline]: props.outline
+    [styles.outline]: props.outline,
   });
   return (
     <button {...props} className={buttonClassName}>
@@ -29,5 +29,5 @@ export default function Button({ children, processing, ...props }: ButtonProps) 
 Button.defaultProps = {
   processing: false,
   mode: 'regular',
-  outline: false,
+  outline: 0,
 };
