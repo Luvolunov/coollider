@@ -9,7 +9,6 @@
   margin: 0;
   cursor: pointer;
   background-color: $primary-color;
-  box-shadow: 0 0 6px $primary-color;
   color: #fff;
   position: relative;
   font-family: 'Nunito Sans', sans-serif;
@@ -21,7 +20,7 @@
 }
 
 .button:not(:disabled):not(.processing):active {
-  transform: scale(0.9);
+  transform: scale(0.98);
 }
 
 .button:disabled {
