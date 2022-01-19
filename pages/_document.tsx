@@ -34,6 +34,8 @@ export default class AppDocument extends NextDocument {
             data-ad-client="ca-pub-7977093531586489"
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
           />
+          <script src="/highlight/prism.js" />
+          <link rel="stylesheet" href="/highlight/prism.css" />
           <script async src="https://www.googletagmanager.com/gtag/js?id=G-1QGC465DXH" />
           <script dangerouslySetInnerHTML={{ __html: googleAnalytics }} />
           <script dangerouslySetInnerHTML={{ __html: yaMetrika }} />
