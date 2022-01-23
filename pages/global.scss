@@ -40,23 +40,27 @@ h4, h5 {
 
 h1 {
   font-weight: 800;
-  font-size: 4rem;
+  font-size: 32px;
 }
 
 h2 {
-  font-size: 3.625rem;
+  font-size: 24px;
 }
 
 h3 {
-  font-size: 3.125rem;
+  font-size: 19rem;
 }
 
 h4 {
-  font-size: 2.625rem;
+  font-size: 16px;
 }
 
 h5 {
-  font-size: 2.25rem;
+  font-size: 13px;
+}
+
+pre, code {
+  font-family: monospace !important;
 }
 
 table {

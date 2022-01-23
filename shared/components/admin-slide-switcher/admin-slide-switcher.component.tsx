@@ -1,15 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
-import highlight from 'highlight.js';
 import { Editor } from '@tinymce/tinymce-react';
 import { Slide } from '../../types/block.interface';
 import { SlideType } from '../../types/slide-type.enum';
 import styles from './admin-slide-switcher.module.scss';
 import Textfield from '../textfield/textfield.component';
-
-highlight.configure({
-  languages: ['javascript', 'html', 'css'],
-});
 
 type AdminSliderSwitcherProps = {
   slide: Slide,
@@ -75,7 +70,8 @@ export default function AdminSliderSwitcher({ slide, changeHandler }: AdminSlide
               { text: 'CSS', value: 'css' },
             ],
             height: '480',
-            resize: false
+            resize: false,
+            entity_encoding: 'raw',
           }}
         />
       );
