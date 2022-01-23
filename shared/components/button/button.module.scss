@@ -9,7 +9,6 @@
   margin: 0;
   cursor: pointer;
   background-color: $primary-color;
-  box-shadow: 0 0 6px $primary-color;
   color: #fff;
   position: relative;
   font-family: 'Nunito Sans', sans-serif;
@@ -18,10 +17,20 @@
     font-weight: 700;
     padding: 18px 42px;
   }
+  &.outline {
+    border: 1px solid $primary-color;
+    background-color: transparent;
+    color: $primary-color;
+    transition: background-color linear .1s, color linear .1s;
+    &:hover {
+      background-color: $primary-color;
+      color: #fff;
+    }
+  }
 }
 
 .button:not(:disabled):not(.processing):active {
-  transform: scale(0.9);
+  transform: scale(0.98);
 }
 
 .button:disabled {

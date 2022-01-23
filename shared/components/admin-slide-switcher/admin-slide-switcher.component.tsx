@@ -1,39 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
-import highlight from 'highlight.js';
+import { Editor } from '@tinymce/tinymce-react';
 import { Slide } from '../../types/block.interface';
 import { SlideType } from '../../types/slide-type.enum';
 import styles from './admin-slide-switcher.module.scss';
 import Textfield from '../textfield/textfield.component';
-import 'react-quill/dist/quill.snow.css';
-import 'highlight.js/styles/monokai-sublime.css';
-
-highlight.configure({
-  languages: ['javascript', 'html', 'css'],
-});
-
-const quillModules = {
-  syntax: {
-    highlight: (text: string) => highlight.highlightAuto(text).value,
-  },
-  toolbar: {
-    container: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ align: [] }],
-      ['link', 'image'],
-      ['clean'],
-      [{ color: [] }],
-      ['code-block'],
-    ],
-  },
-};
-
-const ReactQuillWithNoSSR = dynamic(() => import('react-quill'), {
-  ssr: false,
-});
 
 type AdminSliderSwitcherProps = {
   slide: Slide,
@@ -80,13 +51,28 @@ export default function AdminSliderSwitcher({ slide, changeHandler }: AdminSlide
   switch (slide.type) {
     case SlideType.Text: {
       return (
-        <ReactQuillWithNoSSR
-          className={styles.editor}
-          theme="snow"
-          modules={quillModules}
-          defaultValue={currentSlide.content}
-          onChange={textChange}
-          placeholder="Введите текст"
+        <Editor
+          id="main-editor"
+          plugins="lists code"
+          value={currentSlide.content}
+          onEditorChange={textChange}
+          apiKey="1yseylkrsor84krkkhr6j21ruzy3zl3zi06j6i4mwayl5agx"
+          init={{
+            plugins: 'codesample',
+            toolbar: 'undo redo | formatselect | '
+              + 'bold italic backcolor | alignleft aligncenter '
+              + 'alignright alignjustify | bullist numlist outdent indent | '
+              + 'removeformat | help | codesample',
+            codesample_global_prismjs: true,
+            codesample_languages: [
+              { text: 'HTML/XML', value: 'markup' },
+              { text: 'JavaScript', value: 'javascript' },
+              { text: 'CSS', value: 'css' },
+            ],
+            height: '480',
+            resize: false,
+            entity_encoding: 'raw',
+          }}
         />
       );
     }

@@ -1,16 +1,10 @@
 import React from 'react';
-import dynamic from 'next/dynamic';
 import classnames from 'classnames';
-import highlight from 'highlight.js';
+import { Editor } from '@tinymce/tinymce-react';
 import { Slide } from '../../types/block.interface';
 import { SlideType } from '../../types/slide-type.enum';
 import 'react-quill/dist/quill.bubble.css';
 import styles from './slide-switcher.module.scss';
-import 'highlight.js/styles/monokai-sublime.css';
-
-highlight.configure({
-  languages: ['javascript', 'html', 'css'],
-});
 
 type SlideSwitcherProps = {
   slide: Slide;
@@ -18,17 +12,6 @@ type SlideSwitcherProps = {
   answered?: boolean,
   onChange: (value: number) => void
 };
-
-const quillModules = {
-  syntax: {
-    highlight: (text: string) => highlight.highlightAuto(text).value,
-  },
-};
-
-const ReactQuillWithNoSSR = dynamic(() => import('react-quill'), {
-  ssr: false,
-  loading: () => <span>Загрузка...</span>,
-});
 
 export default function SlideSwitcher({
   slide, onChange, answered, correct,
@@ -47,13 +30,28 @@ export default function SlideSwitcher({
   switch (slide.type) {
     case SlideType.Text: {
       return (
-        <ReactQuillWithNoSSR
-          className={styles.editor}
-          theme="bubble"
-          modules={quillModules}
-          value={slide.content}
-          readOnly
-        />
+        <div className={styles.editor}>
+          <Editor
+            id="main-editor"
+            plugins="lists code"
+            value={slide.content}
+            apiKey="1yseylkrsor84krkkhr6j21ruzy3zl3zi06j6i4mwayl5agx"
+            disabled
+            init={{
+              plugins: 'codesample',
+              toolbar: '',
+              codesample_global_prismjs: true,
+              codesample_languages: [
+                { text: 'HTML/XML', value: 'markup' },
+                { text: 'JavaScript', value: 'javascript' },
+                { text: 'CSS', value: 'css' },
+              ],
+              resize: false,
+              readonly: true,
+              inline: true,
+            }}
+          />
+        </div>
       );
     }
     case SlideType.Test: {
