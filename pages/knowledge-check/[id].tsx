@@ -1,23 +1,21 @@
 import { GetServerSideProps } from 'next';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { buildUrl } from '../../shared/utils/build-url';
-import { Slide } from '../../shared/types/block.interface';
+// import { Slide } from '../../shared/types/block.interface';
 import styles from './knowledge-check.module.scss';
 
-type KnowledgeCheckProps = {
-  questions: Array<Slide>;
-};
+// type KnowledgeCheckProps = {
+//   questions: Array<Slide>;
+// };
+//
+// enum Stages {
+//   notStarted,
+//   chosen,
+//   answered,
+//   complete,
+// }
 
-enum Stages {
-  notStarted,
-  chosen,
-  answered,
-  complete,
-}
-
-export default function KnowledgeCheck({ questions }: KnowledgeCheckProps) {
-  const [slides, setSlides] = useState(questions);
-  const [stage, setStage] = useState(Stages.notStarted);
+export default function KnowledgeCheck() {
   return (
     <div className={styles.page}>a</div>
   );
