@@ -23,7 +23,7 @@ export default function Header() {
       method: 'POST',
       credentials: 'include',
     });
-    await router.reload();
+    router.reload();
   };
   useEffect(() => {
     const handleOutsideClick = (event: Event) => {

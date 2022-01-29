@@ -24,12 +24,14 @@ export default function SignInPage() {
     event.preventDefault();
     if (processing) { return; }
     setProcessing(true);
+    const trimmedValues = {
+      email: values.email.trim(),
+      password: values.password,
+    };
     const res = await fetch('/api/auth/sign-in', {
       method: 'POST',
-      body: JSON.stringify(values),
+      body: JSON.stringify(trimmedValues),
       headers: {
-        Accept: 'application/json',
-        'Access-Control-Allow-Credentials': 'true',
         'Content-Type': 'application/json',
       },
       credentials: 'include',

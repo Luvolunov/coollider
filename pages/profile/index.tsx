@@ -23,7 +23,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { body: user } = await res.json();
   if (!user) {
     return {
-      notFound: true,
+      redirect: {
+        destination: '/courses',
+        permanent: false,
+      },
       props: {},
     };
   }
