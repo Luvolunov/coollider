@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import styles from './form.module.scss';
 import { FormProps } from './form.props';

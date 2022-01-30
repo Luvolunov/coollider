@@ -15,11 +15,7 @@ import { authCheck } from '../../../shared/utils/auth-check';
 
 export default function SignUpPage() {
   const {
-    handleInput,
-    handleCheckbox,
-    valid,
-    errors,
-    values,
+    handleInput, handleCheckbox, valid, errors, values,
   } = useForm(SignUpSchema);
   const router = useRouter();
   const [processing, setProcessing] = useState(false);
@@ -27,12 +23,16 @@ export default function SignUpPage() {
     event.preventDefault();
     if (processing) { return; }
     setProcessing(true);
+    const trimmedValues = {
+      firstName: values.firstName.trim(),
+      lastName: values.lastName.trim(),
+      email: values.email.trim(),
+      password: values.password,
+    };
     const res = await fetch('/api/auth/sign-up', {
       method: 'POST',
-      body: JSON.stringify(values),
+      body: JSON.stringify(trimmedValues),
       headers: {
-        Accept: 'application/json',
-        'Access-Control-Allow-Credentials': 'true',
         'Content-Type': 'application/json',
       },
       credentials: 'include',
