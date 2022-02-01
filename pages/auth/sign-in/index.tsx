@@ -63,6 +63,11 @@ export default function SignInPage() {
             <Textfield placeholder="Почта" onChange={handleInput} name="email" errors={errors.email} />
           </div>
           <div className={styles.formRow}>
+            <span className={styles.forgotPasswordLink}>
+              <Link href="/auth/forgot-password">
+                <a>Забыли пароль?</a>
+              </Link>
+            </span>
             <Textfield showPassword placeholder="Пароль" type="password" onChange={handleInput} name="password" errors={errors.password} />
           </div>
           <div className={styles.buttonOuter}>
