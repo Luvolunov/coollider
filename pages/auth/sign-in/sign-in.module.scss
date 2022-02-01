@@ -17,6 +17,18 @@
   margin-top: 1rem;
 }
 
+.formRow {
+  position: relative;
+}
+
+.forgotPasswordLink {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: smaller;
+  z-index: 10;
+}
+
 .buttonOuter, .linkOuter {
   display: flex;
   justify-content: center;
