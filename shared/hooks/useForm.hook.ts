@@ -23,7 +23,7 @@ export function useForm(schema: ValidationSchema, defaultValue: any = {}) {
 
   const getErrors = (name : string) => schema[name]
     .reduce((allErrors: Array<string>, validate: Validator) => {
-      const err = validate(values[name]);
+      const err = validate(values[name], values);
       return err ? [...allErrors, err] : allErrors;
     }, []);
 

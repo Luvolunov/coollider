@@ -3,7 +3,7 @@ export interface ValidationSchema {
 }
 
 export interface Validator {
-  (input: any): string | null;
+  (input: any, values: { [key: string]: any }): string | null;
 }
 
 export interface ValidatorFunction {
