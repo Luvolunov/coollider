@@ -57,7 +57,7 @@ export default function VerifyEmail({ success }: VerifyEmailProps) {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (!ctx.query.token) {
     return {
-      notFound: false,
+      notFound: true,
       props: {},
     };
   }

@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
 import Form from '../../../shared/components/form/form.component';
 import Textfield from '../../../shared/components/textfield/textfield.component';
 import styles from './change-password.module.scss';
@@ -8,6 +9,7 @@ import Button from '../../../shared/components/button/button.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
 import { ApiResponse } from '../../../shared/types/api-response.interface';
 import { ChangePasswordSchema } from '../../../shared/schemas/change-password.schema';
+import BigMessage from '../../../shared/components/big-message/big-message.component';
 
 export default function ChangePassword() {
   const {
@@ -15,6 +17,7 @@ export default function ChangePassword() {
   } = useForm(ChangePasswordSchema);
   const router = useRouter();
   const [processing, setProcessing] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
   const changePassword = async (event: FormEvent) => {
     event.preventDefault();
     if (!valid) { return; }
@@ -37,7 +40,10 @@ export default function ChangePassword() {
       alert('Something went wrong...');
       return;
     }
-    alert('Пароль успешно изменён!');
+    setShowMessage(true);
+  };
+  const closeMessage = async () => {
+    setShowMessage(false);
     await router.push('/auth/sign-in');
   };
   return (
@@ -61,6 +67,21 @@ export default function ChangePassword() {
           </div>
         </Form>
       </div>
+      <BigMessage showing={showMessage} onClose={closeMessage}>
+        <span>
+          Пароль успешно изменён!
+        </span>
+      </BigMessage>
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  if (!ctx.query.token) {
+    return {
+      notFound: true,
+      props: {},
+    };
+  }
+  return { props: {} };
+};

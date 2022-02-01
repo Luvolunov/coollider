@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line,max-len */
 import React, { FormEvent, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -8,6 +9,7 @@ import Button from '../../../shared/components/button/button.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
 import { ForgotPasswordSchema } from '../../../shared/schemas/forgot-password.schema';
 import { ApiResponse } from '../../../shared/types/api-response.interface';
+import BigMessage from '../../../shared/components/big-message/big-message.component';
 
 export default function ForgotPassword() {
   const {
@@ -15,13 +17,17 @@ export default function ForgotPassword() {
   } = useForm(ForgotPasswordSchema);
   const router = useRouter();
   const [processing, setProcessing] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
   const resetPassword = async (event: FormEvent) => {
     event.preventDefault();
     if (!valid) { return; }
     setProcessing(true);
+    const body = {
+      email: values.email.trim(),
+    };
     const res = await fetch('/api/auth/forgot-password', {
       method: 'POST',
-      body: JSON.stringify(values),
+      body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -33,7 +39,10 @@ export default function ForgotPassword() {
       alert('Something went wrong...');
       return;
     }
-    alert('Письмо для сброса пароля отправлено на почту!');
+    setShowMessage(true);
+  };
+  const closeMessage = async () => {
+    setShowMessage(false);
     await router.push('/auth/sign-in');
   };
   return (
@@ -54,6 +63,11 @@ export default function ForgotPassword() {
           </div>
         </Form>
       </div>
+      <BigMessage showing={showMessage} onClose={closeMessage}>
+        <span className={styles.bigMessage}>
+          На почту <b>{values.email}</b> отправлено письмо с дальнейшими инструкциями по сбросу пароля!
+        </span>
+      </BigMessage>
     </>
   );
 }
