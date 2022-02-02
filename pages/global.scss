@@ -16,6 +16,12 @@ body {
   font-weight: normal !important;
 }
 
+.responsive-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 * {
   box-sizing: border-box;
 }

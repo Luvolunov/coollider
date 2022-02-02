@@ -58,11 +58,11 @@ export default function AdminSliderSwitcher({ slide, changeHandler }: AdminSlide
           onEditorChange={textChange}
           apiKey="1yseylkrsor84krkkhr6j21ruzy3zl3zi06j6i4mwayl5agx"
           init={{
-            plugins: 'codesample',
+            plugins: 'codesample image',
             toolbar: 'undo redo | formatselect | '
               + 'bold italic backcolor | alignleft aligncenter '
               + 'alignright alignjustify | bullist numlist outdent indent | '
-              + 'removeformat | help | codesample',
+              + 'removeformat | help | codesample | image',
             codesample_global_prismjs: true,
             codesample_languages: [
               { text: 'HTML/XML', value: 'markup' },
@@ -72,6 +72,9 @@ export default function AdminSliderSwitcher({ slide, changeHandler }: AdminSlide
             height: '480',
             resize: false,
             entity_encoding: 'raw',
+            image_class_list: [
+              { title: 'Responsive', value: 'responsive-image' },
+            ],
           }}
         />
       );
