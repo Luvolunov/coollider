@@ -1,9 +1,14 @@
-/* eslint-disable object-curly-newline,no-param-reassign,jsx-a11y/label-has-associated-control,react/jsx-one-expression-per-line */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/*
+  eslint-disable object-curly-newline,
+  no-param-reassign,jsx-a11y/label-has-associated-control,
+  react/jsx-one-expression-per-line
+*/
 import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
+import Link from 'next/link';
 import { setTitle } from '../../store/title';
 import Textfield from '../../shared/components/textfield/textfield.component';
 import Card from '../../shared/components/card/card.component';
@@ -23,6 +28,7 @@ import { User } from '../../shared/types/user.interface';
 import { Roles } from '../../shared/types/roles.enum';
 import { getLesson } from '../../shared/utils/get-lesson.function';
 import Checkbox from '../../shared/components/checkbox/checkbox.component';
+import RoleGuard from '../../shared/components/role-guard/role-guard.component';
 
 type EditLessonPageProps = {
   lesson: Lesson;
@@ -107,7 +113,6 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
   const {
     handleInput: handleBlockInput, values: lessonBlockValues, valid,
   } = useForm(lessonBlockSchema, { blockTypeId: 1 });
-  const router = useRouter();
   useEffect(() => {
     setTitle('Редактирование урока');
   });
@@ -128,7 +133,7 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
       credentials: 'include',
       body: JSON.stringify(data),
     });
-    await router.push(`/edit-course/${lesson.courseId}`);
+    alert('Урок сохранён');
   };
   const createBlock = () => {
     const block: any = {
@@ -228,10 +233,28 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
             </Checkbox>
             <br />
             <br />
-            <Button disabled={!lessonValid} type="submit">Сохранить</Button>
+            <div className={styles.actions}>
+              <div className={styles.buttonOuter}>
+                <Button disabled={!lessonValid} type="submit">Сохранить</Button>
+              </div>
+              <Link href={`/edit-course/${lesson.courseId}`}>
+                <a>
+                  <Button outline disabled={!lessonValid} type="button">Назад</Button>
+                </a>
+              </Link>
+            </div>
           </form>
           <div className={styles.rating}>
-            Рейтинг урока: <b>{lesson.rating}</b> ({lesson.ratingsCount})
+            <span>Рейтинг урока: <b>{lesson.rating}</b> ({lesson.ratingsCount})</span>
+            <br />
+            <br />
+            <RoleGuard someRoles={[Roles.CanPreviewLesson]}>
+              <Link href={`/lesson/${lesson.id}`}>
+                <a>
+                  <Button>Предпросмотр</Button>
+                </a>
+              </Link>
+            </RoleGuard>
           </div>
         </div>
       </Card>
@@ -244,18 +267,16 @@ export default function EditLessonPage({ lesson }: EditLessonPageProps) {
           <button onClick={() => setSlideCreating(true)} type="button" className={styles.createBlockButton}>
             <img width={20} src="/plus.svg" alt="plus" />
           </button>
-          { !slidesUpdating && (
-            blocks.map((slide, index) => (
-              <LessonSlide
-                key={Math.random()}
-                onClick={() => changeCurrentSlide(index)}
-                order={slide.order}
-                isActive={index === currentBlockIndex}
-                index={index}
-                moveSlide={moveSlide}
-              />
-            ))
-          )}
+          { !slidesUpdating && blocks.map((slide, index) => (
+            <LessonSlide
+              key={Math.random()}
+              onClick={() => changeCurrentSlide(index)}
+              order={slide.order}
+              isActive={index === currentBlockIndex}
+              index={index}
+              moveSlide={moveSlide}
+            />
+          ))}
         </div>
         {
           !currentSlideChanging && !!blocks.length && (
