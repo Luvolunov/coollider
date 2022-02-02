@@ -3,7 +3,7 @@
 
 .button {
   display: block;
-  border: none;
+  border: 1px solid $primary-color;
   border-radius: 8px;
   padding: 12px 21px;
   margin: 0;
@@ -18,14 +18,9 @@
     padding: 18px 42px;
   }
   &.outline {
-    border: 1px solid $primary-color;
     background-color: transparent;
     color: $primary-color;
     transition: background-color linear .1s, color linear .1s;
-    &:hover {
-      background-color: $primary-color;
-      color: #fff;
-    }
   }
 }
 

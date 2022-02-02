@@ -6,4 +6,5 @@ export enum Roles {
   CanActivateUser,
   CanConfirmUser,
   CanEditUser,
+  CanPreviewLesson,
 }
