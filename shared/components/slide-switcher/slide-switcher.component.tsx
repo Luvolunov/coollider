@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React, { useEffect } from 'react';
 import classnames from 'classnames';
 import { Slide } from '../../types/block.interface';
