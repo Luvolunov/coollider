@@ -25,7 +25,7 @@ enum LessonStage {
 
 export default function LessonPage({ lesson }: LessonPageProps) {
   const router = useRouter();
-  const goBack = () => router.back();
+  const goBack = () => router.push(`/course/${lesson.courseId}`);
   const [lessonStage, setLessonStage] = useState(LessonStage.notStarted);
   const [buttonCaption, setButtonCaption] = useState('Начать');
   const [currentBlockIndex, setCurrentBlockIndex] = useState<number>(0);

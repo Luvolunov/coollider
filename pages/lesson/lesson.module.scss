@@ -7,7 +7,7 @@
   align-items: center;
   width: 100%;
   min-height: 100vh;
-  background-color: #f5f2f0;
+  background-color: #fff;
 }
 
 .lessonInner {
@@ -20,9 +20,8 @@
   min-height: 100vh;
   padding: 10px 18px 0;
   box-sizing: border-box;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.03);
   position: relative;
-  border: 1px solid $light-gray-color;
   background-color: #fff;
 }
 

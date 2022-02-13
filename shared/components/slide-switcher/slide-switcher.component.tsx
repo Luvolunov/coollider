@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classnames from 'classnames';
-import { Editor } from '@tinymce/tinymce-react';
 import { Slide } from '../../types/block.interface';
 import { SlideType } from '../../types/slide-type.enum';
 import 'react-quill/dist/quill.bubble.css';
@@ -11,6 +10,21 @@ type SlideSwitcherProps = {
   correct?: boolean,
   answered?: boolean,
   onChange: (value: number) => void
+};
+
+type TextContentBlockProps = {
+  content: any;
+};
+
+const TextContent = ({ content }: TextContentBlockProps) => {
+  useEffect(() => {
+    Prism.highlightAll();
+  });
+  return (
+    <div className={styles.editor}>
+      <div dangerouslySetInnerHTML={{ __html: content }} />
+    </div>
+  );
 };
 
 export default function SlideSwitcher({
@@ -29,30 +43,7 @@ export default function SlideSwitcher({
   });
   switch (slide.type) {
     case SlideType.Text: {
-      return (
-        <div className={styles.editor}>
-          <Editor
-            id="main-editor"
-            plugins="lists code"
-            value={slide.content}
-            apiKey="1yseylkrsor84krkkhr6j21ruzy3zl3zi06j6i4mwayl5agx"
-            disabled
-            init={{
-              plugins: 'codesample',
-              toolbar: '',
-              codesample_global_prismjs: true,
-              codesample_languages: [
-                { text: 'HTML/XML', value: 'markup' },
-                { text: 'JavaScript', value: 'javascript' },
-                { text: 'CSS', value: 'css' },
-              ],
-              resize: false,
-              readonly: true,
-              inline: true,
-            }}
-          />
-        </div>
-      );
+      return <TextContent content={slide.content} />;
     }
     case SlideType.Test: {
       return (
