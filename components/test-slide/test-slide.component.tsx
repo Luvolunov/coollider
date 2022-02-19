@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { Slide } from '../../shared/types/block.interface';
-import styles from '../slide-switcher/slide-switcher.module.scss';
+import styles from './test-slide.module.scss';
 
 type TestSlideProps = {
   slide: Slide;
