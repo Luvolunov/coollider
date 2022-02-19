@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { setTitle } from '../../../store/title';
 import UserAPI from '../../../shared/api/user.api';
 import styles from './users.module.scss';
-import Spinner from '../../../shared/components/spinner/spinner.component';
-import Card from '../../../shared/components/card/card.component';
+import Spinner from '../../../components/spinner/spinner.component';
+import Card from '../../../components/card/card.component';
 
 export default function Users() {
   useEffect(() => {

@@ -1,0 +1,48 @@
+@import "../../styles/breakpoints";
+@import "../../styles/colors";
+
+.greetings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 30px 20px;
+  background-color: #fff;
+  border-radius: 13px;
+  box-shadow: 0 0 3px $fourth-color;
+}
+
+.title {
+  margin-bottom: .8rem;
+  font-size: 38px;
+}
+
+.text {
+  margin-bottom: .6rem;
+  font-size: 1.3rem;
+}
+
+.text:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: $small) {
+  .title {
+    font-size: 2.5rem;
+  }
+  .text {
+    font-size: 1.1rem;
+  }
+  .greetings {
+    padding: 25px 10px;
+  }
+}
+
+@media (max-width: $x-small) {
+  .title {
+    font-size: 2rem;
+  }
+  .text {
+    font-size: .965rem;
+  }
+}

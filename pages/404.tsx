@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import styles from './404.module.scss';
-import Button from '../shared/components/button/button.component';
+import Button from '../components/button/button.component';
 
 export default function NotFoundPage() {
   const router = useRouter();

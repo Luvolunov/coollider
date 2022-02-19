@@ -5,7 +5,7 @@ import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import styles from './verify-email.module.scss';
 import { ApiResponse } from '../../../shared/types/api-response.interface';
-import Button from '../../../shared/components/button/button.component';
+import Button from '../../../components/button/button.component';
 import { buildUrl } from '../../../shared/utils/build-url';
 
 type VerifyEmailProps = {

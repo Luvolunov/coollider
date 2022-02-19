@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import styles from './lesson.module.scss';
-import Button from '../../shared/components/button/button.component';
+import Button from '../../components/button/button.component';
 import { Lesson } from '../../shared/types/lesson.interface';
-import Progress from '../../shared/components/progress/progress.component';
-import Rating from '../../shared/components/rating/rating.component';
-import Textfield from '../../shared/components/textfield/textfield.component';
-import SlideSwitcher from '../../shared/components/slide-switcher/slide-switcher.component';
+import Progress from '../../components/progress/progress.component';
+import Rating from '../../components/rating/rating.component';
+import Textfield from '../../components/textfield/textfield.component';
+import SlideSwitcher from '../../components/slide-switcher/slide-switcher.component';
 import { SlideType } from '../../shared/types/slide-type.enum';
 import { getLesson } from '../../shared/utils/get-lesson.function';
 

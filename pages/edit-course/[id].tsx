@@ -9,20 +9,20 @@ import { GetServerSideProps } from 'next';
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { setTitle } from '../../store/title';
 import styles from './edit-course.module.scss';
-import Textfield from '../../shared/components/textfield/textfield.component';
-import Button from '../../shared/components/button/button.component';
+import Textfield from '../../components/textfield/textfield.component';
+import Button from '../../components/button/button.component';
 import { useForm } from '../../shared/hooks/useForm.hook';
 import { courseSchema } from '../../shared/schemas/course.schema';
-import Card from '../../shared/components/card/card.component';
+import Card from '../../components/card/card.component';
 import { CourseInterface } from '../../shared/types/course.interface';
-import Modal from '../../shared/components/modal/modal.component';
+import Modal from '../../components/modal/modal.component';
 import { lessonSchema } from '../../shared/schemas/lesson.schema';
 import { ApiResponse } from '../../shared/types/api-response.interface';
 import { Lesson } from '../../shared/types/lesson.interface';
 import { buildUrl } from '../../shared/utils/build-url';
 import { Roles } from '../../shared/types/roles.enum';
 import { User } from '../../shared/types/user.interface';
-import Checkbox from '../../shared/components/checkbox/checkbox.component';
+import Checkbox from '../../components/checkbox/checkbox.component';
 import { getCourse } from '../../shared/utils/get-course.function';
 
 type EditCourseProps = {

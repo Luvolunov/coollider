@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useStore } from 'effector-react';
 import { setTitle } from '../../store/title';
 import { $promptStore } from '../../store/prompt';
-import Card from '../../shared/components/card/card.component';
-import Button from '../../shared/components/button/button.component';
+import Card from '../../components/card/card.component';
+import Button from '../../components/button/button.component';
 import styles from './settings.module.scss';
 import packageJson from '../../package.json';
 

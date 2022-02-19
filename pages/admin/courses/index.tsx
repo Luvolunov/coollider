@@ -2,13 +2,13 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { setTitle } from '../../../store/title';
-import Button from '../../../shared/components/button/button.component';
-import Card from '../../../shared/components/card/card.component';
+import Button from '../../../components/button/button.component';
+import Card from '../../../components/card/card.component';
 import styles from './courses.module.scss';
 import CourseAPI from '../../../shared/api/course.api';
-import Spinner from '../../../shared/components/spinner/spinner.component';
-import Modal from '../../../shared/components/modal/modal.component';
-import Textfield from '../../../shared/components/textfield/textfield.component';
+import Spinner from '../../../components/spinner/spinner.component';
+import Modal from '../../../components/modal/modal.component';
+import Textfield from '../../../components/textfield/textfield.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
 import { courseSchema } from '../../../shared/schemas/course.schema';
 

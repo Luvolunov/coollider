@@ -1,0 +1,16 @@
+@import "../../styles/breakpoints";
+@import "../../styles/colors";
+
+.card {
+  color: #000;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 13px;
+  box-shadow: 0 0 3px $fourth-color;
+}
+
+@media (max-width: $x-small) {
+  .card {
+    padding: 40px 20px;
+  }
+}

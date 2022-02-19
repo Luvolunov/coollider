@@ -2,14 +2,14 @@
 import React, { FormEvent, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Form from '../../../shared/components/form/form.component';
-import Textfield from '../../../shared/components/textfield/textfield.component';
+import Form from '../../../components/form/form.component';
+import Textfield from '../../../components/textfield/textfield.component';
 import styles from './forgot-password.module.scss';
-import Button from '../../../shared/components/button/button.component';
+import Button from '../../../components/button/button.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
 import { ForgotPasswordSchema } from '../../../shared/schemas/forgot-password.schema';
 import { ApiResponse } from '../../../shared/types/api-response.interface';
-import BigMessage from '../../../shared/components/big-message/big-message.component';
+import BigMessage from '../../../components/big-message/big-message.component';
 
 export default function ForgotPassword() {
   const {

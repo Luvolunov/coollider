@@ -6,8 +6,8 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import PageContainer from '../shared/components/page-container/page-container.component';
-import Loader from '../shared/components/loader/loader.component';
+import PageContainer from '../components/page-container/page-container.component';
+import Loader from '../components/loader/loader.component';
 import { setPrompt } from '../store/prompt';
 
 if (process.browser) {

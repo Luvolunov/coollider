@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import Greetings from '../../shared/components/greetings/greetings.component';
+import Greetings from '../../components/greetings/greetings.component';
 import { setTitle } from '../../store/title';
-import Course from '../../shared/components/course/course.component';
+import Course from '../../components/course/course.component';
 import styles from './courses.module.scss';
 import CourseAPI from '../../shared/api/course.api';
 import { CourseInterface } from '../../shared/types/course.interface';

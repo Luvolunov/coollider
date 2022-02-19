@@ -5,10 +5,10 @@ import { GetServerSideProps } from 'next';
 import { setTitle } from '../../store/title';
 import styles from './admin.module.scss';
 import { Roles } from '../../shared/types/roles.enum';
-import RoleGuard from '../../shared/components/role-guard/role-guard.component';
+import RoleGuard from '../../components/role-guard/role-guard.component';
 import { ApiResponse } from '../../shared/types/api-response.interface';
 import { User } from '../../shared/types/user.interface';
-import Card from '../../shared/components/card/card.component';
+import Card from '../../components/card/card.component';
 
 export default function AdminPage() {
   useEffect(() => {

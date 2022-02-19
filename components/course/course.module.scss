@@ -1,0 +1,53 @@
+@import "../../styles/breakpoints";
+@import "../../styles/colors";
+
+.course {
+  padding: 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 13px;
+  box-shadow: 0 0 3px $fourth-color;
+}
+
+.courseOuter {
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+}
+
+.imageOuter {
+  width: 60px;
+  height: 60px;
+}
+
+.title {
+  display: block;
+  margin-top: 15px;
+  font-size: 1.3rem;
+}
+
+.progressOuter {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.textOuter {
+  display: inline-block;
+  max-width: 120px;
+  margin-left: 15px;
+  font-weight: 300;
+  letter-spacing: .5px;
+}
+
+@media (max-width: $medium) {
+  .course {
+    cursor: default;
+  }
+}

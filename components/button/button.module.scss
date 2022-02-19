@@ -1,0 +1,59 @@
+@import "../../styles/colors";
+@import "../../styles/breakpoints";
+
+.button {
+  display: block;
+  border: 1px solid $primary-color;
+  border-radius: 8px;
+  padding: 12px 21px;
+  margin: 0;
+  cursor: pointer;
+  background-color: $primary-color;
+  color: #fff;
+  position: relative;
+  font-family: 'Nunito Sans', sans-serif;
+  &.big {
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 18px 42px;
+  }
+  &.outline {
+    background-color: transparent;
+    color: $primary-color;
+    transition: background-color linear .1s, color linear .1s;
+  }
+}
+
+.button:not(:disabled):not(.processing):active {
+  transform: scale(0.98);
+}
+
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.button.processing {
+  cursor: default;
+}
+
+.loading {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: inherit;
+  color: inherit;
+  border-radius: inherit;
+  font-size: 1rem;
+}
+
+@media (max-width: $x-small) {
+  .button {
+    cursor: default;
+  }
+}

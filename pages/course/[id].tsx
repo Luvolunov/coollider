@@ -6,11 +6,11 @@ import classnames from 'classnames';
 import { useRouter } from 'next/router';
 import styles from './course.module.scss';
 import { setTitle } from '../../store/title';
-import Card from '../../shared/components/card/card.component';
+import Card from '../../components/card/card.component';
 import { CourseInterface } from '../../shared/types/course.interface';
 import UserAPI from '../../shared/api/user.api';
-import Modal from '../../shared/components/modal/modal.component';
-import Button from '../../shared/components/button/button.component';
+import Modal from '../../components/modal/modal.component';
+import Button from '../../components/button/button.component';
 import { getCourse } from '../../shared/utils/get-course.function';
 
 type CourseProps = {

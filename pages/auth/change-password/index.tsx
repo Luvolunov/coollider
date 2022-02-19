@@ -2,14 +2,14 @@ import React, { FormEvent, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
-import Form from '../../../shared/components/form/form.component';
-import Textfield from '../../../shared/components/textfield/textfield.component';
+import Form from '../../../components/form/form.component';
+import Textfield from '../../../components/textfield/textfield.component';
 import styles from './change-password.module.scss';
-import Button from '../../../shared/components/button/button.component';
+import Button from '../../../components/button/button.component';
 import { useForm } from '../../../shared/hooks/useForm.hook';
 import { ApiResponse } from '../../../shared/types/api-response.interface';
 import { ChangePasswordSchema } from '../../../shared/schemas/change-password.schema';
-import BigMessage from '../../../shared/components/big-message/big-message.component';
+import BigMessage from '../../../components/big-message/big-message.component';
 
 export default function ChangePassword() {
   const {
