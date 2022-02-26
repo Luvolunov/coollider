@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/anchor-is-valid,react/jsx-one-expression-per-line */
 import React, { FormEvent, useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -92,7 +92,9 @@ export default function SignUpPage() {
             />
           </div>
           <div className={styles.formRow}>
-            <Checkbox name="agreement" onChange={handleCheckbox}>Я согласен с условиями пользования</Checkbox>
+            <Checkbox name="agreement" onChange={handleCheckbox}>
+              Я согласен с уловиями <a href="/documents/privacy.pdf">политики конфиденциальности</a> и <a href="/documents/agreement.pdf">пользовательского соглашения</a>
+            </Checkbox>
           </div>
           <div className={styles.buttonOuter}>
             <Button processing={processing} type="submit" disabled={!valid}>Зарегистрироваться</Button>
