@@ -93,7 +93,8 @@ export default function SignUpPage() {
           </div>
           <div className={styles.formRow}>
             <Checkbox name="agreement" onChange={handleCheckbox}>
-              Я согласен с уловиями <a href="/documents/privacy.pdf">политики конфиденциальности</a> и <a href="/documents/agreement.pdf">пользовательского соглашения</a>
+              Я согласен с уловиями <a target="_blank" href="/documents/privacy.pdf">политики конфиденциальности</a> и
+              <a target="_blank" href="/documents/agreement.pdf"> пользовательского соглашения</a>
             </Checkbox>
           </div>
           <div className={styles.buttonOuter}>
